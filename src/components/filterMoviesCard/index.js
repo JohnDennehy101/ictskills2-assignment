@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -12,6 +12,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import img from "../../images/pexels-dziana-hasanbekava-5480827.jpg";
 import { getGenres } from "../../api/tmdb-api";
+import { useQuery } from "react-query";
+import Spinner from "../spinner";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,23 +31,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FilterMoviesCard(props) {
   const classes = useStyles();
+  const { data, error, isLoading, isError } = useQuery("genres", getGenres);
 
-  const [genres, setGenres] = useState([{ id: "0", name: "All" }]);
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-  useEffect(() => {
-    getGenres().then((allGenres) => {
-      setGenres([genres[0], ...allGenres]);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+  const genres = data.genres;
+  genres.unshift({ id: "0", name: "All" });
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
-    props.onUserInput(type, value);
+    props.onUserInput(type, value); // NEW
   };
-  const handleTextChange = (e) => {
+
+  const handleTextChange = (e, props) => {
     handleChange(e, "name", e.target.value);
   };
+
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
   };
