@@ -1,14 +1,14 @@
-import React from "react";
+import React, {useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getUpComingMovies } from "../api/tmdb-api";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 // import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
-import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
+import AddToMustWatch from '../components/cardIcons/addToMustWatch';
 
 const HomePage = (props) => {
   //Caching changes added in earlier step for upcoming movies
-  const {  data, error, isLoading, isError }  = useQuery('upcoming', getUpComingMovies)  
+  const {  data, error, isLoading, isError }  = useQuery('upcoming', getUpComingMovies);
 
  if (isLoading) {
     return <Spinner />
@@ -22,13 +22,14 @@ const HomePage = (props) => {
   localStorage.setItem("favorites", JSON.stringify(favorites));
   const addToFavorites = (movieId) => true 
 
+
   return (
     <PageTemplate
       title="Discover Movies"
       movies={movies}
       selectFavorite={addToFavorites}
       action={(movie) => {
-          return <PlaylistAddIcon />
+          return <AddToMustWatch movie={movie}/>
         }}
     />
   );
