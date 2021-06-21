@@ -7,6 +7,7 @@ import Spinner from '../components/spinner';
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 const HomePage = (props) => {
+  //Caching changes added in earlier step for upcoming movies
   const {  data, error, isLoading, isError }  = useQuery('upcoming', getUpComingMovies)  
 
  if (isLoading) {
