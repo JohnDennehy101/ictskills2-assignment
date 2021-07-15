@@ -14,7 +14,8 @@ import img from "../../images/pexels-dziana-hasanbekava-5480827.jpg";
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../spinner";
-import Modal from '@material-ui/core/Modal';
+import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,11 +29,16 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 220,
     backgroundColor: "rgb(255, 255, 255)",
   },
+  modalInputFields: {
+    margin: theme.spacing(1),
+    width: "90%",
+    backgroundColor: "rgb(255, 255, 255)",
+  },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -43,9 +49,9 @@ export default function FilterMoviesCard(props) {
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
-  const [language, setLanguage] = React.useState('');
-  const [sortCategory, setCategory] = React.useState('');
+  const [age, setAge] = React.useState("");
+  const [language, setLanguage] = React.useState("");
+  const [sortCategory, setCategory] = React.useState("");
 
   if (isLoading) {
     return <Spinner />;
@@ -71,23 +77,24 @@ export default function FilterMoviesCard(props) {
   };
 
   function getModalStyle() {
-  const top = 50;
-  const left = 50;
+    const top = 50;
+    const left = 50;
 
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-       <Typography variant="h5" component="h1">Advanced Filter</Typography>
-        <FormControl className={classes.formControl}>
-           <InputLabel id="demo-simple-select-label">Release Year</InputLabel>
-           <Select
+      <Typography variant="h5" component="h1">
+        Advanced Filter
+      </Typography>
+      <FormControl className={classes.modalInputFields}>
+        <InputLabel id="demo-simple-select-label">Release Year</InputLabel>
+        <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
@@ -194,11 +201,10 @@ export default function FilterMoviesCard(props) {
           <MenuItem value={1923}>1923</MenuItem>
           <MenuItem value={1922}>1922</MenuItem>
           <MenuItem value={1921}>1921</MenuItem>
-
         </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-           {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
+      </FormControl>
+      <FormControl className={classes.modalInputFields}>
+        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
 
         <TextField
           id="standard-number"
@@ -208,11 +214,11 @@ export default function FilterMoviesCard(props) {
             shrink: true,
           }}
         />
-           </FormControl>
+      </FormControl>
       {/* <SimpleModal /> */}
 
-       <FormControl className={classes.formControl}>
-           {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
+      <FormControl className={classes.modalInputFields}>
+        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
 
         <TextField
           id="standard-number"
@@ -222,10 +228,10 @@ export default function FilterMoviesCard(props) {
             shrink: true,
           }}
         />
-           </FormControl>
+      </FormControl>
 
-           <FormControl className={classes.formControl}>
-           {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
+      <FormControl className={classes.modalInputFields}>
+        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
 
         <TextField
           id="standard-number"
@@ -235,10 +241,10 @@ export default function FilterMoviesCard(props) {
             shrink: true,
           }}
         />
-           </FormControl>
+      </FormControl>
 
-           <FormControl className={classes.formControl}>
-           {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
+      <FormControl className={classes.modalInputFields}>
+        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
 
         <TextField
           id="standard-number"
@@ -248,43 +254,46 @@ export default function FilterMoviesCard(props) {
             shrink: true,
           }}
         />
-           </FormControl>
+      </FormControl>
 
-            <FormControl className={classes.formControl}>
-           <InputLabel id="demo-simple-select-label">Original Language</InputLabel>
-           <Select
+      <FormControl className={classes.modalInputFields}>
+        <InputLabel id="demo-simple-select-label">Original Language</InputLabel>
+        <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={language}
           onChange={handleChange}
         >
-          <MenuItem value={'fr'}>French</MenuItem>
-          <MenuItem value={'es'}>Spanish</MenuItem>
-          <MenuItem value={'de'}>German</MenuItem>
-          <MenuItem value={'it'}>Italian</MenuItem>
-          <MenuItem value={'ja'}>Japanese</MenuItem>
-          </Select>
-          </FormControl>
+          <MenuItem value={"fr"}>French</MenuItem>
+          <MenuItem value={"es"}>Spanish</MenuItem>
+          <MenuItem value={"de"}>German</MenuItem>
+          <MenuItem value={"it"}>Italian</MenuItem>
+          <MenuItem value={"ja"}>Japanese</MenuItem>
+        </Select>
+      </FormControl>
 
-
-            <FormControl className={classes.formControl}>
-           <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
-           <Select
+      <FormControl className={classes.modalInputFields}>
+        <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+        <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={sortCategory}
           onChange={handleChange}
         >
-          <MenuItem value={'popularity.asc'}>Most Popular</MenuItem>
-          <MenuItem value={'popularity.desc'}>Least Popular</MenuItem>
-          <MenuItem value={'revenue.asc'}>Highest Grossing Revenue</MenuItem>
-          <MenuItem value={'revenue.desc'}>Lowest Grossing Revenue</MenuItem>
-          <MenuItem value={'vote_count.asc'}>Most Votes</MenuItem>
-          <MenuItem value={'vote_count.desc'}>Least Votes</MenuItem>
-          </Select>
-          </FormControl>
+          <MenuItem value={"popularity.asc"}>Most Popular</MenuItem>
+          <MenuItem value={"popularity.desc"}>Least Popular</MenuItem>
+          <MenuItem value={"revenue.asc"}>Highest Grossing Revenue</MenuItem>
+          <MenuItem value={"revenue.desc"}>Lowest Grossing Revenue</MenuItem>
+          <MenuItem value={"vote_count.asc"}>Most Votes</MenuItem>
+          <MenuItem value={"vote_count.desc"}>Least Votes</MenuItem>
+        </Select>
+      </FormControl>
 
-           
+      <FormControl className={classes.modalInputFields}>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
+          Filter
+        </Button>
+      </FormControl>
     </div>
   );
 
@@ -330,17 +339,20 @@ export default function FilterMoviesCard(props) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <button type="button" onClick={handleOpen}>
+          {/* <button type="button" onClick={handleOpen}>
         Open Modal
-      </button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
+      </button> */}
+          <Button variant="contained" color="secondary" onClick={handleOpen}>
+            Advanced Filter
+          </Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            {body}
+          </Modal>
         </FormControl>
       </CardContent>
       <CardMedia className={classes.media} image={img} title="Filter" />
