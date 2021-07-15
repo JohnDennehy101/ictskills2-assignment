@@ -49,9 +49,6 @@ export default function FilterMoviesCard(props) {
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState("");
-  const [language, setLanguage] = React.useState("");
-  const [sortCategory, setCategory] = React.useState("");
 
   if (isLoading) {
     return <Spinner />;
@@ -76,6 +73,34 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "genre", e.target.value);
   };
 
+   const handleReleaseYearChange = (e) => {
+    handleChange(e, "release_year", e.target.value);
+  };
+
+   const handleAverageRatingGreaterThanChange = (e) => {
+    handleChange(e, "average_rating_greater_than", e.target.value);
+  };
+
+   const handleAverageRatingLessThanChange = (e) => {
+    handleChange(e, "average_rating_less_than", e.target.value);
+  };
+
+   const durationGreaterThanChange = (e) => {
+    handleChange(e, "duration_greater_than", e.target.value);
+  };
+
+   const durationLessThanChange = (e) => {
+    handleChange(e, "duration_less_than", e.target.value);
+  };
+
+   const originalLanguageChange = (e) => {
+    handleChange(e, "original_language", e.target.value);
+  };
+
+   const sortCategoryChange = (e) => {
+    handleChange(e, "sort_category", e.target.value);
+  };
+
   function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -97,8 +122,8 @@ export default function FilterMoviesCard(props) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          onChange={handleChange}
+          value={props.releaseYearFilter}
+          onChange={handleReleaseYearChange}
         >
           <MenuItem value={2021}>2021</MenuItem>
           <MenuItem value={2020}>2020</MenuItem>
@@ -213,6 +238,8 @@ export default function FilterMoviesCard(props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleAverageRatingGreaterThanChange}
+          value={props.averageRatingGreaterThanFilter}
         />
       </FormControl>
       {/* <SimpleModal /> */}
@@ -227,6 +254,8 @@ export default function FilterMoviesCard(props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleAverageRatingLessThanChange}
+          value={props.averageRatingLessThanFilter}
         />
       </FormControl>
 
@@ -240,6 +269,8 @@ export default function FilterMoviesCard(props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={durationGreaterThanChange}
+          value={props.durationGreaterThanFilter}
         />
       </FormControl>
 
@@ -253,6 +284,8 @@ export default function FilterMoviesCard(props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={durationLessThanChange}
+          value={props.durationLessThanFilter}
         />
       </FormControl>
 
@@ -261,8 +294,8 @@ export default function FilterMoviesCard(props) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={language}
-          onChange={handleChange}
+          value={props.originalLanguage}
+          onChange={originalLanguageChange}
         >
           <MenuItem value={"fr"}>French</MenuItem>
           <MenuItem value={"es"}>Spanish</MenuItem>
@@ -277,8 +310,8 @@ export default function FilterMoviesCard(props) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={sortCategory}
-          onChange={handleChange}
+          value={props.sortCategory}
+          onChange={sortCategoryChange}
         >
           <MenuItem value={"popularity.asc"}>Most Popular</MenuItem>
           <MenuItem value={"popularity.desc"}>Least Popular</MenuItem>
