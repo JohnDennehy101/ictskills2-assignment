@@ -4,6 +4,7 @@ import FilterCard from "../filterMoviesCard";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import MovieList from "../movieList";
+import { filteredMoviesSearch } from "../api/tmdb-api";
 
 const useStyles = makeStyles({
   root: {
