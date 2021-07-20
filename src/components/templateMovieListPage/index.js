@@ -19,6 +19,7 @@ function MovieListPageTemplate({
   title,
   action,
   filteredMoviesSearch,
+
 }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
@@ -35,14 +36,18 @@ function MovieListPageTemplate({
   const [sortCategory, setSortCategory] = useState("");
   const [open, setOpen] = React.useState(false);
   const genreId = Number(genreFilter);
+  let displayedMovies;
 
-  let displayedMovies = movies
+
+displayedMovies = movies
     .filter((m) => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
+
+  
 
   let getAdvancedFilterResults = () => {
     filteredMoviesSearch(

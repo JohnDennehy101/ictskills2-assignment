@@ -25,9 +25,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieCard({ movie, action }) {
+export default function MovieCard({ movie, action, itemType }) {
    const classes = useStyles();
   const { favorites, mustWatch } = useContext(MoviesContext);
+  let title;
 
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
@@ -36,6 +37,7 @@ export default function MovieCard({ movie, action }) {
   if ( mustWatch.find((id) => id === movie.id)) {
     movie.mustWatch = true;
   }
+ 
  
   return (
     <Card className={classes.card}>
