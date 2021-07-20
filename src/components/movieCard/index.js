@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieCard({ movie, action, itemType }) {
+export default function MovieCard({ movie, action }) {
    const classes = useStyles();
   const { favorites, mustWatch } = useContext(MoviesContext);
   let title;

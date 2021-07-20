@@ -9,6 +9,7 @@ const TvListPage = (props) => {
   const { data, error, isLoading, isError } = useQuery("discover-tv", getTvShows);
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState([]);
+  console.log("RENDERING")
 
   if (isLoading) {
     return <Spinner />;
@@ -20,12 +21,18 @@ const TvListPage = (props) => {
   let tvShows, updatedTvShows;
   if (filter) {
     tvShows = filterData;
-  } else {
+  }
+  
+  
+  else {
+      console.log("LANDING HERE");
+      console.log(data.results);
     tvShows = data.results;
     updatedTvShows = tvShows.map((show) => {
         show.title = show.name;
-  delete show.name;
+        show.release_date = show.first_air_date;
     })
+    
   }
 
   // Redundant, but necessary to avoid app crashing.
