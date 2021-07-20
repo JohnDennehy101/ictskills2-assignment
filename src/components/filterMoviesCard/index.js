@@ -48,7 +48,6 @@ export default function FilterMoviesCard(props) {
   const classes = useStyles();
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
   const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
 
   if (isLoading) {
     return <Spinner />;
@@ -58,7 +57,11 @@ export default function FilterMoviesCard(props) {
     return <h1>{error.message}</h1>;
   }
   const genres = data.genres;
-  genres.unshift({ id: "0", name: "All" });
+  if (genres.length === 19) {
+    genres.unshift({ id: "0", name: "All" });
+  }
+
+  console.log(genres);
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
@@ -70,34 +73,35 @@ export default function FilterMoviesCard(props) {
   };
 
   const handleGenreChange = (e) => {
+    console.log(e.target.value);
     handleChange(e, "genre", e.target.value);
   };
 
-   const handleReleaseYearChange = (e) => {
+  const handleReleaseYearChange = (e) => {
     handleChange(e, "release_year", e.target.value);
   };
 
-   const handleAverageRatingGreaterThanChange = (e) => {
+  const handleAverageRatingGreaterThanChange = (e) => {
     handleChange(e, "average_rating_greater_than", e.target.value);
   };
 
-   const handleAverageRatingLessThanChange = (e) => {
+  const handleAverageRatingLessThanChange = (e) => {
     handleChange(e, "average_rating_less_than", e.target.value);
   };
 
-   const durationGreaterThanChange = (e) => {
+  const durationGreaterThanChange = (e) => {
     handleChange(e, "duration_greater_than", e.target.value);
   };
 
-   const durationLessThanChange = (e) => {
+  const durationLessThanChange = (e) => {
     handleChange(e, "duration_less_than", e.target.value);
   };
 
-   const originalLanguageChange = (e) => {
+  const originalLanguageChange = (e) => {
     handleChange(e, "original_language", e.target.value);
   };
 
-   const sortCategoryChange = (e) => {
+  const sortCategoryChange = (e) => {
     handleChange(e, "sort_category", e.target.value);
   };
 
@@ -323,20 +327,16 @@ export default function FilterMoviesCard(props) {
       </FormControl>
 
       <FormControl className={classes.modalInputFields}>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={props.advancedSearch}
+        >
           Filter
         </Button>
       </FormControl>
     </div>
   );
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -375,12 +375,16 @@ export default function FilterMoviesCard(props) {
           {/* <button type="button" onClick={handleOpen}>
         Open Modal
       </button> */}
-          <Button variant="contained" color="secondary" onClick={handleOpen}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={props.handleOpen}
+          >
             Advanced Filter
           </Button>
           <Modal
-            open={open}
-            onClose={handleClose}
+            open={props.modalDisplay}
+            onClose={props.handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
           >
