@@ -11,25 +11,43 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
  root: {
     width: '100%',
-    // maxWidth: '36ch',
-    backgroundColor: '#EEE',
+    backgroundColor: '#FFFFFF',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   inline: {
     display: 'inline',
+    padding: '10px 10px 0px 0px'
+  },
+  individualItem: {
+      width: '33%',
+      justifyContent: 'center',
+      alignItems: 'center'
   },
 });
 
-export default function MovieCast ({ itemData }) {
+export default function MovieCast ({ cast }) {
   const classes = useStyles();
 
   return (
+      <>
+       <Typography
+        variant="h5"
+        component="h3"
+        className={classes.similarMoviesTitle}
+      >
+        Movie Cast
+      </Typography>
      <List className={classes.root}>
-      <ListItem alignItems="flex-start">
+         {cast.cast.map((castMember) => (
+      <ListItem alignItems="flex-start" className={classes.individualItem}>
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt={castMember.name} src={`https://image.tmdb.org/t/p/w500${castMember.profile_path}`} />
         </ListItemAvatar>
         <ListItemText
-          primary="Brunch this weekend?"
+          primary={castMember.name}
           secondary={
             <React.Fragment>
               <Typography
@@ -38,57 +56,16 @@ export default function MovieCast ({ itemData }) {
                 className={classes.inline}
                 color="textPrimary"
               >
-                Ali Connors
+                Character:  
               </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
+              {castMember.character}
             </React.Fragment>
           }
         />
       </ListItem>
+         ))}
       <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Sandra Adams
-              </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
     </List>
+    </>
   );
 }

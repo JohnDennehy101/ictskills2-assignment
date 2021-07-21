@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import PageTemplate from "../components/templateMoviePage";
 import SimilarMoviesComponent from "../components/similarMovies";
-import { getMovie, getSimilarMovies } from "../api/tmdb-api";
+import { getMovie, getSimilarMovies, getMovieCast } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import MovieCast from "../components/movieCast";
@@ -20,6 +20,10 @@ const MovieDetailsPage = (props) => {
     ["similarMovies", { id: id }],
     getSimilarMovies
   );
+  const { data: movieCast } = useQuery(
+    ["movieCast", { id: id }],
+    getMovieCast
+  );
 
   if (isLoading) {
     return <Spinner />;
@@ -31,12 +35,12 @@ const MovieDetailsPage = (props) => {
 
   return (
     <>
-      {movie && similarMovies ? (
+      {movie && similarMovies && movieCast ? (
         <>
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
             <SimilarMoviesComponent itemData={similarMovies} />
-            <MovieCast />
+            <MovieCast cast={movieCast} />
           </PageTemplate>
         </>
       ) : (
