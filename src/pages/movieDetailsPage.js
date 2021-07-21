@@ -6,6 +6,7 @@ import SimilarMoviesComponent from "../components/similarMovies";
 import { getMovie, getSimilarMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
+import MovieCast from "../components/movieCast";
 
 const MovieDetailsPage = (props) => {
   const { id } = props.match.params;
@@ -35,6 +36,7 @@ const MovieDetailsPage = (props) => {
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
             <SimilarMoviesComponent itemData={similarMovies} />
+            <MovieCast />
           </PageTemplate>
         </>
       ) : (
