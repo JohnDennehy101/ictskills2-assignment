@@ -8,6 +8,17 @@ export const getMovies = async () => {
   return response.json();
 };
 
+export const getSimilarMovies = async (args) => {
+  const [prefix, { id }] = args.queryKey;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
+
 export const getTvShows = async () => {
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
@@ -15,7 +26,7 @@ export const getTvShows = async () => {
   if (!response.ok) {
     throw new Error(response.json().message);
   }
-  
+
   return response.json();
 };
 
