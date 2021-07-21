@@ -4,7 +4,7 @@ import Spinner from "../spinner";
 import MovieHeader from "../headerMovie";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
+import ImageList from "@material-ui/core/ImageList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { getMovieImages } from "../../api/tmdb-api";
 
@@ -43,7 +43,7 @@ const TemplateMoviePage = ({ movie, children }) => {
       <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid item xs={3}>
           <div className={classes.root}>
-            <GridList cellHeight={500} className={classes.gridList} cols={1}>
+            <ImageList rowHeight={500} className={classes.gridList} cols={1}>
               {images.map((image) => (
                 <GridListTile
                   key={image.file_path}
@@ -56,7 +56,7 @@ const TemplateMoviePage = ({ movie, children }) => {
                   />
                 </GridListTile>
               ))}
-            </GridList>
+            </ImageList>
           </div>
         </Grid>
 
