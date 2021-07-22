@@ -7,8 +7,32 @@ import { getMovie, getSimilarMovies, getMovieCast } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import MovieCast from "../components/movieCast";
+import CastModal from "../components/castModal";
+import { getPersonDetail } from "../api/tmdb-api";
 
 const MovieDetailsPage = (props) => {
+  const [open, setOpen] = React.useState(false);
+  const [actorDetail, setActorDetails] = React.useState({});
+
+  const handleClickOpen = async (id) => {
+    console.log(id);
+
+    const personDetail = await getPersonDetail(id);
+
+    setOpen(true);
+    setActorDetails({
+      name: personDetail.name,
+      from: personDetail.place_of_birth,
+      popularity: personDetail.popularity,
+      biography: personDetail.biography,
+      dateOfBirth: personDetail.birthday,
+      image: personDetail.profile_path,
+    });
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setActorDetails({});
+  };
   const { id } = props.match.params;
   const {
     data: movie,
@@ -20,10 +44,7 @@ const MovieDetailsPage = (props) => {
     ["similarMovies", { id: id }],
     getSimilarMovies
   );
-  const { data: movieCast } = useQuery(
-    ["movieCast", { id: id }],
-    getMovieCast
-  );
+  const { data: movieCast } = useQuery(["movieCast", { id: id }], getMovieCast);
 
   if (isLoading) {
     return <Spinner />;
@@ -40,7 +61,12 @@ const MovieDetailsPage = (props) => {
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
             <SimilarMoviesComponent itemData={similarMovies} />
-            <MovieCast cast={movieCast} />
+            <MovieCast cast={movieCast} handleClickOpen={handleClickOpen} />
+            <CastModal
+              handleClose={handleClose}
+              actorDetail={actorDetail}
+              open={open}
+            />
           </PageTemplate>
         </>
       ) : (
