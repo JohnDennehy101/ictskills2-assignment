@@ -32,14 +32,20 @@ export const getMovieCast = async (args) => {
 
 export const getPersonDetail = async (id) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/person/${id}?api_key=2a300a0c508fbced667dcab1a12a860c&language=en-US&page=1`
+    `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
   );
   return response.json();
 };
 
 export const getPersonCredits = async (id) => {
-  console.log(id);
-}
+  const response = await fetch(
+    `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
 
 export const getTvShows = async () => {
   const response = await fetch(
