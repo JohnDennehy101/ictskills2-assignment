@@ -19,6 +19,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import { green, red, blue } from "@material-ui/core/colors";
 import Alert from "@material-ui/lab/Alert";
+import Link from "@material-ui/core/Link";
 
 const styles = (theme) => ({
   root: {
@@ -112,7 +113,7 @@ const useStyles = makeStyles({
 
 export default function CastModal({ handleClose, actorDetail, open }) {
   const classes = useStyles();
-  let infoDetailAvailable = actorDetail.biography !== "";
+  let infoDetailAvailable = actorDetail != 'undefined' || actorDetail.biography !== "";
   return (
     <>
       <Dialog
@@ -223,6 +224,12 @@ export default function CastModal({ handleClose, actorDetail, open }) {
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
             Close
+          </Button>
+          {/* Add in conditional logic here to check if info available (only show button if sufficient info) */}
+          <Button autoFocus color="primary">
+            <Link href={`/person/credits/${actorDetail.id}`}>
+              Full Details
+            </Link>
           </Button>
         </DialogActions>
       </Dialog>

@@ -21,6 +21,7 @@ const MovieDetailsPage = (props) => {
 
     setOpen(true);
     setActorDetails({
+      id: personDetail.id,
       name: personDetail.name,
       from: personDetail.place_of_birth,
       popularity: personDetail.popularity,

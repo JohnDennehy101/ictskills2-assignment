@@ -37,6 +37,10 @@ export const getPersonDetail = async (id) => {
   return response.json();
 };
 
+export const getPersonCredits = async (id) => {
+  console.log(id);
+}
+
 export const getTvShows = async () => {
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
