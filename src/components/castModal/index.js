@@ -18,6 +18,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import { green, red, blue } from "@material-ui/core/colors";
+import Alert from "@material-ui/lab/Alert";
 
 const styles = (theme) => ({
   root: {
@@ -111,6 +112,7 @@ const useStyles = makeStyles({
 
 export default function CastModal({ handleClose, actorDetail, open }) {
   const classes = useStyles();
+  let infoDetailAvailable = actorDetail.biography !== "";
   return (
     <>
       <Dialog
@@ -124,93 +126,99 @@ export default function CastModal({ handleClose, actorDetail, open }) {
           {actorDetail.name}
         </DialogTitle>
         <DialogContent dividers>
-          <List className={classes.root}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={`https://image.tmdb.org/t/p/w500${actorDetail.image}`}
+          {infoDetailAvailable ? (
+            <List className={classes.root}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={`https://image.tmdb.org/t/p/w500${actorDetail.image}`}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Biography"
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        className={classes.inline}
+                        color="textPrimary"
+                      >
+                        Summary
+                      </Typography>
+                      {actorDetail.biography}
+                    </React.Fragment>
+                  }
                 />
-              </ListItemAvatar>
-              <ListItemText
-                primary="Biography"
-                secondary={
-                  <React.Fragment>
+              </ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Date of Birth"
+                  secondary={
                     <Typography
                       component="span"
                       variant="body2"
                       className={classes.inline}
                       color="textPrimary"
                     >
-                      Summary
+                      {actorDetail.dateOfBirth}
                     </Typography>
-                    {actorDetail.biography}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Date of Birth"
-                secondary={
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                  >
-                    {actorDetail.dateOfBirth}
-                  </Typography>
-                }
-              />
-            </ListItem>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar className={classes.green}>
-                  <HomeIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Place of Birth"
-                secondary={
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                  >
-                    {actorDetail.from}
-                  </Typography>
-                }
-              />
-            </ListItem>
+                  }
+                />
+              </ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar className={classes.green}>
+                    <HomeIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Place of Birth"
+                  secondary={
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      className={classes.inline}
+                      color="textPrimary"
+                    >
+                      {actorDetail.from}
+                    </Typography>
+                  }
+                />
+              </ListItem>
 
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar className={classes.red}>
-                <Avatar className={classes.red}>
-                  <LiveTvIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Popularity"
-                secondary={
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                  >
-                    {actorDetail.popularity}
-                  </Typography>
-                }
-              />
-            </ListItem>
-          </List>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar className={classes.red}>
+                  <Avatar className={classes.red}>
+                    <LiveTvIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Popularity"
+                  secondary={
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      className={classes.inline}
+                      color="textPrimary"
+                    >
+                      {actorDetail.popularity}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            </List>
+          ) : (
+            <Alert variant="outlined" severity="info">
+              No further information available for this cast member.
+            </Alert>
+          )}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
