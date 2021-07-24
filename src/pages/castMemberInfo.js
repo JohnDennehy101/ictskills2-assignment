@@ -18,6 +18,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import movieDetailsPage from "./movieDetailsPage";
+import PersonPinIcon from "@material-ui/icons/PersonPin";
+import HomeIcon from "@material-ui/icons/Home";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import img from "../images/film-poster-placeholder.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   large: {
-    width: "10vw",
-    height: "30vh",
+    width: "12vw",
+    height: "20vh",
     margin: "20px auto",
   },
   title: {
@@ -46,45 +50,55 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
+  { id: "poster", label: "Poster", minWidth: 170 },
   { id: "title", label: "Title", minWidth: 170 },
   { id: "character", label: "Character", minWidth: 100 },
   {
     id: "overview",
     label: "Summary",
-    minWidth: 170,
-    align: "right",
+    minWidth: 220,
+    align: "left",
   },
   {
     id: "release_date",
     label: "Release Date",
     minWidth: 170,
-    align: "right",
+    align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "average_rating",
     label: "Average Rating",
     minWidth: 170,
-    align: "right",
+    align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "type",
     label: "Media Type",
     minWidth: 170,
-    align: "right",
+    align: "left",
   },
 ];
 
 function createData(
+  poster,
   title,
   character,
   overview,
   release_date,
-  average_vote,
-  media_type
+  average_rating,
+  type
 ) {
-  return { title, character, overview, release_date, average_vote, media_type };
+  return {
+    poster,
+    title,
+    character,
+    overview,
+    release_date,
+    average_rating,
+    type,
+  };
 }
 
 const CastMemberInfoPage = (props) => {
@@ -121,6 +135,7 @@ const CastMemberInfoPage = (props) => {
     }
     rows.push(
       createData(
+        `https://image.tmdb.org/t/p/w500${item.poster_path}`,
         title,
         item.character,
         item.overview,
@@ -159,6 +174,21 @@ const CastMemberInfoPage = (props) => {
                   className={classes.large}
                 />
               </Grid>
+              <Grid item xs={3}>
+                <Paper>a</Paper>
+                <HomeIcon />
+              </Grid>
+              <Grid item xs={3}>
+                <Paper>a</Paper>
+                <FavoriteIcon />
+              </Grid>
+              <Grid item xs={3}>
+                <Paper>a</Paper>
+                <PersonPinIcon />
+              </Grid>
+              <Grid item xs={3}>
+                <Paper>a</Paper>
+              </Grid>
 
               <Grid item xs={12}>
                 <Typography
@@ -168,18 +198,6 @@ const CastMemberInfoPage = (props) => {
                 >
                   {personDetail.biography}
                 </Typography>
-              </Grid>
-
-              <Grid item xs={6}>
-                {/* <Paper className={classes.paper}>xs=6</Paper> */}
-                <Avatar
-                  alt={personDetail.name}
-                  src={`https://image.tmdb.org/t/p/w500${personDetail.profile_path}`}
-                  className={classes.large}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Paper className={classes.paper}>xs=6</Paper>
               </Grid>
 
               <Grid item xs={12}>
@@ -215,16 +233,46 @@ const CastMemberInfoPage = (props) => {
                               >
                                 {columns.map((column) => {
                                   const value = row[column.id];
+                                  let valueImageCheck = undefined;
+                                  let imageNullCheck = undefined;
+
+                                  if (column.id === "poster") {
+                                    valueImageCheck = true;
+                                    if (value.includes("null")) {
+                                      imageNullCheck = true;
+                                    }
+                                  }
+
                                   return (
-                                    <TableCell
-                                      key={column.id}
-                                      align={column.align}
-                                    >
-                                      {column.format &&
-                                      typeof value === "number"
-                                        ? column.format(value)
-                                        : value}
-                                    </TableCell>
+                                    <>
+                                      {valueImageCheck === undefined ? (
+                                        <TableCell
+                                          key={column.id}
+                                          align={column.align}
+                                        >
+                                          {column.format &&
+                                          typeof value === "number"
+                                            ? column.format(value)
+                                            : value}
+                                        </TableCell>
+                                      ) : imageNullCheck === undefined ? (
+                                        <TableCell>
+                                          <img
+                                            width="200px"
+                                            height="125px"
+                                            src={`https://image.tmdb.org/t/p/w500${value}`}
+                                          />
+                                        </TableCell>
+                                      ) : (
+                                        <TableCell>
+                                          <img
+                                            width="200px"
+                                            height="125px"
+                                            src={img}
+                                          />
+                                        </TableCell>
+                                      )}
+                                    </>
                                   );
                                 })}
                               </TableRow>
