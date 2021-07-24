@@ -39,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     textAlign: "center",
-    margin: "20px 0px",
+    margin: "20px 10px",
   },
   root2: {
     width: "100%",
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 840,
   },
 }));
 
@@ -174,32 +174,54 @@ const CastMemberInfoPage = (props) => {
                   className={classes.large}
                 />
               </Grid>
-              <Grid item xs={3}>
-                <Paper>a</Paper>
-                <HomeIcon />
-              </Grid>
-              <Grid item xs={3}>
-                <Paper>a</Paper>
-                <FavoriteIcon />
-              </Grid>
-              <Grid item xs={3}>
-                <Paper>a</Paper>
-                <PersonPinIcon />
-              </Grid>
-              <Grid item xs={3}>
-                <Paper>a</Paper>
-              </Grid>
+              <Grid item xs={4}>
+                <Paper className={classes.paper}>
+                    <HomeIcon color="primary" fontSize="large"/>
 
+              <Typography className={classes.title} variant="h5" gutterBottom>
+                {personDetail.place_of_birth}
+              </Typography>
+                </Paper>
+                
+              </Grid>
+              <Grid item xs={4}>
+                <Paper className={classes.paper}>
+                    <FavoriteIcon color="primary" fontSize="large" />
+                <Typography className={classes.title} variant="h5" gutterBottom>
+                {personDetail.popularity}
+              </Typography>
+                </Paper>
+                
+              </Grid>
+              <Grid item xs={4}>
+                <Paper className={classes.paper}>
+                    <PersonPinIcon color="primary" fontSize="large"/>
+                <Typography className={classes.title} variant="h5" gutterBottom>
+                {personDetail.birthday}
+              </Typography>
+                </Paper>
+                
+              </Grid>
+              
+
+              <Typography className={classes.title} variant="h3" gutterBottom>
+                Biography
+              </Typography>
               <Grid item xs={12}>
-                <Typography
-                  className={classes.title}
-                  variant="subtitle1"
-                  gutterBottom
-                >
-                  {personDetail.biography}
-                </Typography>
+                <Paper>
+                  <Typography
+                    className={classes.title}
+                    variant="subtitle1"
+                    gutterBottom
+                  >
+                    {personDetail.biography}
+                  </Typography>
+                </Paper>
               </Grid>
 
+              <Typography className={classes.title} variant="h3" gutterBottom>
+                Appears In
+              </Typography>
               <Grid item xs={12}>
                 <Paper className={classes.root}>
                   <TableContainer className={classes.container}>
