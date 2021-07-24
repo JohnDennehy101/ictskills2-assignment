@@ -24,6 +24,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import img from "../images/film-poster-placeholder.png";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +50,12 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     maxHeight: 840,
+  },
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    zIndex: 2,
   },
 }));
 
@@ -112,6 +120,7 @@ function createData(
 }
 
 const CastMemberInfoPage = (props) => {
+  console.log(props);
   let rows = [];
   let age;
   let currentDate = new Date();
@@ -158,9 +167,9 @@ const CastMemberInfoPage = (props) => {
   });
 
   if (!personDetailLoading) {
-       age = currentDate.getFullYear() - new Date(personDetail.birthday).getFullYear();
+    age =
+      currentDate.getFullYear() - new Date(personDetail.birthday).getFullYear();
   }
- 
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -353,6 +362,15 @@ const CastMemberInfoPage = (props) => {
               </Grid>
             </Grid>
           </div>
+          <Fab
+            color="secondary"
+            variant="extended"
+            className={classes.fab}
+            onClick={() => props.history.goBack()}
+          >
+            <ArrowBackIcon />
+            Back To Movie
+          </Fab>
         </Container>
       ) : (
         <Spinner />

@@ -71,7 +71,7 @@ const MovieDetailsPage = (props) => {
           </PageTemplate>
         </>
       ) : (
-        <p>Waiting for movie details</p>
+        <Spinner />
       )}
     </>
   );
