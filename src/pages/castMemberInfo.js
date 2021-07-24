@@ -6,7 +6,6 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -23,8 +22,8 @@ import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
-
 import CastMemberAvatar from "../components/castMemberAvatar";
+import CastMemberIndividualInfo from "../components/castMemberIndividualInfo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -163,7 +162,6 @@ const CastMemberInfoPage = (props) => {
     age =
       currentDate.getFullYear() - new Date(personDetail.birthday).getFullYear();
   }
-  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -181,43 +179,22 @@ const CastMemberInfoPage = (props) => {
           <div className={classes.root}>
             <Grid container spacing={3}>
               <CastMemberAvatar personDetail={personDetail} />
-              <Grid item xs={4}>
-                <Paper className={classes.paper}>
-                  <HomeIcon color="primary" fontSize="large" />
 
-                  <Typography
-                    className={classes.title}
-                    variant="h5"
-                    gutterBottom
-                  >
-                    {personDetail.place_of_birth}
-                  </Typography>
-                </Paper>
-              </Grid>
-              <Grid item xs={4}>
-                <Paper className={classes.paper}>
-                  <FavoriteIcon color="primary" fontSize="large" />
-                  <Typography
-                    className={classes.title}
-                    variant="h5"
-                    gutterBottom
-                  >
-                    Popularity: {personDetail.popularity}
-                  </Typography>
-                </Paper>
-              </Grid>
-              <Grid item xs={4}>
-                <Paper className={classes.paper}>
-                  <PersonPinIcon color="primary" fontSize="large" />
-                  <Typography
-                    className={classes.title}
-                    variant="h5"
-                    gutterBottom
-                  >
-                    {personDetail.birthday} ({age} years old)
-                  </Typography>
-                </Paper>
-              </Grid>
+              <CastMemberIndividualInfo
+                type={"placeOfBirth"}
+                personDetail={personDetail}
+                icon={<HomeIcon color="primary" fontSize="large" />}
+              />
+              <CastMemberIndividualInfo
+                type={"popularity"}
+                personDetail={personDetail}
+                icon={<FavoriteIcon color="primary" fontSize="large" />}
+              />
+              <CastMemberIndividualInfo
+                type={"dateOfBirth"}
+                personDetail={personDetail}
+                icon={<PersonPinIcon color="primary" fontSize="large" />}
+              />
 
               <Typography className={classes.title} variant="h3" gutterBottom>
                 Biography
