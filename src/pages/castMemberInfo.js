@@ -113,16 +113,17 @@ function createData(
 
 const CastMemberInfoPage = (props) => {
   let rows = [];
+  let age;
+  let currentDate = new Date();
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  console.log(props);
   const { data, error, isLoading, isError } = useQuery(
     ["personCredits", props.match.params.id],
     () => getPersonCredits(props.match.params.id)
   );
-  const { data: personDetail } = useQuery(
+  const { data: personDetail, isLoading: personDetailLoading } = useQuery(
     ["personDetail", props.match.params.id],
     () => getPersonDetail(props.match.params.id)
   );
@@ -155,6 +156,11 @@ const CastMemberInfoPage = (props) => {
       )
     );
   });
+
+  if (!personDetailLoading) {
+       age = currentDate.getFullYear() - new Date(personDetail.birthday).getFullYear();
+  }
+ 
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -203,7 +209,7 @@ const CastMemberInfoPage = (props) => {
                     variant="h5"
                     gutterBottom
                   >
-                    {personDetail.popularity}
+                    Popularity: {personDetail.popularity}
                   </Typography>
                 </Paper>
               </Grid>
@@ -215,7 +221,7 @@ const CastMemberInfoPage = (props) => {
                     variant="h5"
                     gutterBottom
                   >
-                    {personDetail.birthday}
+                    {personDetail.birthday} ({age} years old)
                   </Typography>
                 </Paper>
               </Grid>
@@ -262,7 +268,6 @@ const CastMemberInfoPage = (props) => {
                             page * rowsPerPage + rowsPerPage
                           )
                           .map((row) => {
-                            console.log(row);
                             return (
                               <TableRow
                                 hover
@@ -284,7 +289,6 @@ const CastMemberInfoPage = (props) => {
                                   } else if (column.id === "id") {
                                     valueImageCheck = true;
                                     buttonCheck = true;
-                                    console.log("BUTTON CHECK");
                                     imageNullCheck = true;
                                   }
 
