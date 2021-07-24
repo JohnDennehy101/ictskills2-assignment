@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MovieList from "../movieList";
 import { filteredMoviesSearch } from "../../api/tmdb-api";
 
+
 const useStyles = makeStyles({
   root: {
     padding: "20px",
