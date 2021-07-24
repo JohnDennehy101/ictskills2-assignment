@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import PageTemplate from "../components/templateMovieListPage";
+import React from "react";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getPersonCredits, getPersonDetail } from "../api/tmdb-api";
-import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -17,15 +15,16 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import movieDetailsPage from "./movieDetailsPage";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import HomeIcon from "@material-ui/icons/Home";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import img from "../images/film-poster-placeholder.png";
-import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+
+
+import CastMemberAvatar from "../components/castMemberAvatar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,11 +34,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-  },
-  large: {
-    width: "12vw",
-    height: "20vh",
-    margin: "20px auto",
   },
   title: {
     textAlign: "center",
@@ -120,7 +114,6 @@ function createData(
 }
 
 const CastMemberInfoPage = (props) => {
-  console.log(props);
   let rows = [];
   let age;
   let currentDate = new Date();
@@ -170,6 +163,7 @@ const CastMemberInfoPage = (props) => {
     age =
       currentDate.getFullYear() - new Date(personDetail.birthday).getFullYear();
   }
+  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -186,17 +180,7 @@ const CastMemberInfoPage = (props) => {
         <Container width="80vw">
           <div className={classes.root}>
             <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Typography className={classes.title} variant="h3" gutterBottom>
-                  {personDetail.name}
-                </Typography>
-
-                <Avatar
-                  alt={personDetail.name}
-                  src={`https://image.tmdb.org/t/p/w500${personDetail.profile_path}`}
-                  className={classes.large}
-                />
-              </Grid>
+              <CastMemberAvatar personDetail={personDetail} />
               <Grid item xs={4}>
                 <Paper className={classes.paper}>
                   <HomeIcon color="primary" fontSize="large" />
