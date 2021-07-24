@@ -22,6 +22,8 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import HomeIcon from "@material-ui/icons/Home";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import img from "../images/film-poster-placeholder.png";
+import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +81,12 @@ const columns = [
     minWidth: 170,
     align: "left",
   },
+  {
+    id: "id",
+    label: "id",
+    minWidth: 0,
+    align: "left",
+  },
 ];
 
 function createData(
@@ -88,7 +96,8 @@ function createData(
   overview,
   release_date,
   average_rating,
-  type
+  type,
+  id
 ) {
   return {
     poster,
@@ -98,6 +107,7 @@ function createData(
     release_date,
     average_rating,
     type,
+    id,
   };
 }
 
@@ -125,7 +135,6 @@ const CastMemberInfoPage = (props) => {
     return <h1>{error.message}</h1>;
   }
 
-  console.log(data.cast);
   data.cast.forEach((item) => {
     let title = "";
     if ("name" in item) {
@@ -141,12 +150,11 @@ const CastMemberInfoPage = (props) => {
         item.overview,
         item.release_date,
         item.vote_average,
-        item.media_type
+        item.media_type,
+        item.id
       )
     );
   });
-
-  console.log(rows);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -176,33 +184,41 @@ const CastMemberInfoPage = (props) => {
               </Grid>
               <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <HomeIcon color="primary" fontSize="large"/>
+                  <HomeIcon color="primary" fontSize="large" />
 
-              <Typography className={classes.title} variant="h5" gutterBottom>
-                {personDetail.place_of_birth}
-              </Typography>
+                  <Typography
+                    className={classes.title}
+                    variant="h5"
+                    gutterBottom
+                  >
+                    {personDetail.place_of_birth}
+                  </Typography>
                 </Paper>
-                
               </Grid>
               <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <FavoriteIcon color="primary" fontSize="large" />
-                <Typography className={classes.title} variant="h5" gutterBottom>
-                {personDetail.popularity}
-              </Typography>
+                  <FavoriteIcon color="primary" fontSize="large" />
+                  <Typography
+                    className={classes.title}
+                    variant="h5"
+                    gutterBottom
+                  >
+                    {personDetail.popularity}
+                  </Typography>
                 </Paper>
-                
               </Grid>
               <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <PersonPinIcon color="primary" fontSize="large"/>
-                <Typography className={classes.title} variant="h5" gutterBottom>
-                {personDetail.birthday}
-              </Typography>
+                  <PersonPinIcon color="primary" fontSize="large" />
+                  <Typography
+                    className={classes.title}
+                    variant="h5"
+                    gutterBottom
+                  >
+                    {personDetail.birthday}
+                  </Typography>
                 </Paper>
-                
               </Grid>
-              
 
               <Typography className={classes.title} variant="h3" gutterBottom>
                 Biography
@@ -246,6 +262,7 @@ const CastMemberInfoPage = (props) => {
                             page * rowsPerPage + rowsPerPage
                           )
                           .map((row) => {
+                            console.log(row);
                             return (
                               <TableRow
                                 hover
@@ -257,12 +274,18 @@ const CastMemberInfoPage = (props) => {
                                   const value = row[column.id];
                                   let valueImageCheck = undefined;
                                   let imageNullCheck = undefined;
+                                  let buttonCheck = undefined;
 
                                   if (column.id === "poster") {
                                     valueImageCheck = true;
                                     if (value.includes("null")) {
                                       imageNullCheck = true;
                                     }
+                                  } else if (column.id === "id") {
+                                    valueImageCheck = true;
+                                    buttonCheck = true;
+                                    console.log("BUTTON CHECK");
+                                    imageNullCheck = true;
                                   }
 
                                   return (
@@ -285,13 +308,23 @@ const CastMemberInfoPage = (props) => {
                                             src={`https://image.tmdb.org/t/p/w500${value}`}
                                           />
                                         </TableCell>
-                                      ) : (
+                                      ) : buttonCheck === undefined ? (
                                         <TableCell>
                                           <img
                                             width="200px"
                                             height="125px"
                                             src={img}
                                           />
+                                        </TableCell>
+                                      ) : (
+                                        <TableCell>
+                                          <Button
+                                            variant="contained"
+                                            color="primary"
+                                            href={`/movies/${value}`}
+                                          >
+                                            More Info
+                                          </Button>
                                         </TableCell>
                                       )}
                                     </>
