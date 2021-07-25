@@ -113,7 +113,8 @@ const useStyles = makeStyles({
 
 export default function CastModal({ handleClose, actorDetail, open }) {
   const classes = useStyles();
-  let infoDetailAvailable = actorDetail != 'undefined' || actorDetail.biography !== "";
+  let infoDetailAvailable = actorDetail !== undefined && actorDetail.biography !== '';
+
   return (
     <>
       <Dialog
@@ -225,12 +226,14 @@ export default function CastModal({ handleClose, actorDetail, open }) {
           <Button autoFocus onClick={handleClose} color="primary">
             Close
           </Button>
-          {/* Add in conditional logic here to check if info available (only show button if sufficient info) */}
-          <Button autoFocus color="primary">
+          {
+              infoDetailAvailable ? <Button autoFocus color="primary">
             <Link href={`/person/credits/${actorDetail.id}`}>
               Full Details
             </Link>
-          </Button>
+          </Button> : <></>
+          }
+          
         </DialogActions>
       </Dialog>
     </>
