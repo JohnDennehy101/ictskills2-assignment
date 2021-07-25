@@ -24,6 +24,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import CastMemberAvatar from "../components/castMemberAvatar";
 import CastMemberIndividualInfo from "../components/castMemberIndividualInfo";
+import CastMemberBiography from "../components/castMemberBiography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -196,20 +197,7 @@ const CastMemberInfoPage = (props) => {
                 icon={<PersonPinIcon color="primary" fontSize="large" />}
               />
 
-              <Typography className={classes.title} variant="h3" gutterBottom>
-                Biography
-              </Typography>
-              <Grid item xs={12}>
-                <Paper>
-                  <Typography
-                    className={classes.title}
-                    variant="subtitle1"
-                    gutterBottom
-                  >
-                    {personDetail.biography}
-                  </Typography>
-                </Paper>
-              </Grid>
+              <CastMemberBiography biography={personDetail.biography} />
 
               <Typography className={classes.title} variant="h3" gutterBottom>
                 Appears In
