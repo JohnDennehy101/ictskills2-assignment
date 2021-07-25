@@ -15,7 +15,7 @@ import TvPage from './pages/tvListPage';
 import CastMemberInfoPage from './pages/castMemberInfo';
 import TrendingPage from './pages/trendingPage';
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 360000,

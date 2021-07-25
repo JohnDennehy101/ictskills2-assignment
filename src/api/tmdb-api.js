@@ -47,9 +47,21 @@ export const getPersonCredits = async (id) => {
   return response.json();
 };
 
-export const getTrendingItems = async (media_type, timeFrame) => {
+export const getTrendingItems = async (media_type, time) => {
+  console.log("in api");
+  console.log("MEDIA TYPE")
+  console.log(media_type);
+  console.log("TIMEFRAME");
+    console.log(time);
+
+    if (time === undefined) {
+      time = 'day'
+    }
+
   const response = await fetch(
-    `https://api.themoviedb.org/3/trending/${media_type}/${timeFrame}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+
+    
+    `https://api.themoviedb.org/3/trending/${media_type}/${time}?api_key=${process.env.REACT_APP_TMDB_KEY}`
   );
 
   if (!response.ok) {
