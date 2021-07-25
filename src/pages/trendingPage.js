@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useQuery, useMutation } from "react-query";
+import React from "react";
+import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getTrendingItems } from "../api/tmdb-api";
 import Container from "@material-ui/core/Container";
@@ -17,7 +17,6 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
-import { queryClient } from "../index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,11 +74,10 @@ const TrendingPage = (props) => {
   const [mediaType, setMediaType] = React.useState("movie");
 
   const classes = useStyles();
-  const { data, error, isLoading, isError } = useQuery(["trending"], () =>
-    getTrendingItems(mediaType, time)
+  const { data, error, isLoading, isError } = useQuery(
+    ["trending", time, mediaType],
+    () => getTrendingItems(mediaType, time)
   );
-
-  const { mutateAsync, isError: testing } = useMutation(getTrendingItems);
 
   if (isLoading) {
     return <Spinner />;
@@ -122,23 +120,10 @@ const TrendingPage = (props) => {
       event.target.value === "movie" ||
       event.target.value === "person"
     ) {
-      let test1 = await mutateAsync(event.target.value, time);
-
-      queryClient.setQueryData(["trending"], test1);
-
       setMediaType(event.target.value);
     } else {
-      let test2 = await mutateAsync(mediaType, event.target.value);
-
-      queryClient.setQueryData(["trending"], test2);
-   
-
       setTime(event.target.value);
-
-
     }
-
-   
   };
 
   return (
