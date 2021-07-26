@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TrendingPage = (props) => {
   let trendingInfo = [];
+  let moreDetailUrl;
   const [time, setTime] = React.useState("day");
   const [mediaType, setMediaType] = React.useState("movie");
 
@@ -87,6 +88,13 @@ const TrendingPage = (props) => {
     return <h1>{error.message}</h1>;
   }
 
+
+if (mediaType === 'movie' || mediaType === 'tv') {
+   moreDetailUrl = '/movies'
+}
+else {
+ moreDetailUrl = '/person/credits'
+}
   data.results.forEach((item, i) => {
     let featuredStatus;
     let title;
@@ -131,9 +139,16 @@ const TrendingPage = (props) => {
       {data ? (
         <Container width="90vw">
           <div className={classes.root}>
+              {
+                  mediaType === 'movie' ?
             <Typography variant="h2" className={classes.heading} gutterBottom>
-              Trending {mediaType}s {time}
+              Trending {mediaType}s
+            </Typography> : mediaType === 'tv' ? <Typography variant="h2" className={classes.heading} gutterBottom>
+              Trending {mediaType.toUpperCase()} shows
+            </Typography> : <Typography variant="h2" className={classes.heading} gutterBottom>
+              Trending People
             </Typography>
+            }
 
             <div className={classes.gridParent}>
               <Grid container spacing={3}>
@@ -184,7 +199,7 @@ const TrendingPage = (props) => {
                         rows={item.featured ? 2 : 1}
                       >
                         <img src={item.img} alt={item.title} />
-                        <a href={`/movies/${item.id}`}>
+                        <a href={`${moreDetailUrl}/${item.id}`}>
                           <ImageListItemBar
                             title={item.title}
                             position="top"
