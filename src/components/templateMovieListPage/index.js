@@ -5,13 +5,27 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import MovieList from "../movieList";
 import { filteredMoviesSearch } from "../../api/tmdb-api";
+import Pagination from "@material-ui/lab/Pagination";
+import Typography from "@material-ui/core/Typography";
 
-
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: "20px",
   },
-});
+  pagination: {
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+      justifyContent: "center",
+      display: "flex",
+    },
+    textAlign: "center",
+  },
+  paginatedList: {
+    width: "100%",
+    margin: "20px auto",
+    textAlign: "center",
+  },
+}));
 
 //If advanced filter (reassign displayed movies)
 
@@ -20,7 +34,8 @@ function MovieListPageTemplate({
   title,
   action,
   filteredMoviesSearch,
-
+  handlePageChange,
+  page,
 }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
@@ -36,19 +51,17 @@ function MovieListPageTemplate({
   const [originalLanguage, setOriginalLanguage] = useState("");
   const [sortCategory, setSortCategory] = useState("");
   const [open, setOpen] = React.useState(false);
+
   const genreId = Number(genreFilter);
   let displayedMovies;
 
-
-displayedMovies = movies
+  displayedMovies = movies
     .filter((m) => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
-
-  
 
   let getAdvancedFilterResults = () => {
     filteredMoviesSearch(
@@ -115,6 +128,17 @@ displayedMovies = movies
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>
+        <Grid item xs={12}>
+          <div className={classes.pagination}>
+            <Typography>Page: {page}</Typography>
+            <Pagination
+              count={100}
+              page={page}
+              className={classes.paginatedList}
+              onChange={handlePageChange}
+            />
+          </div>
+        </Grid>
       </Grid>
     </Grid>
   );

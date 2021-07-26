@@ -1,6 +1,6 @@
-export const getMovies = async () => {
+export const getMovies = async (page) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
   );
   if (!response.ok) {
     throw new Error(response.json().message);

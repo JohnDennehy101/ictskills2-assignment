@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getMovies, filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
+import { queryClient } from "../index";
 
 const HomePage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("discover", getMovies);
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState([]);
+  const [page, setPage] = React.useState(1);
+
+  console.log(page);
+  const { data, error, isLoading, isError } = useQuery(
+    ["discover", { id: page }],
+    () => getMovies(page),
+    { keepPreviousData: true, staleTime: 5000 }
+  );
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+  useEffect(() => {
+    if (data?.hasMore) {
+      queryClient.prefetchQuery(["discover", page + 1], () =>
+        getMovies(page + 1)
+      );
+    }
+  }, [data, page, queryClient]);
 
   if (isLoading) {
     return <Spinner />;
@@ -60,6 +79,8 @@ const HomePage = (props) => {
         return <AddToFavoritesIcon movie={movie} />;
       }}
       filteredMoviesSearch={filteredSearchFunction}
+      handlePageChange={handlePageChange}
+      page={page}
     />
   );
 };
