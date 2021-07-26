@@ -10,13 +10,8 @@ import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Typography from "@material-ui/core/Typography";
-
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
+import TrendingInputFilter from "../components/trendingInputFilter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,13 +83,11 @@ const TrendingPage = (props) => {
     return <h1>{error.message}</h1>;
   }
 
-
-if (mediaType === 'movie' || mediaType === 'tv') {
-   moreDetailUrl = '/movies'
-}
-else {
- moreDetailUrl = '/person/credits'
-}
+  if (mediaType === "movie" || mediaType === "tv") {
+    moreDetailUrl = "/movies";
+  } else {
+    moreDetailUrl = "/person/credits";
+  }
   data.results.forEach((item, i) => {
     let featuredStatus;
     let title;
@@ -139,51 +132,37 @@ else {
       {data ? (
         <Container width="90vw">
           <div className={classes.root}>
-              {
-                  mediaType === 'movie' ?
-            <Typography variant="h2" className={classes.heading} gutterBottom>
-              Trending {mediaType}s
-            </Typography> : mediaType === 'tv' ? <Typography variant="h2" className={classes.heading} gutterBottom>
-              Trending {mediaType.toUpperCase()} shows
-            </Typography> : <Typography variant="h2" className={classes.heading} gutterBottom>
-              Trending People
-            </Typography>
-            }
+            {mediaType === "movie" ? (
+              <Typography variant="h2" className={classes.heading} gutterBottom>
+                Trending {mediaType}s
+              </Typography>
+            ) : mediaType === "tv" ? (
+              <Typography variant="h2" className={classes.heading} gutterBottom>
+                Trending {mediaType.toUpperCase()} shows
+              </Typography>
+            ) : (
+              <Typography variant="h2" className={classes.heading} gutterBottom>
+                Trending People
+              </Typography>
+            )}
 
             <div className={classes.gridParent}>
               <Grid container spacing={3}>
                 <Grid item xs={12} className={classes.selectGrid}>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-helper-label">
-                      Media Type
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-helper-label"
-                      id="demo-simple-select-helper"
-                      value={mediaType}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={"movie"}>Movie</MenuItem>
-                      <MenuItem value={"tv"}>TV</MenuItem>
-                      <MenuItem value={"person"}>Person</MenuItem>
-                    </Select>
-                    <FormHelperText>Select the media type</FormHelperText>
-                  </FormControl>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-helper-label-2">
-                      time
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-helper-label-2"
-                      id="demo-simple-select-helper-2"
-                      value={time}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={"day"}>Day</MenuItem>
-                      <MenuItem value={"week"}>Week</MenuItem>
-                    </Select>
-                    <FormHelperText>Select the time</FormHelperText>
-                  </FormControl>
+                  <TrendingInputFilter
+                    labelValue={"Media Type"}
+                    value={mediaType}
+                    handleChange={handleChange}
+                    menuItems={["tv", "movie", "person"]}
+                    helperText={"Select the media type"}
+                  />
+                  <TrendingInputFilter
+                    labelValue={"Timeframe"}
+                    value={time}
+                    handleChange={handleChange}
+                    menuItems={["day", "week"]}
+                    helperText={"Select the timeframe"}
+                  />
                 </Grid>
 
                 <Grid item xs={12}>
