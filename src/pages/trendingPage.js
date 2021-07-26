@@ -4,8 +4,8 @@ import Spinner from "../components/spinner";
 import { getTrendingItems } from "../api/tmdb-api";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import TrendingPageTitle from "../components/trendingPageTitle";
 import TrendingInputFilter from "../components/trendingInputFilter";
 import TrendingImageList from "../components/trendingImageList";
 
@@ -19,12 +19,6 @@ const useStyles = makeStyles((theme) => ({
   },
   gridParent: {
     flexGrow: 1,
-  },
-  heading: {
-    margin: "40px auto",
-    fontWeight: "500",
-    width: "100%",
-    textAlign: "center",
   },
   selectGrid: {
     margin: "10px auto",
@@ -102,19 +96,7 @@ const TrendingPage = (props) => {
       {data ? (
         <Container width="90vw">
           <div className={classes.root}>
-            {mediaType === "movie" ? (
-              <Typography variant="h2" className={classes.heading} gutterBottom>
-                Trending {mediaType}s
-              </Typography>
-            ) : mediaType === "tv" ? (
-              <Typography variant="h2" className={classes.heading} gutterBottom>
-                Trending {mediaType.toUpperCase()} shows
-              </Typography>
-            ) : (
-              <Typography variant="h2" className={classes.heading} gutterBottom>
-                Trending People
-              </Typography>
-            )}
+            <TrendingPageTitle mediaType={mediaType} />
 
             <div className={classes.gridParent}>
               <Grid container spacing={3}>
@@ -136,7 +118,10 @@ const TrendingPage = (props) => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <TrendingImageList trendingInfo={trendingInfo} moreDetailUrl={moreDetailUrl} />
+                  <TrendingImageList
+                    trendingInfo={trendingInfo}
+                    moreDetailUrl={moreDetailUrl}
+                  />
                 </Grid>
               </Grid>
             </div>
