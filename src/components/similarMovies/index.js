@@ -40,7 +40,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimilarMovies({ itemData }) {
+export default function SimilarMovies({ itemData, mediaType }) {
+  let title = mediaType === 'movie' ? 'Movies' : 'Tv Shows';
+  let titleMapping = mediaType === 'movie' ? 'title' : 'name';
+  let urlLink = mediaType === 'movie' ? '/movies' : '/tv';
   const classes = useStyles();
 
   return (
@@ -50,27 +53,27 @@ export default function SimilarMovies({ itemData }) {
         component="h3"
         className={classes.similarMoviesTitle}
       >
-        Similar Movies
+        Similar {title}
       </Typography>
       <div className={classes.root}>
         <ImageList className={classes.imageList} cols={2.5}>
           {itemData.results.map((item) => (
             <ImageListItem key={item.id} className={classes.image}>
-              <a href={`/movies/${item.id}`}>
+              <a href={`${urlLink}/${item.id}`}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                   alt={item.title}
                 />
               </a>
               <ImageListItemBar
-                title={item.title}
+                title={item[titleMapping]}
                 subtitle={<span>Average Rating: {item.vote_average}</span>}
                 classes={{
                   root: classes.titleBar,
                   title: classes.title,
                 }}
                 actionIcon={
-                  <IconButton aria-label={`star ${item.title}`}>
+                  <IconButton aria-label={`star ${`${item}.${titleMapping}`}`}>
                     <LocalMoviesIcon className={classes.title} />
                   </IconButton>
                 }

@@ -6,7 +6,7 @@ import SimilarMoviesComponent from "../components/similarMovies";
 import { getTvShow, getSimilarTvShows, getTvCast } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import MovieCast from "../components/movieCast";
+import CastComponent from "../components/castComponent";
 import CastModal from "../components/castModal";
 import { getPersonDetail } from "../api/tmdb-api";
 
@@ -59,8 +59,8 @@ const MovieDetailsPage = (props) => {
         <>
           <PageTemplate movie={tvShow}>
             <MovieDetails movie={tvShow} mediaType={'tv'} />
-            <SimilarMoviesComponent itemData={similarTvShows} />
-            <MovieCast cast={tvShowCast} handleClickOpen={handleClickOpen} />
+            <SimilarMoviesComponent itemData={similarTvShows} mediaType={'tv'} />
+            <CastComponent cast={tvShowCast} handleClickOpen={handleClickOpen} mediaType={'tv'} />
             <CastModal
               handleClose={handleClose}
               actorDetail={actorDetail}

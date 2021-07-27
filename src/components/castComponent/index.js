@@ -69,8 +69,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieCast({ cast, handleClickOpen }) {
+export default function CastComponent({ cast, handleClickOpen, mediaType }) {
   const classes = useStyles();
+  let title = mediaType === 'movie' ? 'Movie' : 'TV Show'
+
 
   return (
     <>
@@ -79,7 +81,7 @@ export default function MovieCast({ cast, handleClickOpen }) {
         component="h3"
         className={classes.similarMoviesTitle}
       >
-        Movie Cast
+        {title} Cast
       </Typography>
       <List className={classes.root}>
         {cast.cast.map((castMember) => (

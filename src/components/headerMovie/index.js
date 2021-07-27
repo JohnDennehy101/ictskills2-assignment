@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MovieHeader = ( { movie, history}) => {
+const MovieHeader = ( { movie, history, mediaType}) => {
+  let title = mediaType === 'movie' ? movie.title : movie.name;
   const classes = useStyles();
 
   return (
@@ -31,7 +32,7 @@ const MovieHeader = ( { movie, history}) => {
       </IconButton>
 
       <Typography variant="h4" component="h3">
-        {movie.title}
+        {title}
         <a href={movie.homepage}>
           <HomeIcon color="primary" />
         </a>
