@@ -19,10 +19,32 @@ export const getSimilarMovies = async (args) => {
   return response.json();
 };
 
+export const getSimilarTvShows = async (args) => {
+  const [prefix, { id }] = args.queryKey;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/tv/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
+
 export const getMovieCast = async (args) => {
   const [prefix, { id }] = args.queryKey;
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
+
+export const getTvCast = async (args) => {
+  const [prefix, { id }] = args.queryKey;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
   );
   if (!response.ok) {
     throw new Error(response.json().message);
@@ -110,11 +132,22 @@ export const filteredMoviesSearch = async (
 };
 
 export const getMovie = async (args) => {
+  const [prefix, { id }] = args.queryKey;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
+
+export const getTvShow = async (args) => {
   // console.log(args)
   // eslint-disable-next-line no-unused-vars
   const [prefix, { id }] = args.queryKey;
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
   );
   if (!response.ok) {
     throw new Error(response.json().message);

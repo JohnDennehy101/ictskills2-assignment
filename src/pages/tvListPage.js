@@ -73,7 +73,7 @@ const TvListPage = (props) => {
   return (
     <PageTemplate
       title="Discover TV Shows"
-      movies={tvShows}
+      content={tvShows}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />;
       }}

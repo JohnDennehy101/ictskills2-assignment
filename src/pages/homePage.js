@@ -69,18 +69,19 @@ const HomePage = (props) => {
     setFilterData(filterApiCall.results);
     setFilter(true);
 
-    //movies = await
+    
   };
   return (
     <PageTemplate
       title="Discover Movies"
-      movies={movies}
+      content={movies}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />;
       }}
       filteredMoviesSearch={filteredSearchFunction}
       handlePageChange={handlePageChange}
       page={page}
+      mediaType={'movie'}
     />
   );
 };
