@@ -59,8 +59,8 @@ const MovieDetailsPage = (props) => {
     <>
       {movie && similarMovies && movieCast ? (
         <>
-          <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} />
+          <PageTemplate movie={movie} mediaType={'movie'}>
+            <MovieDetails movie={movie} mediaType={'movie'} />
             <SimilarMoviesComponent itemData={similarMovies} />
             <MovieCast cast={movieCast} handleClickOpen={handleClickOpen} />
             <CastModal

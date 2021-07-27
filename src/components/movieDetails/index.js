@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const MovieDetails = ({ movie }) => {
+const MovieDetails = ({ movie, mediaType }) => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const classes = useStyles();
@@ -60,10 +60,12 @@ const MovieDetails = ({ movie }) => {
       </Paper>
       <Paper component="ul" className={classes.root}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+        { mediaType === 'movie' ? 
         <Chip
           icon={<MonetizationIcon />}
           label={`${movie.revenue.toLocaleString()}`}
-        />
+        /> : <></>
+}
         <Chip
           icon={<StarRate />}
           label={`${movie.vote_average} (${movie.vote_count}`}

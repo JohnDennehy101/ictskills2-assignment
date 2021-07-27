@@ -179,6 +179,18 @@ export const getMovieImages = async ({ queryKey }) => {
   return response.json();
 };
 
+export const getTvShowImages = async ({ queryKey }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [prefix, { id }] = queryKey;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/tv/${id}/images?api_key=${process.env.REACT_APP_TMDB_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
+
 export const getMovieReviews = (id) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_KEY}`

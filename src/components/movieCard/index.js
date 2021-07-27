@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -25,36 +25,39 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieCard({ movie, action , mediaType }) {
-   const classes = useStyles();
+export default function MovieCard({ movie, action, mediaType }) {
+  const classes = useStyles();
   const { favorites, mustWatch } = useContext(MoviesContext);
-  let title;
+  let linkUrl;
 
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
   }
 
-  if ( mustWatch.find((id) => id === movie.id)) {
+  if (mustWatch.find((id) => id === movie.id)) {
     movie.mustWatch = true;
   }
- 
- 
+
+  if (mediaType === "movie") {
+    linkUrl = `/movies/${movie.id}`;
+  } else {
+    linkUrl = `/tv/${movie.id}`;
+  }
+
   return (
     <Card className={classes.card}>
       <CardHeader
         className={classes.header}
         avatar={
-          (movie.favorite ? (
+          movie.favorite ? (
             <Avatar className={classes.avatar}>
               <FavoriteIcon />
-            
             </Avatar>
           ) : movie.mustWatch ? (
             <Avatar className={classes.avatar}>
-            
-             <PlayListAddIcon />
+              <PlayListAddIcon />
             </Avatar>
-          ) :  null)
+          ) : null
         }
         title={
           <Typography variant="h5" component="p">
@@ -87,8 +90,8 @@ export default function MovieCard({ movie, action , mediaType }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-          {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
+        {action(movie)}
+        <Link to={linkUrl}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>

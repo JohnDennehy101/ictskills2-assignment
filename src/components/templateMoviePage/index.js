@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageList from "@material-ui/core/ImageList";
 import GridListTile from "@material-ui/core/GridListTile";
-import { getMovieImages } from "../../api/tmdb-api";
+import { getMovieImages, getTvShowImages } from "../../api/tmdb-api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,11 +20,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TemplateMoviePage = ({ movie, children }) => {
+const TemplateMoviePage = ({ movie, children, mediaType }) => {
   const classes = useStyles();
+  let apiCall;
+
+  if (mediaType === 'movie') {
+    apiCall = getMovieImages
+  }
+  else {
+    apiCall = getTvShowImages
+  }
   const { data, error, isLoading, isError } = useQuery(
-    ["images", { id: movie.id }],
-    getMovieImages
+    ["images", { id: movie.id }], 
+    apiCall
   );
 
   if (isLoading) {

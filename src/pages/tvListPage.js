@@ -80,6 +80,7 @@ const TvListPage = (props) => {
       filteredMoviesSearch={filteredSearchFunction}
       handlePageChange={handlePageChange}
       page={page}
+      mediaType={'tv'}
     />
   );
 };
