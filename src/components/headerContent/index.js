@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MovieHeader = ( { movie, history, mediaType}) => {
+const HeaderContent = ( { movie, history, mediaType}) => {
   let title = mediaType === 'movie' ? movie.title : movie.name;
   const classes = useStyles();
 
@@ -46,4 +46,4 @@ const MovieHeader = ( { movie, history, mediaType}) => {
   );
 };
 
-export default withRouter(MovieHeader);
+export default withRouter(HeaderContent);

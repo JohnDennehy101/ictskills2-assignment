@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MovieDetails = ({ movie, mediaType }) => {
+const ContentDetails = ({ movie, mediaType }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const classes = useStyles();
 
@@ -124,4 +124,4 @@ const MovieDetails = ({ movie, mediaType }) => {
     </>
   );
 };
-export default MovieDetails;
+export default ContentDetails;

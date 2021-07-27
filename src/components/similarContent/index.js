@@ -35,12 +35,12 @@ const useStyles = makeStyles({
     background:
       "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
   },
-  similarMoviesTitle: {
+  similarContentTitle: {
     margin: "20px 0",
   },
 });
 
-export default function SimilarMovies({ itemData, mediaType }) {
+export default function ContentDetail({ itemData, mediaType }) {
   let title = mediaType === 'movie' ? 'Movies' : 'Tv Shows';
   let titleMapping = mediaType === 'movie' ? 'title' : 'name';
   let urlLink = mediaType === 'movie' ? '/movies' : '/tv';
@@ -51,7 +51,7 @@ export default function SimilarMovies({ itemData, mediaType }) {
       <Typography
         variant="h5"
         component="h3"
-        className={classes.similarMoviesTitle}
+        className={classes.similarContentTitle}
       >
         Similar {title}
       </Typography>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PageTemplate from "../components/templateMovieListPage";
+import PageTemplate from "../components/templateContentListPage";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getMovies, filteredMoviesSearch } from "../api/tmdb-api";

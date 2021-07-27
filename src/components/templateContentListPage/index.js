@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "../headerMovieList";
+import Header from "../headerContentList";
 import FilterCard from "../filterMoviesCard";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import MovieList from "../movieList";
+import ContentList from "../contentList";
 import Pagination from "@material-ui/lab/Pagination";
 import Typography from "@material-ui/core/Typography";
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 //If advanced filter (reassign displayed movies)
 
-function MovieListPageTemplate({
+function TemplateContentPage({
   content,
   title,
   action,
@@ -53,9 +53,9 @@ function MovieListPageTemplate({
   const [open, setOpen] = React.useState(false);
 
   const genreId = Number(genreFilter);
-  let displayedMovies;
+  let displayedContent;
 
-  displayedMovies = content
+  displayedContent = content
     .filter((m) => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
@@ -127,7 +127,7 @@ function MovieListPageTemplate({
             handleClose={handleClose}
           />
         </Grid>
-        <MovieList action={action} movies={displayedMovies} mediaType={mediaType}></MovieList>
+        <ContentList action={action} movies={displayedContent} mediaType={mediaType} />
         <Grid item xs={12}>
           <div className={classes.pagination}>
             <Typography>Page: {page}</Typography>
@@ -143,4 +143,4 @@ function MovieListPageTemplate({
     </Grid>
   );
 }
-export default MovieListPageTemplate;
+export default TemplateContentPage;

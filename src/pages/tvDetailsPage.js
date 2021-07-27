@@ -1,8 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import MovieDetails from "../components/movieDetails";
-import PageTemplate from "../components/templateMoviePage";
-import SimilarMoviesComponent from "../components/similarMovies";
+import ContentDetail from "../components/contentDetail";
+import PageTemplate from "../components/templateContentPage";
+import SimilarContent from "../components/similarContent";
 import { getTvShow, getSimilarTvShows, getTvCast } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
@@ -57,9 +57,9 @@ const MovieDetailsPage = (props) => {
     <>
       {tvShow && similarTvShows && tvShowCast ? (
         <>
-          <PageTemplate movie={tvShow}>
-            <MovieDetails movie={tvShow} mediaType={'tv'} />
-            <SimilarMoviesComponent itemData={similarTvShows} mediaType={'tv'} />
+          <PageTemplate content={tvShow}>
+            <ContentDetail movie={tvShow} mediaType={'tv'} />
+            <SimilarContent itemData={similarTvShows} mediaType={'tv'} />
             <CastComponent cast={tvShowCast} handleClickOpen={handleClickOpen} mediaType={'tv'} />
             <CastModal
               handleClose={handleClose}

@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieCard({ movie, action, mediaType }) {
+export default function ContentCard({ movie, action, mediaType }) {
   const classes = useStyles();
   const { favorites, mustWatch } = useContext(MoviesContext);
   let linkUrl;
