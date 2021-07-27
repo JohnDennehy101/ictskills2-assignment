@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
@@ -9,7 +9,7 @@ import Fab from "@material-ui/core/Fab";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import MovieReviews from "../movieReviews"
+import MovieReviews from "../movieReviews";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,16 +27,16 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+    zIndex: '1'
   },
 }));
 
-
-
 const MovieDetails = ({ movie, mediaType }) => {
-
   const [drawerOpen, setDrawerOpen] = useState(false);
   const classes = useStyles();
 
+  console.log(movie);
+  console.log(mediaType);
 
   return (
     <>
@@ -59,23 +59,41 @@ const MovieDetails = ({ movie, mediaType }) => {
         ))}
       </Paper>
       <Paper component="ul" className={classes.root}>
-        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
-        { mediaType === 'movie' ? 
-        <Chip
-          icon={<MonetizationIcon />}
-          label={`${movie.revenue.toLocaleString()}`}
-        /> : <></>
-}
+        {mediaType === "movie" ? (
+          <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+        ) : (
+          <Chip
+            icon={<AccessTimeIcon />}
+            label={`${movie.episode_run_time} min.`}
+          />
+        )}
+
+        {mediaType === "movie" ? (
+          <Chip
+            icon={<MonetizationIcon />}
+            label={`${movie.revenue.toLocaleString()}`}
+          />
+        ) : (
+          <></>
+        )}
         <Chip
           icon={<StarRate />}
-          label={`${movie.vote_average} (${movie.vote_count}`}
+          label={`${movie.vote_average} (${movie.vote_count})`}
         />
-        <Chip label={`Released: ${movie.release_date}`} />
+        {mediaType === "movie" ? (
+          <Chip label={`Released: ${movie.release_date}`} />
+        ) : (
+          <Chip label={`Released: ${movie.first_air_date}`} />
+        )}
       </Paper>
 
-       <Paper component="ul" className={classes.root}>
+      <Paper component="ul" className={classes.root}>
         <li>
-          <Chip label="Production Countries" className={classes.chip} color="primary" />
+          <Chip
+            label="Production Countries"
+            className={classes.chip}
+            color="primary"
+          />
         </li>
         {movie.production_countries.map((g) => (
           <li key={g.name}>
@@ -83,27 +101,27 @@ const MovieDetails = ({ movie, mediaType }) => {
           </li>
         ))}
       </Paper>
+      <Fab color="secondary" variant="extended" className={classes.fab}>
+        <NavigationIcon />
+        Reviews
+      </Fab>
       <Fab
         color="secondary"
         variant="extended"
+        onClick={() => setDrawerOpen(true)}
         className={classes.fab}
       >
         <NavigationIcon />
         Reviews
       </Fab>
-       <Fab
-        color="secondary"
-        variant="extended"
-        onClick={() =>setDrawerOpen(true)}
-        className={classes.fab}
+      <Drawer
+        anchor="top"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
       >
-        <NavigationIcon />
-        Reviews
-      </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <MovieReviews movie={movie} />
       </Drawer>
-      </>
+    </>
   );
 };
-export default  MovieDetails ;
+export default MovieDetails;
