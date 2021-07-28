@@ -1,5 +1,5 @@
 import React from "react";
-import PageTemplate from "../components/templateMoviePage";
+import PageTemplate from "../components/templateContentPage";
 import ReviewForm from "../components/reviewForm";
 import { withRouter } from "react-router-dom";
 import { useQuery } from "react-query";

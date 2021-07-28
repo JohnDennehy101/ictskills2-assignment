@@ -119,7 +119,7 @@ const ContentDetails = ({ movie, mediaType }) => {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
-        <MovieReviews movie={movie} />
+        <MovieReviews movie={movie} mediaType={mediaType} />
       </Drawer>
     </>
   );

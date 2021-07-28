@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
-import { getMovieReviews } from "../../api/tmdb-api";
+import { getMovieReviews, getTvReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
 
 const useStyles = makeStyles({
@@ -17,16 +17,22 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieReviews({ movie }) {
+export default function MovieReviews({ movie, mediaType }) {
+  let apiCall = mediaType === 'movie' ? getMovieReviews : getTvReviews;
+
+  console.log("API CALL")
+  console.log(apiCall);
   const classes = useStyles();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    getMovieReviews(movie.id).then((reviews) => {
+    apiCall(movie.id).then((reviews) => {
       setReviews(reviews);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(reviews);
 
   return (
     <TableContainer component={Paper}>
