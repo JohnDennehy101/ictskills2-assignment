@@ -7,6 +7,7 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 
 const WriteReviewPage = (props) => {
+  console.log(props);
   const { movieId } = props.location.state;
   const { data: movie, error, isLoading, isError } = useQuery(
     ["movie", { id: movieId }],
@@ -21,7 +22,7 @@ const WriteReviewPage = (props) => {
     return <h1>{error.message}</h1>;
   }
   return (
-    <PageTemplate movie={movie}>
+    <PageTemplate content={movie}>
       <ReviewForm movie={movie} />
     </PageTemplate>
   );

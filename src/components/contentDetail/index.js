@@ -9,7 +9,7 @@ import Fab from "@material-ui/core/Fab";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import MovieReviews from "../movieReviews";
+import ContentReviews from "../contentReviews";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,7 +119,7 @@ const ContentDetails = ({ movie, mediaType }) => {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
-        <MovieReviews movie={movie} mediaType={mediaType} />
+        <ContentReviews movie={movie} mediaType={mediaType} />
       </Drawer>
     </>
   );

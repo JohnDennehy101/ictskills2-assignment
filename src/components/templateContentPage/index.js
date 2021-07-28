@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TemplateContentPage = ({ content, children, mediaType }) => {
   const classes = useStyles();
+  console.log(content);
   let apiCall;
 
   if (mediaType === 'movie') {

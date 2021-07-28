@@ -7,6 +7,8 @@ import Spinner from '../components/spinner';
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
 
+
+
 const FavoriteMoviesPage = () => {
   const {favorites: movieIds } = useContext(MoviesContext);
 
@@ -26,17 +28,22 @@ const FavoriteMoviesPage = () => {
     return <Spinner />;
   }
   const favoriteMovies = favoriteMovieQueries.map((q) => q.data);
+
+  console.log(favoriteMovies);
   
 
    return (
+
+   
     <PageTemplate
       title="Favorite Movies"
-      movies={favoriteMovies}
+      content={favoriteMovies}
+      favouritePage={true}
       action={(movie) => {
         return (
           <>
             <RemoveFromFavorites movie={movie} />
-            <WriteReview movie={movie} />
+            <WriteReview content={movie} />
           </>
         );
       }}
