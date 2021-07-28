@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
-import MovieReviewPage from "./pages/movieReviewPage";
+import ReviewPage from "./pages/reviewPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import SiteHeader from "./components/siteHeader";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -46,7 +46,7 @@ const App = () => {
           <Route path="/movies/:id" component={MoviePage} />
           <Route path="/tv/:id" component={TvDetailsPage} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/reviews/:id" component={MovieReviewPage} />
+          <Route path="/reviews/:id" component={ReviewPage} />
           <Redirect from="*" to="/" />
         </Switch>
         </MoviesContextProvider>

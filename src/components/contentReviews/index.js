@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieReviews({ movie, mediaType }) {
+export default function ContentReviews({ movie, mediaType }) {
   let apiCall = mediaType === 'movie' ? getMovieReviews : getTvReviews;
 
   console.log("API CALL")
