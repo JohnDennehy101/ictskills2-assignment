@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 
 export default function ContentCard({ content, action, mediaType }) {
   let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext
+  let contentTitle = mediaType === 'movie' ? content.title : content.name;
   const classes = useStyles();
   const { favorites, mustWatch } = useContext(contextType);
   let linkUrl;
@@ -63,7 +64,7 @@ export default function ContentCard({ content, action, mediaType }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {content.title}{" "}
+            {contentTitle}{" "}
           </Typography>
         }
       />

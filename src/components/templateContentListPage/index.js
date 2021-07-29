@@ -105,7 +105,7 @@ function TemplateContentPage({
   const genreId = Number(genreFilter);
   let displayedContent = [];
 
-  if (content.length > 0) {
+  if (content.length > 0 && mediaType === 'movie') {
     displayedContent = content
       .filter((m) => {
         return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
@@ -113,8 +113,17 @@ function TemplateContentPage({
       .filter((m) => {
         return genreId > 0 ? m.genre_ids.includes(genreId) : true;
       });
+ 
   }
-
+  else if (content.length > 0 && mediaType === 'tv') {
+    displayedContent = content
+      .filter((m) => {
+        return m.name.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
+      })
+      .filter((m) => {
+        return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+      });
+  }
   let getAdvancedFilterResults = () => {
     filteredMoviesSearch(
       releaseYearFilter,

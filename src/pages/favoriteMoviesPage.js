@@ -17,6 +17,11 @@ const FavoriteMoviesPage = () => {
   // contentIds = mediaTypeChosen === 'movie' ? movieIds : tvShowIds;
   contextType = mediaTypeChosen === 'movie' ? MoviesContext : TvShowsContext;
   let apiCall = mediaTypeChosen === 'movie' ? getMovie : getTvShow;
+  let title = mediaTypeChosen === 'movie' ? "Favourite Movies" : "Favourite TV Shows"
+
+  console.log(apiCall);
+  console.log(mediaTypeChosen);
+  console.log(contextType);
 
   // const {favorites: movieIds } = useContext(MoviesContext);
   // const {favorites: tvShowIds } = useContext(TvShowContext);
@@ -56,9 +61,10 @@ const FavoriteMoviesPage = () => {
 
    
     <PageTemplate
-      title="Favorite Movies"
+      title={title}
       content={favoriteMovies}
       favouritePage={true}
+      mediaType={mediaTypeChosen}
       mediaTypeChosen={mediaTypeChosen}
       handleClose={handleClose}
       setDrawerOpen={setDrawerOpen}
