@@ -66,6 +66,7 @@ function TemplateContentPage({
   drawerOpen,
   handleModalClose,
 }) {
+  console.log(content);
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");

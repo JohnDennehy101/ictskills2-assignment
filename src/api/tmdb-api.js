@@ -213,9 +213,34 @@ export const getTvReviews = (id) => {
     });
 };
 
-export const getUpComingMovies = async () => {
+export const getUpComingMovies = async (page) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&page=${page}`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
+
+export const getUpComingTvShows = async (page) => {
+  //export this into utils file
+  function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+  let date = formatDate(new Date());
+  const response = await fetch(
+    `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&page=${page}&first_air_date.gte=${date}`
   );
   if (!response.ok) {
     throw new Error(response.json().message);
