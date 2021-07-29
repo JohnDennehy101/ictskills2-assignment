@@ -8,7 +8,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import Typography from "@material-ui/core/Typography";
 import Fab from "@material-ui/core/Fab";
 import NavigationIcon from "@material-ui/icons/Navigation";
-import Modal from '@material-ui/core/Modal';
+import Modal from "@material-ui/core/Modal";
 import TrendingInputFilter from "../trendingInputFilter";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,24 +28,25 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px auto",
     textAlign: "center",
   },
-   fab: {
+  fab: {
     position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2),
-    zIndex: '1'
+    zIndex: "1",
   },
-   paper: {
-    width: '30%',
-    height: '10vh',
-    margin: '100px auto',
-    textAlign: 'center',
+  paper: {
+    width: "30%",
+    height: "10vh",
+    margin: "100px auto",
+    textAlign: "center",
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     display: "flex",
-    alignItems: "center", justifyContent: "center" 
-  }
+    alignItems: "center",
+    justifyContent: "center",
+  },
 }));
 
 //If advanced filter (reassign displayed movies)
@@ -58,7 +59,12 @@ function TemplateContentPage({
   handlePageChange,
   page,
   mediaType,
-  favouritePage
+  favouritePage,
+  mediaTypeChosen,
+  handleClose,
+  setDrawerOpen,
+  drawerOpen,
+  handleModalClose,
 }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
@@ -74,41 +80,40 @@ function TemplateContentPage({
   const [originalLanguage, setOriginalLanguage] = useState("");
   const [sortCategory, setSortCategory] = useState("");
   const [open, setOpen] = React.useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mediaTypeChosen, setMediaType] = useState('movie');
-  const handleModalClose = () => {
-    setDrawerOpen(false);
-  };
+  // const [drawerOpen, setDrawerOpen] = useState(false);
+  // const [mediaTypeChosen, setMediaType] = useState('movie');
+  // const handleModalClose = () => {
+  //   setDrawerOpen(false);
+  // };
 
-
-  const handleClose = (e) => {
-    setMediaType(e.target.value);
-    setDrawerOpen(false);
-  };
-   const body = (
+  // const handleClose = (e) => {
+  //   setMediaType(e.target.value);
+  //   setDrawerOpen(false);
+  // };
+  const body = (
     <div className={classes.paper}>
-      <TrendingInputFilter labelValue={"Media Type"}
-                    value={mediaTypeChosen}
-                    handleChange={handleClose}
-                    menuItems={["movie", "tv"]}
-                    helperText={"Select the media type"} /> 
-    
+      <TrendingInputFilter
+        labelValue={"Media Type"}
+        value={mediaTypeChosen}
+        handleChange={handleClose}
+        menuItems={["movie", "tv"]}
+        helperText={"Select the media type"}
+      />
     </div>
   );
 
   const genreId = Number(genreFilter);
   let displayedContent = [];
 
-  if (content.length > 0 ) {
-displayedContent = content
-    .filter((m) => {
-      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
-    })
-    .filter((m) => {
-      return genreId > 0 ? m.genre_ids.includes(genreId) : true;
-    });
+  if (content.length > 0) {
+    displayedContent = content
+      .filter((m) => {
+        return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
+      })
+      .filter((m) => {
+        return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+      });
   }
-  
 
   let getAdvancedFilterResults = () => {
     filteredMoviesSearch(
@@ -126,8 +131,6 @@ displayedContent = content
   const handleOpen = () => {
     setOpen(true);
   };
-
-  
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
@@ -172,40 +175,40 @@ displayedContent = content
             handleClose={handleClose}
           />
         </Grid>
-        {favouritePage ?  <><Fab color="secondary" variant="extended" className={classes.fab}>
-        <NavigationIcon />
-        Type
-      </Fab>
-      <Fab
-        color="secondary"
-        variant="extended"
-        onClick={() => setDrawerOpen(true)}
-        className={classes.fab}
-      >
-        <NavigationIcon />
-        Type
-      </Fab>
-    
-      <Modal
-       style={{ alignItems: "center", justifyContent: "center" }}
-        open={drawerOpen}
-        onClose={handleModalClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-        {/* <TrendingInputFilter labelValue={"Timeframe"}
-                    value={'Test'}
-                    handleChange={handleChange}
-                    menuItems={["day", "week"]}
-                    helperText={"Select the timeframe"} /> */}
-      </Modal>
-    
-      
-      </> 
-      
-      : <></>}
-        <ContentList action={action} content={displayedContent} mediaType={mediaType} />
+        {favouritePage ? (
+          <>
+            <Fab color="secondary" variant="extended" className={classes.fab}>
+              <NavigationIcon />
+              Type
+            </Fab>
+            <Fab
+              color="secondary"
+              variant="extended"
+              onClick={() => setDrawerOpen(true)}
+              className={classes.fab}
+            >
+              <NavigationIcon />
+              Type
+            </Fab>
+
+            <Modal
+              style={{ alignItems: "center", justifyContent: "center" }}
+              open={drawerOpen}
+              onClose={handleModalClose}
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+            >
+              {body}
+            </Modal>
+          </>
+        ) : (
+          <></>
+        )}
+        <ContentList
+          action={action}
+          content={displayedContent}
+          mediaType={mediaType}
+        />
         <Grid item xs={12}>
           <div className={classes.pagination}>
             <Typography>Page: {page}</Typography>

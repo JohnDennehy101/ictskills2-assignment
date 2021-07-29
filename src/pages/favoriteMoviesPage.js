@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PageTemplate from "../components/templateContentListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -11,6 +11,17 @@ import WriteReview from "../components/cardIcons/writeReview";
 
 const FavoriteMoviesPage = () => {
   const {favorites: movieIds } = useContext(MoviesContext);
+   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [mediaTypeChosen, setMediaType] = useState('movie');
+  const handleModalClose = () => {
+    setDrawerOpen(false);
+  };
+  const handleClose = (e) => {
+    setMediaType(e.target.value);
+    setDrawerOpen(false);
+  };
+
+  
 
   // Create an array of queries and run in parallel.
   const favoriteMovieQueries = useQueries(
@@ -39,6 +50,11 @@ const FavoriteMoviesPage = () => {
       title="Favorite Movies"
       content={favoriteMovies}
       favouritePage={true}
+      mediaTypeChosen={mediaTypeChosen}
+      handleClose={handleClose}
+      setDrawerOpen={setDrawerOpen}
+      drawerOpen={drawerOpen}
+      handleModalClose={handleModalClose}
       action={(movie) => {
         return (
           <>

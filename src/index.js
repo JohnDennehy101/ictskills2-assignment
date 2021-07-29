@@ -10,6 +10,7 @@ import SiteHeader from "./components/siteHeader";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import MoviesContextProvider from "./contexts/moviesContext";
+import TvShowsContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import TvPage from './pages/tvListPage';
 import CastMemberInfoPage from './pages/castMemberInfo';
@@ -32,6 +33,7 @@ const App = () => {
       <BrowserRouter>
         <SiteHeader />
         <MoviesContextProvider>
+        <TvShowsContextProvider>
         <Switch>
           <Route exact path="/reviews/form" component={AddMovieReviewPage} />
           <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
@@ -49,6 +51,7 @@ const App = () => {
           <Route path="/reviews/:id" component={ReviewPage} />
           <Redirect from="*" to="/" />
         </Switch>
+        </TvShowsContextProvider>
         </MoviesContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
