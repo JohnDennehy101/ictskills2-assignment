@@ -2,13 +2,15 @@ import React, { useContext } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MoviesContext } from "../../contexts/moviesContext";
+import { TvShowsContext } from "../../contexts/tvShowsContext";
 
-const RemoveFromFavoritesIcon = ({ movie }) => {
-  const context = useContext(MoviesContext);
+const RemoveFromFavoritesIcon = ({ content, mediaType}) => {
+  let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext;
+  const context = useContext(contextType);
 
   const handleRemoveFromFavorites = (e) => {
     e.preventDefault();
-    context.removeFromFavorites(movie);
+    context.removeFromFavorites(content);
   };
   return (
     <IconButton

@@ -70,11 +70,11 @@ const FavoriteMoviesPage = () => {
       setDrawerOpen={setDrawerOpen}
       drawerOpen={drawerOpen}
       handleModalClose={handleModalClose}
-      action={(movie) => {
+      action={(content) => {
         return (
           <>
-            <RemoveFromFavorites movie={movie} />
-            <WriteReview content={movie} />
+            <RemoveFromFavorites content={content} mediaType={mediaTypeChosen}/>
+            <WriteReview content={content} />
           </>
         );
       }}
