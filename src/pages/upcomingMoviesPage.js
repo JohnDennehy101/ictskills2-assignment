@@ -71,7 +71,7 @@ const HomePage = (props) => {
       handlePageChange={handlePageChange}
       page={page}
       action={(movie) => {
-        return <AddToMustWatch movie={movie} />;
+        return <AddToMustWatch content={movie} mediaType={mediaTypeChosen} />;
       }}
     />
   );
