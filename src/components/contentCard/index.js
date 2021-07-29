@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
+import { TvShowsContext } from "../../contexts/tvShowsContext";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -25,23 +26,24 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContentCard({ movie, action, mediaType }) {
+export default function ContentCard({ content, action, mediaType }) {
+  let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext
   const classes = useStyles();
-  const { favorites, mustWatch } = useContext(MoviesContext);
+  const { favorites, mustWatch } = useContext(contextType);
   let linkUrl;
 
-  if (favorites.find((id) => id === movie.id)) {
-    movie.favorite = true;
+  if (favorites.find((id) => id === content.id)) {
+    content.favorite = true;
   }
 
-  if (mustWatch.find((id) => id === movie.id)) {
-    movie.mustWatch = true;
+  if (mustWatch.find((id) => id === content.id)) {
+    content.mustWatch = true;
   }
 
   if (mediaType === "movie") {
-    linkUrl = `/movies/${movie.id}`;
+    linkUrl = `/movies/${content.id}`;
   } else {
-    linkUrl = `/tv/${movie.id}`;
+    linkUrl = `/tv/${content.id}`;
   }
 
   return (
@@ -49,11 +51,11 @@ export default function ContentCard({ movie, action, mediaType }) {
       <CardHeader
         className={classes.header}
         avatar={
-          movie.favorite ? (
+          content.favorite ? (
             <Avatar className={classes.avatar}>
               <FavoriteIcon />
             </Avatar>
-          ) : movie.mustWatch ? (
+          ) : content.mustWatch ? (
             <Avatar className={classes.avatar}>
               <PlayListAddIcon />
             </Avatar>
@@ -61,15 +63,15 @@ export default function ContentCard({ movie, action, mediaType }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {content.title}{" "}
           </Typography>
         }
       />
       <CardMedia
         className={classes.media}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          content.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${content.poster_path}`
             : img
         }
       />
@@ -78,19 +80,19 @@ export default function ContentCard({ movie, action, mediaType }) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {content.release_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {content.vote_average}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {action(movie)}
+        {action(content)}
         <Link to={linkUrl}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...

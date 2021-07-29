@@ -8,7 +8,7 @@ const ContentList = ( {content, action, mediaType}) => {
   if (content.length > 0) {
 movieCards = content.map((m) => (
     <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-      <ContentCard key={m.id} movie={m} action={action} mediaType={mediaType}/>
+      <ContentCard key={m.id} content={m} action={action} mediaType={mediaType}/>
     </Grid>
   ));
   }

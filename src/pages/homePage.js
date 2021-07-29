@@ -76,7 +76,7 @@ const HomePage = (props) => {
       title="Discover Movies"
       content={movies}
       action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />;
+        return <AddToFavoritesIcon content={movie} mediaType={'movie'} />;
       }}
       filteredMoviesSearch={filteredSearchFunction}
       handlePageChange={handlePageChange}

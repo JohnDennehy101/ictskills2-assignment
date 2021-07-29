@@ -75,7 +75,7 @@ const TvListPage = (props) => {
       title="Discover TV Shows"
       content={tvShows}
       action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />;
+        return <AddToFavoritesIcon content={movie} mediaType={'tv'} />;
       }}
       filteredMoviesSearch={filteredSearchFunction}
       handlePageChange={handlePageChange}

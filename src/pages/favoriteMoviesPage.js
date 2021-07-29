@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import PageTemplate from "../components/templateContentListPage";
 import { MoviesContext } from "../contexts/moviesContext";
+import { TvShowsContext } from "../contexts/tvShowsContext";
 import { useQueries } from "react-query";
-import { getMovie } from "../api/tmdb-api";
+import { getMovie, getTvShow } from "../api/tmdb-api";
 import Spinner from '../components/spinner';
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
@@ -10,9 +11,17 @@ import WriteReview from "../components/cardIcons/writeReview";
 
 
 const FavoriteMoviesPage = () => {
-  const {favorites: movieIds } = useContext(MoviesContext);
+  let contextType;
    const [drawerOpen, setDrawerOpen] = useState(false);
   const [mediaTypeChosen, setMediaType] = useState('movie');
+  // contentIds = mediaTypeChosen === 'movie' ? movieIds : tvShowIds;
+  contextType = mediaTypeChosen === 'movie' ? MoviesContext : TvShowsContext;
+  let apiCall = mediaTypeChosen === 'movie' ? getMovie : getTvShow;
+
+  // const {favorites: movieIds } = useContext(MoviesContext);
+  // const {favorites: tvShowIds } = useContext(TvShowContext);
+  // console.log(contentIds);
+  const {favorites: content } = useContext(contextType);
   const handleModalClose = () => {
     setDrawerOpen(false);
   };
@@ -25,10 +34,10 @@ const FavoriteMoviesPage = () => {
 
   // Create an array of queries and run in parallel.
   const favoriteMovieQueries = useQueries(
-    movieIds.map((movieId) => {
+    content.map((contentId) => {
       return {
-        queryKey: ["movie", { id: movieId }],
-        queryFn: getMovie,
+        queryKey: [mediaTypeChosen, { id: contentId }],
+        queryFn: apiCall,
       };
     })
   );

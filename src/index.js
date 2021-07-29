@@ -10,7 +10,7 @@ import SiteHeader from "./components/siteHeader";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import MoviesContextProvider from "./contexts/moviesContext";
-import TvShowsContextProvider from "./contexts/moviesContext";
+import TvShowsContextProvider from "./contexts/tvShowsContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import TvPage from './pages/tvListPage';
 import CastMemberInfoPage from './pages/castMemberInfo';

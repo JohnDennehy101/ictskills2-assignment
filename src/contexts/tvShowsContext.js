@@ -41,4 +41,4 @@ const TvShowsContextProvider = (props) => {
   );
 };
 
-export default TvShowContextProvider;
+export default TvShowsContextProvider;
