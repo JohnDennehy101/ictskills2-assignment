@@ -52,15 +52,22 @@ export default function ContentCard({ content, action, mediaType }) {
       <CardHeader
         className={classes.header}
         avatar={
-          content.favorite ? (
+          content.favorite && content.mustWatch ? (
+            <>
             <Avatar className={classes.avatar}>
               <FavoriteIcon />
             </Avatar>
-          ) : content.mustWatch ? (
             <Avatar className={classes.avatar}>
               <PlayListAddIcon />
             </Avatar>
-          ) : null
+            </>
+          ) : content.favorite ? (
+            <Avatar className={classes.avatar}>
+              <FavoriteIcon />
+            </Avatar>
+          ) : content.mustWatch ?  <Avatar className={classes.avatar}>
+              <PlayListAddIcon />
+            </Avatar> : null
         }
         title={
           <Typography variant="h5" component="p">

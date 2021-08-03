@@ -10,7 +10,7 @@ import Fab from "@material-ui/core/Fab";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import Modal from "@material-ui/core/Modal";
 import TrendingInputFilter from "../trendingInputFilter";
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,13 +48,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-   snackbar: {
-    width: '100%',
-    '& > * + *': {
+  snackbar: {
+    width: "100%",
+    "& > * + *": {
       marginTop: theme.spacing(2),
     },
-    textAlign: 'center',
-    margin: '10px auto'
+    textAlign: "center",
+    margin: "10px auto",
   },
 }));
 
@@ -102,8 +102,8 @@ function TemplateContentPage({
   // };
 
   function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   const body = (
     <div className={classes.paper}>
@@ -120,7 +120,7 @@ function TemplateContentPage({
   const genreId = Number(genreFilter);
   let displayedContent = [];
 
-  if (content.length > 0 && mediaType === 'movie') {
+  if (content.length > 0 && mediaType === "movie") {
     displayedContent = content
       .filter((m) => {
         return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
@@ -128,9 +128,7 @@ function TemplateContentPage({
       .filter((m) => {
         return genreId > 0 ? m.genre_ids.includes(genreId) : true;
       });
- 
-  }
-  else if (content.length > 0 && mediaType === 'tv') {
+  } else if (content.length > 0 && mediaType === "tv") {
     displayedContent = content
       .filter((m) => {
         return m.name.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
@@ -179,97 +177,112 @@ function TemplateContentPage({
       <Grid item xs={12}>
         <Header title={title} />
       </Grid>
-      {displayedContent.length > 0 ? <Grid item container spacing={5}>
-        <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
-          <FilterCard
-            onUserInput={handleChange}
-            titleFilter={nameFilter}
-            genreFilter={genreFilter}
-            releaseYearFilter={releaseYearFilter}
-            averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
-            averageRatingLessThanFilter={averageRatingLessThanFilter}
-            durationGreaterThanFilter={durationGreaterThanFilter}
-            durationLessThanFilter={durationLessThanFilter}
-            originalLanguage={originalLanguage}
-            sortCategory={sortCategory}
-            filteredMoviesSearch={filteredMoviesSearch}
-            advancedSearch={getAdvancedFilterResults}
-            modalDisplay={open}
-            handleOpen={handleOpen}
-            handleClose={handleClose}
-          />
-        </Grid>
-        {favouritePage ? (
-          <>
-            <Fab color="secondary" variant="extended" className={classes.fab}>
-              <NavigationIcon />
-              Type
-            </Fab>
-            <Fab
-              color="secondary"
-              variant="extended"
-              onClick={() => setDrawerOpen(true)}
-              className={classes.fab}
-            >
-              <NavigationIcon />
-              Type
-            </Fab>
-
-            <Modal
-              style={{ alignItems: "center", justifyContent: "center" }}
-              open={drawerOpen}
-              onClose={handleModalClose}
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-            >
-              {body}
-            </Modal>
-          </>
-        ) : (
-          <></>
-        )}
-        <ContentList
-          action={action}
-          content={displayedContent}
-          mediaType={mediaType}
-        />
-        <Grid item xs={12}>
-          <div className={classes.pagination}>
-            <Typography>Page: {page}</Typography>
-            <Pagination
-              count={100}
-              page={page}
-              className={classes.paginatedList}
-              onChange={handlePageChange}
+      {displayedContent.length > 0 ? (
+        <Grid item container spacing={5}>
+          <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <FilterCard
+              onUserInput={handleChange}
+              titleFilter={nameFilter}
+              genreFilter={genreFilter}
+              releaseYearFilter={releaseYearFilter}
+              averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
+              averageRatingLessThanFilter={averageRatingLessThanFilter}
+              durationGreaterThanFilter={durationGreaterThanFilter}
+              durationLessThanFilter={durationLessThanFilter}
+              originalLanguage={originalLanguage}
+              sortCategory={sortCategory}
+              filteredMoviesSearch={filteredMoviesSearch}
+              advancedSearch={getAdvancedFilterResults}
+              modalDisplay={open}
+              handleOpen={handleOpen}
+              handleClose={handleClose}
             />
-          </div>
-        </Grid>
-      </Grid> :    <><Grid key="find" className={classes.snackbar} item xs={12} sm={6} md={4} lg={3} xl={2}><Alert  severity="info">No saved content to display.</Alert> </Grid> 
-            <Fab color="secondary" variant="extended" className={classes.fab}>
-              <NavigationIcon />
-              Type
-            </Fab>
-            <Fab
-              color="secondary"
-              variant="extended"
-              onClick={() => setDrawerOpen(true)}
-              className={classes.fab}
-            >
-              <NavigationIcon />
-              Type
-            </Fab>
+          </Grid>
+          {favouritePage ? (
+            <>
+              <Fab color="secondary" variant="extended" className={classes.fab}>
+                <NavigationIcon />
+                Type
+              </Fab>
+              <Fab
+                color="secondary"
+                variant="extended"
+                onClick={() => setDrawerOpen(true)}
+                className={classes.fab}
+              >
+                <NavigationIcon />
+                Type
+              </Fab>
 
-            <Modal
-              style={{ alignItems: "center", justifyContent: "center" }}
-              open={drawerOpen}
-              onClose={handleModalClose}
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-            >
-              {body}
-            </Modal>
+              <Modal
+                style={{ alignItems: "center", justifyContent: "center" }}
+                open={drawerOpen}
+                onClose={handleModalClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+              >
+                {body}
+              </Modal>
             </>
-          }
+          ) : (
+            <></>
+          )}
+          <ContentList
+            action={action}
+            content={displayedContent}
+            mediaType={mediaType}
+          />
+          <Grid item xs={12}>
+            <div className={classes.pagination}>
+              <Typography>Page: {page}</Typography>
+              <Pagination
+                count={100}
+                page={page}
+                className={classes.paginatedList}
+                onChange={handlePageChange}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      ) : (
+        <>
+          <Grid
+            key="find"
+            className={classes.snackbar}
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            xl={2}
+          >
+            <Alert severity="info">No saved content to display.</Alert>{" "}
+          </Grid>
+          <Fab color="secondary" variant="extended" className={classes.fab}>
+            <NavigationIcon />
+            Type
+          </Fab>
+          <Fab
+            color="secondary"
+            variant="extended"
+            onClick={() => setDrawerOpen(true)}
+            className={classes.fab}
+          >
+            <NavigationIcon />
+            Type
+          </Fab>
+
+          <Modal
+            style={{ alignItems: "center", justifyContent: "center" }}
+            open={drawerOpen}
+            onClose={handleModalClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            {body}
+          </Modal>
+        </>
+      )}
       {/* <Grid item container spacing={5}>
         <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
           <FilterCard
