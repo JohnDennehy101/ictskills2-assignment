@@ -17,6 +17,7 @@ import TvPage from './pages/tvListPage';
 import CastMemberInfoPage from './pages/castMemberInfo';
 import TrendingPage from './pages/trendingPage';
 import TvDetailsPage from './pages/tvDetailsPage';
+import CreateSessionPage from './pages/createSessionPage';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,7 @@ const App = () => {
           <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
           <Route exact path="/tv" component={TvPage} />
           <Route exact path="/trending" component={TrendingPage} />
+          <Route exact path="/success" component={CreateSessionPage} />
           <Route exact path="/person/credits/:id" component = {CastMemberInfoPage} />
           <Route
             exact

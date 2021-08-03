@@ -247,3 +247,60 @@ export const getUpComingTvShows = async (page) => {
   }
   return response.json();
 };
+
+export const createRequestToken = async () => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/authentication/token/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
+  )
+    if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+}
+
+export const askUserForAuthentication = async (sessionId) => {
+  let testUrl = `https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost.com:3000`;
+  console.log(testUrl);
+
+  window.location.href=`https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost:3000/success`;
+    // window.location.href=`https://www.themoviedb.org/authenticate/${sessionId}`;
+  
+  // const response = await fetch(
+  //   `https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost.com:3000`
+  // )
+
+//   const response = await fetch(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`,
+// {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//     method: "POST",
+//     body: JSON.stringify({"request_token": `${sessionId}`})
+// })
+  //   if (!response.ok) {
+  //   throw new Error(response.json().message);
+  // }
+  // return response.json();
+}
+
+export const createUserSession = async () => {
+  let requestToken = window.location.href.substring(Number(window.location.href.indexOf('=')) + 1, Number(window.location.href.indexOf('&')));
+
+  console.log(requestToken);
+  // `https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
+
+    const response = await fetch(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`,
+{
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({"request_token": `${requestToken}`})
+})
+    if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+}

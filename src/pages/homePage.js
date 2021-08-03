@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PageTemplate from "../components/templateContentListPage";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import { getMovies, filteredMoviesSearch } from "../api/tmdb-api";
+import { getMovies, filteredMoviesSearch, createRequestToken, askUserForAuthentication } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
 
@@ -28,6 +28,18 @@ const HomePage = (props) => {
       );
     }
   }, [data, page, queryClient]);
+  
+  useEffect(() => {
+    async function fetchData() {
+      console.log("CALLING")
+let requestTokenResponse = await createRequestToken();
+let requestToken = requestTokenResponse.request_token;
+let test = await askUserForAuthentication(requestToken);
+console.log(test);
+    }
+    
+    fetchData();
+  }, []);
 
   if (isLoading) {
     return <Spinner />;
