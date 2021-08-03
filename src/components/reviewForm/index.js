@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import useForm from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
-import { TvShowsContent } from "../../contexts/tvShowsContext";
+import { TvShowsContext } from "../../contexts/tvShowsContext";
 import { withRouter } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -58,21 +58,25 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   snack: {
-     width: "50%",
-     "& > * ": {
-       width: "100%",
-     },
-   },
+    width: "50%",
+    "& > * ": {
+      width: "100%",
+    },
+  },
 }));
 
-const ReviewForm = ({ content, history }) => {
+const ReviewForm = ({ content, history, mediaType }) => {
+  let contextType;
   const classes = useStyles();
   const { register, handleSubmit, errors, reset } = useForm();
-  const context = useContext(MoviesContext);
-  const [rating, setRating] = useState(3);
-  const [open, setOpen] = React.useState(false);  //NEW
 
-  const handleSnackClose = (event) => {     // NEW
+  contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
+
+  let context = useContext(contextType);
+  const [rating, setRating] = useState(3);
+  const [open, setOpen] = React.useState(false);
+
+  const handleSnackClose = (event) => {
     setOpen(false);
     history.push("/movies/favorites");
   };
@@ -84,6 +88,9 @@ const ReviewForm = ({ content, history }) => {
   const onSubmit = (review) => {
     review.movieId = content.id;
     review.rating = rating;
+    console.log(content.id);
+    console.log(content);
+    console.log(review);
     context.addReview(content, review);
     setOpen(true);
   };
