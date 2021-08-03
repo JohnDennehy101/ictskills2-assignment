@@ -74,7 +74,7 @@ const FavoriteMoviesPage = () => {
         return (
           <>
             <RemoveFromFavorites content={content} mediaType={mediaTypeChosen}/>
-            <WriteReview content={content} />
+            <WriteReview content={content} mediaType={mediaTypeChosen} />
           </>
         );
       }}

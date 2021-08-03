@@ -12,7 +12,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import MoviesContextProvider from "./contexts/moviesContext";
 import TvShowsContextProvider from "./contexts/tvShowsContext";
-import AddMovieReviewPage from './pages/addMovieReviewPage';
+import AddReviewPage from './pages/addReviewPage';
 import TvPage from './pages/tvListPage';
 import CastMemberInfoPage from './pages/castMemberInfo';
 import TrendingPage from './pages/trendingPage';
@@ -36,7 +36,7 @@ const App = () => {
         <MoviesContextProvider>
         <TvShowsContextProvider>
         <Switch>
-          <Route exact path="/reviews/form" component={AddMovieReviewPage} />
+          <Route exact path="/reviews/:content/form" component={AddReviewPage} />
           <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
           <Route exact path="/tv" component={TvPage} />
           <Route exact path="/trending" component={TrendingPage} />

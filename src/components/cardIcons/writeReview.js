@@ -6,7 +6,7 @@ const WriteReviewIcon = ({ content, mediaType }) => {
   return (
     <Link
       to={{
-        pathname: `/reviews/form`,
+        pathname: `/reviews/${mediaType}/form`,
         state: {
           contentId: content.id,
         },

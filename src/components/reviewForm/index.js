@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import useForm from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
+import { TvShowsContent } from "../../contexts/tvShowsContext";
 import { withRouter } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const ReviewForm = ({ movie, history }) => {
+const ReviewForm = ({ content, history }) => {
   const classes = useStyles();
   const { register, handleSubmit, errors, reset } = useForm();
   const context = useContext(MoviesContext);
@@ -81,9 +82,9 @@ const ReviewForm = ({ movie, history }) => {
   };
 
   const onSubmit = (review) => {
-    review.movieId = movie.id;
+    review.movieId = content.id;
     review.rating = rating;
-    context.addReview(movie, review);
+    context.addReview(content, review);
     setOpen(true);
   };
 

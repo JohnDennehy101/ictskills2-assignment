@@ -3,15 +3,23 @@ import PageTemplate from "../components/templateContentPage";
 import ReviewForm from "../components/reviewForm";
 import { withRouter } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getMovie } from "../api/tmdb-api";
+import { getMovie, getTvShow } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 
 const WriteReviewPage = (props) => {
   console.log(props);
-  const { movieId } = props.location.state;
-  const { data: movie, error, isLoading, isError } = useQuery(
-    ["movie", { id: movieId }],
-    getMovie
+  const { contentId } = props.location.state;
+  const { pathname } = props.location;
+
+  let movieCheck = pathname.includes('movie') ? true : false;
+  console.log(movieCheck);
+
+  let apiCall = movieCheck === true ? getMovie : getTvShow;
+
+  console.log(contentId);
+  const { data: content, error, isLoading, isError } = useQuery(
+    ["content", { id: contentId }],
+    apiCall
   );
 
   if (isLoading) {
@@ -22,8 +30,8 @@ const WriteReviewPage = (props) => {
     return <h1>{error.message}</h1>;
   }
   return (
-    <PageTemplate content={movie}>
-      <ReviewForm movie={movie} />
+    <PageTemplate content={content}>
+      <ReviewForm content={content} />
     </PageTemplate>
   );
 };
