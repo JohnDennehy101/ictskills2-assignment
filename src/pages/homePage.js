@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const CreateSessionPage = (props) => {
+const HomePage = (props) => {
     const classes = useStyles();
  
 //  useEffect(() => {
@@ -97,4 +97,4 @@ console.log(test);
   );
 };
 
-export default CreateSessionPage;
+export default HomePage;

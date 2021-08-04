@@ -227,17 +227,15 @@ export const getUpComingTvShows = async (page) => {
   //export this into utils file
   function formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
-    return [year, month, day].join('-');
-}
+    return [year, month, day].join("-");
+  }
   let date = formatDate(new Date());
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&page=${page}&first_air_date.gte=${date}`
@@ -251,56 +249,52 @@ export const getUpComingTvShows = async (page) => {
 export const createRequestToken = async () => {
   const response = await fetch(
     `https://api.themoviedb.org/3/authentication/token/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
-  )
-    if (!response.ok) {
+  );
+  if (!response.ok) {
     throw new Error(response.json().message);
   }
   return response.json();
-}
+};
 
 export const askUserForAuthentication = async (sessionId) => {
-  let testUrl = `https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost.com:3000`;
-  console.log(testUrl);
-
-  window.location.href=`https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost:3000/success`;
-    // window.location.href=`https://www.themoviedb.org/authenticate/${sessionId}`;
-  
-  // const response = await fetch(
-  //   `https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost.com:3000`
-  // )
-
-//   const response = await fetch(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`,
-// {
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     method: "POST",
-//     body: JSON.stringify({"request_token": `${sessionId}`})
-// })
-  //   if (!response.ok) {
-  //   throw new Error(response.json().message);
-  // }
-  // return response.json();
-}
+  window.location.href = `https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost:3000/success`;
+};
 
 export const createUserSession = async () => {
-  let requestToken = window.location.href.substring(Number(window.location.href.indexOf('=')) + 1, Number(window.location.href.indexOf('&')));
+  let deniedAuthentication = window.location.href.includes("denied=true");
+  let requestToken = window.location.href.substring(
+    Number(window.location.href.indexOf("=")) + 1,
+    Number(window.location.href.indexOf("&"))
+  );
 
-  console.log(requestToken);
-  // `https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
-
-    const response = await fetch(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`,
-{
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify({"request_token": `${requestToken}`})
-})
+  if (deniedAuthentication) {
+    window.location.href = "/";
+  } else {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ request_token: `${requestToken}` }),
+      }
+    );
     if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    return response.json();
+  }
+};
+
+export const getUserAccount = async (sessionId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/account?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`
+  );
+  console.log(response);
+  if (!response.ok) {
     throw new Error(response.json().message);
   }
   return response.json();
-}
+};
