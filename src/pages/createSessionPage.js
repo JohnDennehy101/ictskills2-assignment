@@ -20,7 +20,7 @@ const CreateSessionPage = (props) => {
       }
 
      
-    //   window.location.href = "/movies";
+      window.location.href = "/movies";
     }
 
     manageUserSession();
