@@ -1,36 +1,56 @@
-import React, { useState, useEffect } from "react";
-import PageTemplate from "../components/templateContentListPage";
-import { useQuery } from "react-query";
+import React from "react";
 import Spinner from "../components/spinner";
-import { getMovies, filteredMoviesSearch, createRequestToken, askUserForAuthentication } from "../api/tmdb-api";
-import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
-import { queryClient } from "../index";
+import { createUserSession, createRequestToken, askUserForAuthentication } from "../api/tmdb-api";
+import { useEffect } from "react";
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 
-const HomePage = (props) => {
-  const [filter, setFilter] = useState(false);
-  const [filterData, setFilterData] = useState([]);
-  const [page, setPage] = React.useState(1);
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6, 0, 6),
+    display: 'flex',
+    height: '70vh',
+    justifyContent: 'center',
+    alignContent: 'center'
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  content: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+  }
+}));
 
-  console.log(page);
-  const { data, error, isLoading, isError } = useQuery(
-    ["discover", { id: page }],
-    () => getMovies(page),
-    { keepPreviousData: true, staleTime: 5000 }
-  );
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-  };
-  useEffect(() => {
-    if (data?.hasMore) {
-      queryClient.prefetchQuery(["discover", page + 1], () =>
-        getMovies(page + 1)
-      );
-    }
-  }, [data, page, queryClient]);
-  
-  useEffect(() => {
-    async function fetchData() {
+
+const CreateSessionPage = (props) => {
+    const classes = useStyles();
+ 
+//  useEffect(() => {
+//     async function fetchData() {
+//       let response = await createUserSession();
+
+//       let sessionId = response.session_id;
+
+//       localStorage.setItem("session", sessionId);
+//     }
+    
+//     fetchData();
+//   }, []);
+
+
+    const handleUserSessionButtonClick = async () => {
       console.log("CALLING")
 let requestTokenResponse = await createRequestToken();
 let requestToken = requestTokenResponse.request_token;
@@ -38,64 +58,43 @@ let test = await askUserForAuthentication(requestToken);
 console.log(test);
     }
     
-    fetchData();
-  }, []);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
-  let movies;
-  if (filter) {
-    movies = filterData;
-  } else {
-    movies = data.results;
-  }
-
-  // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter((m) => m.favorite);
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-
-  let filteredSearchFunction = async (
-    release_year,
-    average_rating_greater_than,
-    average_rating_less_than,
-    duration_less_than,
-    duration_greater_than,
-    original_language,
-    sort_category
-  ) => {
-    let filterApiCall = await filteredMoviesSearch(
-      release_year,
-      average_rating_greater_than,
-      average_rating_less_than,
-      duration_less_than,
-      duration_greater_than,
-      original_language,
-      sort_category
-    );
-    movies = filterApiCall.results;
-    setFilterData(filterApiCall.results);
-    setFilter(true);
-
-    
-  };
   return (
-    <PageTemplate
-      title="Discover Movies"
-      content={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon content={movie} mediaType={'movie'} />;
-      }}
-      filteredMoviesSearch={filteredSearchFunction}
-      handlePageChange={handlePageChange}
-      page={page}
-      mediaType={'movie'}
-    />
+    <>
+      
+      <main>
+        {/* Hero unit */}
+        <div className={classes.heroContent}>
+          <Container maxWidth="sm" className={classes.content}>
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              TMDB Client
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              A web application that provides information on movies and tv shows from the 3rd party TMDB API.
+            </Typography>
+            <div className={classes.heroButtons}>
+              <Grid container spacing={2} justifyContent="center">
+                <Grid item>
+                  <Button variant="contained" color="primary" onClick={handleUserSessionButtonClick}>
+                    Sign In / Sign Up
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="outlined" color="primary">
+                    Guest Session
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+        </div>
+        
+      </main>
+      
+     
+   
+    </>
   );
 };
 
-export default HomePage;
+export default CreateSessionPage;

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
-import HomePage from "./pages/homePage";
+import MovieListPage from "./pages/movieListPage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import MustWatchPage from "./pages/mustWatchPage";
@@ -17,7 +17,7 @@ import TvPage from './pages/tvListPage';
 import CastMemberInfoPage from './pages/castMemberInfo';
 import TrendingPage from './pages/trendingPage';
 import TvDetailsPage from './pages/tvDetailsPage';
-import CreateSessionPage from './pages/createSessionPage';
+import HomePage from './pages/homePage';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,8 +40,9 @@ const App = () => {
           <Route exact path="/reviews/:content/form" component={AddReviewPage} />
           <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
           <Route exact path="/tv" component={TvPage} />
+           <Route exact path="/movies" component={MovieListPage} />
           <Route exact path="/trending" component={TrendingPage} />
-          <Route exact path="/success" component={CreateSessionPage} />
+          <Route exact path="/success" component={HomePage} />
           <Route exact path="/person/credits/:id" component = {CastMemberInfoPage} />
           <Route
             exact
