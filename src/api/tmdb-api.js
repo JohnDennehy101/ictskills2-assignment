@@ -288,6 +288,17 @@ export const createUserSession = async () => {
   }
 };
 
+export const createGuestSession = async () => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
+  );
+ 
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+}
+
 export const getUserAccount = async (sessionId) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/account?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`

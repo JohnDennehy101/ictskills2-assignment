@@ -4,6 +4,7 @@ import {
   getUserAccount,
   createRequestToken,
   askUserForAuthentication,
+  createGuestSession
 } from "../api/tmdb-api";
 import { useEffect } from "react";
 import Button from "@material-ui/core/Button";
@@ -41,11 +42,15 @@ const HomePage = (props) => {
 
   useEffect(() => {
     async function manageUserSession() {
-      let checkValidSession, sessionId;
+      let checkValidSession, sessionId, guestSessionId;
 
+      guestSessionId = localStorage.getItem("guest-session");
       sessionId = localStorage.getItem("session");
       if (sessionId) {
         checkValidSession = await getUserAccount(sessionId);
+        window.location.href = "/movies";
+      }
+      else if (guestSessionId) {
         window.location.href = "/movies";
       }
     }
@@ -58,6 +63,12 @@ const HomePage = (props) => {
     let requestToken = requestTokenResponse.request_token;
     await askUserForAuthentication(requestToken);
   };
+
+  const handleGuestSessionButtonClick = async () => {
+    let requestTokenResponse = await createGuestSession();
+    localStorage.setItem("guest-session", requestTokenResponse.guest_session_id);
+    window.location.href='/movies';
+  }
 
   return (
     <>
@@ -95,7 +106,7 @@ const HomePage = (props) => {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined" color="primary">
+                  <Button variant="outlined" color="primary" onClick={handleGuestSessionButtonClick}>
                     Guest Session
                   </Button>
                 </Grid>
