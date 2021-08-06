@@ -383,6 +383,10 @@ export const getFavourites = async (mediaType, page) => {
 export const markAsMustWatch = async (mediaType, id, watchlist) => {
   let sessionId = localStorage.getItem("session");
   let accountId = localStorage.getItem("accountId");
+
+  console.log(mediaType);
+  console.log(id);
+  console.log(watchlist);
   const response = await fetch(
     `https://api.themoviedb.org/3/account/${accountId}/watchlist?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
     {
@@ -403,4 +407,23 @@ export const markAsMustWatch = async (mediaType, id, watchlist) => {
     throw new Error(response.json().message);
   }
   return response.json();
+};
+
+export const getMustWatchItems = async (mediaType, page) => {
+  let contentType = mediaType === "movie" ? "movies" : "tv";
+  let sessionId = localStorage.getItem("session");
+  let accountDetails = await getUserAccount(sessionId);
+  let accountId = accountDetails.id;
+
+  console.log(accountId);
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/account/${accountId}/watchlist/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  let jsonResponse = await response.json();
+  console.log(jsonResponse);
+  return jsonResponse.results;
 };

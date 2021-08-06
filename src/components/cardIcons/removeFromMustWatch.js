@@ -9,10 +9,13 @@ const RemoveFromMustWatchIcon = ({ content, mediaType }) => {
   let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext;
   const context = useContext(contextType);
 
+  console.log(content);
+
   const handleRemoveFromMustWatch = async (e) => {
     e.preventDefault();
     await markAsMustWatch(mediaType, content.id, false);
     context.removeFromMustWatch(content.id);
+    window.location.reload();
   };
   return (
     <IconButton
