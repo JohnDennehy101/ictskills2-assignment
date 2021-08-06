@@ -4,29 +4,19 @@ import { MoviesContext } from "../contexts/moviesContext";
 import { TvShowsContext } from "../contexts/tvShowsContext";
 import { useQueries } from "react-query";
 import { getMovie, getTvShow } from "../api/tmdb-api";
-import Spinner from '../components/spinner';
+import Spinner from "../components/spinner";
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
 
-
-
 const FavoriteMoviesPage = () => {
   let contextType;
-   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mediaTypeChosen, setMediaType] = useState('movie');
-  // contentIds = mediaTypeChosen === 'movie' ? movieIds : tvShowIds;
-  contextType = mediaTypeChosen === 'movie' ? MoviesContext : TvShowsContext;
-  let apiCall = mediaTypeChosen === 'movie' ? getMovie : getTvShow;
-  let title = mediaTypeChosen === 'movie' ? "Favourite Movies" : "Favourite TV Shows"
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [mediaTypeChosen, setMediaType] = useState("movie");
+  contextType = mediaTypeChosen === "movie" ? MoviesContext : TvShowsContext;
+  let apiCall = mediaTypeChosen === "movie" ? getMovie : getTvShow;
+  let title = mediaTypeChosen === "movie" ? "Favourite Movies" : "Favourite TV Shows";
 
-  console.log(apiCall);
-  console.log(mediaTypeChosen);
-  console.log(contextType);
-
-  // const {favorites: movieIds } = useContext(MoviesContext);
-  // const {favorites: tvShowIds } = useContext(TvShowContext);
-  // console.log(contentIds);
-  const {favorites: content } = useContext(contextType);
+  const { favorites: content } = useContext(contextType);
   const handleModalClose = () => {
     setDrawerOpen(false);
   };
@@ -34,8 +24,6 @@ const FavoriteMoviesPage = () => {
     setMediaType(e.target.value);
     setDrawerOpen(false);
   };
-
-  
 
   // Create an array of queries and run in parallel.
   const favoriteMovieQueries = useQueries(
@@ -55,11 +43,8 @@ const FavoriteMoviesPage = () => {
   const favoriteMovies = favoriteMovieQueries.map((q) => q.data);
 
   console.log(favoriteMovies);
-  
 
-   return (
-
-   
+  return (
     <PageTemplate
       title={title}
       content={favoriteMovies}
@@ -73,7 +58,10 @@ const FavoriteMoviesPage = () => {
       action={(content) => {
         return (
           <>
-            <RemoveFromFavorites content={content} mediaType={mediaTypeChosen}/>
+            <RemoveFromFavorites
+              content={content}
+              mediaType={mediaTypeChosen}
+            />
             <WriteReview content={content} mediaType={mediaTypeChosen} />
           </>
         );

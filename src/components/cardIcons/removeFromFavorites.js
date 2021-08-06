@@ -10,7 +10,7 @@ const RemoveFromFavoritesIcon = ({ content, mediaType}) => {
 
   const handleRemoveFromFavorites = (e) => {
     e.preventDefault();
-    context.removeFromFavorites(content);
+    context.removeFromFavorites(mediaType, content.id, false);
   };
   return (
     <IconButton

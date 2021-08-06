@@ -332,3 +332,28 @@ export const deleteUserSession = async (sessionId) => {
   }
   return response.json();
 };
+
+export const markAsFavourite = async (mediaType, id, favourite) => {
+  let sessionId = localStorage.getItem("session");
+  const response = await fetch(
+    `https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ 
+  media_type: `${mediaType}`,
+  media_id: id,
+  favorite: favourite }),
+    }
+  );
+
+  console.log(response);
+
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};

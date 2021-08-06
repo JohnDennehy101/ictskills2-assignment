@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {markAsFavourite} from "../api/tmdb-api";
 
 export const MoviesContext = React.createContext(null);
 
@@ -7,13 +8,15 @@ const MoviesContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] )
   const [mustWatch, setMustWatch] = useState( [] )
 
-  const addToFavorites = (movie) => {
-    setFavorites([...favorites,movie.id])
+  const addToFavorites = async (mediaType, id, favourite) => {
+    await markAsFavourite(mediaType, id, favourite);
+    setFavorites([...favorites, id])
   };
   // We will use this function in a later section
-  const removeFromFavorites = (movie) => {
+  const removeFromFavorites = async (mediaType, id, favourite) => {
+    await markAsFavourite(mediaType, id, favourite);
     setFavorites( favorites.filter(
-      (mId) => mId !== movie.id
+      (mId) => mId !== id
     ) )
   };
 

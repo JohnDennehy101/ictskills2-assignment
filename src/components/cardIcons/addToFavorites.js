@@ -10,7 +10,7 @@ const AddToFavoritesIcon = ({ content, mediaType }) => {
 
   const handleAddToFavorites = (e) => {
     e.preventDefault();
-    context.addToFavorites(content);
+    context.addToFavorites(mediaType, content.id, true);
   };
   return (
     <IconButton aria-label="add to favorites" onClick={handleAddToFavorites}>
