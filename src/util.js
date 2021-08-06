@@ -6,3 +6,12 @@ export function excerpt(string) {
     separator: /,?\.* +/, // separate by spaces, including preceding commas and periods
   });
 }
+
+export function isLoggedInUser() {
+  let userSessionId = localStorage.getItem("session");
+  return userSessionId;
+}
+export function existingGuestSession() {
+ let guestSessionId = localStorage.getItem("guest-session");
+  return guestSessionId;
+}
