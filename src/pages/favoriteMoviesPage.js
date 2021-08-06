@@ -1,9 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import PageTemplate from "../components/templateContentListPage";
-import { MoviesContext } from "../contexts/moviesContext";
-import { TvShowsContext } from "../contexts/tvShowsContext";
-import { useQueries } from "react-query";
-import { getMovie, getTvShow } from "../api/tmdb-api";
+import { useQuery } from "react-query";
+import { getFavourites } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
@@ -12,11 +10,24 @@ const FavoriteMoviesPage = () => {
   let contextType;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [mediaTypeChosen, setMediaType] = useState("movie");
-  contextType = mediaTypeChosen === "movie" ? MoviesContext : TvShowsContext;
-  let apiCall = mediaTypeChosen === "movie" ? getMovie : getTvShow;
+  const [page, setPage] = React.useState(1);
   let title = mediaTypeChosen === "movie" ? "Favourite Movies" : "Favourite TV Shows";
 
-  const { favorites: content } = useContext(contextType);
+  const { data: content, error: favouritesError, isLoading: favouritesLoading, isError: isFavouritesError } = useQuery(
+    ["favourites", { id: page }],
+    () => getFavourites(mediaTypeChosen, page),
+    { keepPreviousData: true, staleTime: 5000 }
+  );
+
+  console.log(content);
+
+  if (favouritesLoading) {
+    return <Spinner />
+  }
+
+  
+
+
   const handleModalClose = () => {
     setDrawerOpen(false);
   };
@@ -25,29 +36,11 @@ const FavoriteMoviesPage = () => {
     setDrawerOpen(false);
   };
 
-  // Create an array of queries and run in parallel.
-  const favoriteMovieQueries = useQueries(
-    content.map((contentId) => {
-      return {
-        queryKey: [mediaTypeChosen, { id: contentId }],
-        queryFn: apiCall,
-      };
-    })
-  );
-  // Check if any of the parallel queries is still loading.
-  const isLoading = favoriteMovieQueries.find((m) => m.isLoading === true);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-  const favoriteMovies = favoriteMovieQueries.map((q) => q.data);
-
-  console.log(favoriteMovies);
-
   return (
+
     <PageTemplate
       title={title}
-      content={favoriteMovies}
+      content={content}
       favouritePage={true}
       mediaType={mediaTypeChosen}
       mediaTypeChosen={mediaTypeChosen}
@@ -67,6 +60,7 @@ const FavoriteMoviesPage = () => {
         );
       }}
     />
+   
   );
 };
 

@@ -8,13 +8,11 @@ const MoviesContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] )
   const [mustWatch, setMustWatch] = useState( [] )
 
-  const addToFavorites = async (mediaType, id, favourite) => {
-    await markAsFavourite(mediaType, id, favourite);
+  const addToFavorites = async (id) => {
     setFavorites([...favorites, id])
   };
   // We will use this function in a later section
-  const removeFromFavorites = async (mediaType, id, favourite) => {
-    await markAsFavourite(mediaType, id, favourite);
+  const removeFromFavorites = async (id) => {
     setFavorites( favorites.filter(
       (mId) => mId !== id
     ) )

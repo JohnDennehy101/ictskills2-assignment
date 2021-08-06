@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { TvShowsContext } from "../../contexts/tvShowsContext";
+import { markAsFavourite } from "../../api/tmdb-api";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
@@ -8,9 +9,10 @@ const AddToFavoritesIcon = ({ content, mediaType }) => {
   let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext;
   const context = useContext(contextType);
 
-  const handleAddToFavorites = (e) => {
+  const handleAddToFavorites = async (e) => {
     e.preventDefault();
-    context.addToFavorites(mediaType, content.id, true);
+    await markAsFavourite(mediaType, content.id, true);
+    context.addToFavorites(content.id);
   };
   return (
     <IconButton aria-label="add to favorites" onClick={handleAddToFavorites}>

@@ -292,22 +292,25 @@ export const createGuestSession = async () => {
   const response = await fetch(
     `https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
   );
- 
+
   if (!response.ok) {
     throw new Error(response.json().message);
   }
   return response.json();
-}
+};
 
 export const getUserAccount = async (sessionId) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/account?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`
   );
-  console.log(response);
   if (!response.ok) {
     throw new Error(response.json().message);
   }
-  return response.json();
+  let jsonResponse = await response.json();
+  if (!localStorage.getItem("accountId")) {
+    localStorage.setItem("accountId", jsonResponse.id);
+  }
+  return jsonResponse;
 };
 
 //NOT WORKING CORRECTLY ON API Side
@@ -335,25 +338,48 @@ export const deleteUserSession = async (sessionId) => {
 
 export const markAsFavourite = async (mediaType, id, favourite) => {
   let sessionId = localStorage.getItem("session");
+  let accountId = localStorage.getItem("accountId");
   const response = await fetch(
-    `https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
+    `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
     {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({ 
-  media_type: `${mediaType}`,
-  media_id: id,
-  favorite: favourite }),
+      body: JSON.stringify({
+        media_type: `${mediaType}`,
+        media_id: id,
+        favorite: favourite,
+      }),
     }
   );
-
-  console.log(response);
 
   if (!response.ok) {
     throw new Error(response.json().message);
   }
   return response.json();
 };
+
+export const getFavourites = async (mediaType, page) => {
+   let contentType = mediaType === 'movie' ? 'movies' : 'tv';
+   let sessionId = localStorage.getItem("session");
+   let accountDetails = await getUserAccount(sessionId);
+   let accountId = accountDetails.id;
+
+   console.log(accountId);
+
+   const response = await fetch(
+    `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`
+  );
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  let jsonResponse = await response.json();
+  console.log(jsonResponse);
+  return jsonResponse.results;
+  // return response.json();
+
+
+
+}
