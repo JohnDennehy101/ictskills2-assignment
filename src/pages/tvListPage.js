@@ -5,11 +5,14 @@ import Spinner from "../components/spinner";
 import { getTvShows, filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
+import { existingGuestSession } from "../util";
 
 const TvListPage = (props) => {
+  let favouriteIconDisplay;
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [page, setPage] = React.useState(1);
+  const guestSession = existingGuestSession();
 
   const { data, error, isLoading, isError } = useQuery(
     ["discover-tv", { id: page }],
@@ -27,6 +30,16 @@ const TvListPage = (props) => {
       );
     }
   }, [data, page, queryClient]);
+
+  if (!guestSession) {
+    favouriteIconDisplay = (movie) => {
+      return <AddToFavoritesIcon content={movie} mediaType={"movie"} />;
+    };
+  } else {
+    favouriteIconDisplay = (movie) => {
+      return null;
+    };
+  }
 
   if (isLoading) {
     return <Spinner />;
@@ -74,13 +87,11 @@ const TvListPage = (props) => {
     <PageTemplate
       title="Discover TV Shows"
       content={tvShows}
-      action={(movie) => {
-        return <AddToFavoritesIcon content={movie} mediaType={'tv'} />;
-      }}
+      action={favouriteIconDisplay}
       filteredMoviesSearch={filteredSearchFunction}
       handlePageChange={handlePageChange}
       page={page}
-      mediaType={'tv'}
+      mediaType={"tv"}
     />
   );
 };

@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 // import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
 import AddToMustWatch from "../components/cardIcons/addToMustWatch";
+import { existingGuestSession } from "../util";
 
 const HomePage = (props) => {
   //Caching changes added in earlier step for upcoming movies
@@ -14,6 +15,9 @@ const HomePage = (props) => {
   // const {  data, error, isLoading, isError }  = useQuery('upcoming', getUpComingMovies);
   let title =
     mediaTypeChosen === "movie" ? "Upcoming Movies" : "Upcoming TV Shows";
+  const guestSession = existingGuestSession();
+  let addMustWatch;
+
   const { data, error, isLoading, isError } = useQuery(
     [`discover-movies`, { id: page }],
     () => getUpComingMovies(page),
@@ -37,6 +41,15 @@ const HomePage = (props) => {
   const handlePageChange = (event, value) => {
     setPage(value);
   };
+
+  if (!guestSession) {
+    addMustWatch = (movie) => {
+      return <AddToMustWatch content={movie} mediaType={mediaTypeChosen} />;
+    };
+  } else { 
+    addMustWatch = (movie) => {
+      return null};
+  }
 
   if (isLoading) {
     return <Spinner />;
@@ -70,9 +83,7 @@ const HomePage = (props) => {
       selectFavorite={addToFavorites}
       handlePageChange={handlePageChange}
       page={page}
-      action={(movie) => {
-        return <AddToMustWatch content={movie} mediaType={mediaTypeChosen} />;
-      }}
+      action={addMustWatch}
     />
   );
 };

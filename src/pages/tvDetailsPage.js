@@ -45,6 +45,8 @@ const MovieDetailsPage = (props) => {
   );
   const { data: tvShowCast } = useQuery(["tvShowCast", { id: id }], getTvCast);
 
+  
+
   if (isLoading) {
     return <Spinner />;
   }

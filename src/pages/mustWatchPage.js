@@ -6,18 +6,19 @@ import { useQueries } from "react-query";
 import { getMovie, getTvShow } from "../api/tmdb-api";
 import Spinner from '../components/spinner';
 import RemoveFromMustWatch from "../components/cardIcons/removeFromMustWatch";
-import WriteReview from "../components/cardIcons/writeReview";
+import { existingGuestSession } from "../util";
 
 
 
 const MustWatchPage = () => {
-  let contextType;
+  let contextType, removeMustWatch;
    const [drawerOpen, setDrawerOpen] = useState(false);
   const [mediaTypeChosen, setMediaType] = useState('movie');
   // contentIds = mediaTypeChosen === 'movie' ? movieIds : tvShowIds;
   contextType = mediaTypeChosen === 'movie' ? MoviesContext : TvShowsContext;
   let apiCall = mediaTypeChosen === 'movie' ? getMovie : getTvShow;
-  let title = mediaTypeChosen === 'movie' ? "Must Watch Upcoming Movies" : "Must Watch Upcoming TV Shows"
+  let title = mediaTypeChosen === 'movie' ? "Must Watch Upcoming Movies" : "Must Watch Upcoming TV Shows";
+  const guestSession = existingGuestSession();
 
   const {mustWatch: content } = useContext(contextType);
   const handleModalClose = () => {
@@ -27,6 +28,13 @@ const MustWatchPage = () => {
     setMediaType(e.target.value);
     setDrawerOpen(false);
   };
+
+  if (!guestSession) {
+      removeMustWatch = <RemoveFromMustWatch mediaType={mediaTypeChosen} content={content} />
+  }
+  else {
+      removeMustWatch = null;
+  }
 
   
 
@@ -65,7 +73,7 @@ const MustWatchPage = () => {
       action={(content) => {
         return (
           <>
-            <RemoveFromMustWatch mediaType={mediaTypeChosen} content={content} />
+            {RemoveFromMustWatch}
           </>
         );
       }}

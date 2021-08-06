@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import PageTemplate from "../components/templateContentListPage";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import { getMovies, filteredMoviesSearch, createRequestToken, askUserForAuthentication } from "../api/tmdb-api";
+import { getMovies, filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
+import { existingGuestSession } from "../util";
 
 const HomePage = (props) => {
+  let favouriteIconDisplay;
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [page, setPage] = React.useState(1);
-
-  console.log(page);
+  const guestSession = existingGuestSession();
+  
   const { data, error, isLoading, isError } = useQuery(
     ["discover", { id: page }],
     () => getMovies(page),
@@ -28,18 +30,6 @@ const HomePage = (props) => {
       );
     }
   }, [data, page, queryClient]);
-  
-//   useEffect(() => {
-//     async function fetchData() {
-//       console.log("CALLING")
-// let requestTokenResponse = await createRequestToken();
-// let requestToken = requestTokenResponse.request_token;
-// let test = await askUserForAuthentication(requestToken);
-// console.log(test);
-//     }
-    
-//     fetchData();
-//   }, []);
 
   if (isLoading) {
     return <Spinner />;
@@ -53,6 +43,17 @@ const HomePage = (props) => {
     movies = filterData;
   } else {
     movies = data.results;
+  }
+
+  if (!guestSession) {
+    favouriteIconDisplay = (movie) => {
+        return <AddToFavoritesIcon content={movie} mediaType={'movie'} />;
+      }
+  }
+  else {
+    favouriteIconDisplay = (movie) => {
+return null;
+    } 
   }
 
   // Redundant, but necessary to avoid app crashing.
@@ -87,9 +88,7 @@ const HomePage = (props) => {
     <PageTemplate
       title="Discover Movies"
       content={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon content={movie} mediaType={'movie'} />;
-      }}
+      action={favouriteIconDisplay}
       filteredMoviesSearch={filteredSearchFunction}
       handlePageChange={handlePageChange}
       page={page}
