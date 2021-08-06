@@ -298,3 +298,26 @@ export const getUserAccount = async (sessionId) => {
   }
   return response.json();
 };
+
+//NOT WORKING CORRECTLY ON API Side
+export const deleteUserSession = async (sessionId) => {
+  console.log(sessionId);
+  const response = await fetch(
+    `https://api.themoviedb.org/3/authentication/session/?api_key=${process.env.REACT_APP_TMDB_KEY}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+      body: JSON.stringify({ session_id: `${sessionId}` }),
+    }
+  );
+
+  console.log(response);
+
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
