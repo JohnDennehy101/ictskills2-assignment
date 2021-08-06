@@ -33,7 +33,7 @@ const TvListPage = (props) => {
 
   if (!guestSession) {
     favouriteIconDisplay = (movie) => {
-      return <AddToFavoritesIcon content={movie} mediaType={"movie"} />;
+      return <AddToFavoritesIcon content={movie} mediaType={"tv"} />;
     };
   } else {
     favouriteIconDisplay = (movie) => {

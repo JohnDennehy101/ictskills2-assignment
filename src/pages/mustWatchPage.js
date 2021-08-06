@@ -73,7 +73,7 @@ const MustWatchPage = () => {
       action={(content) => {
         return (
           <>
-            {RemoveFromMustWatch}
+            {removeMustWatch}
           </>
         );
       }}

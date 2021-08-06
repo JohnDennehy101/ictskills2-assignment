@@ -7,24 +7,22 @@ import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
 
 const FavoriteMoviesPage = () => {
-  let contextType;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [mediaTypeChosen, setMediaType] = useState("movie");
   const [page, setPage] = React.useState(1);
   let title = mediaTypeChosen === "movie" ? "Favourite Movies" : "Favourite TV Shows";
 
   const { data: content, error: favouritesError, isLoading: favouritesLoading, isError: isFavouritesError } = useQuery(
-    ["favourites", { id: page }],
+    [`favourites`, page, mediaTypeChosen ],
     () => getFavourites(mediaTypeChosen, page),
-    { keepPreviousData: true, staleTime: 5000 }
+    { keepPreviousData: false, staleTime: 5000 }
   );
 
-  console.log(content);
+  
 
   if (favouritesLoading) {
     return <Spinner />
   }
-
   
 
 

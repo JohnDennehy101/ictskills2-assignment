@@ -12,6 +12,7 @@ const LogoutPage = (props) => {
     //   deleteSessionResponse = await deleteUserSession(sessionId);
       localStorage.removeItem("session");
       localStorage.removeItem("guest-session");
+      localStorage.removeItem("accountId");
       window.location.href = "/";
     }
 

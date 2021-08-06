@@ -362,14 +362,14 @@ export const markAsFavourite = async (mediaType, id, favourite) => {
 };
 
 export const getFavourites = async (mediaType, page) => {
-   let contentType = mediaType === 'movie' ? 'movies' : 'tv';
-   let sessionId = localStorage.getItem("session");
-   let accountDetails = await getUserAccount(sessionId);
-   let accountId = accountDetails.id;
+  let contentType = mediaType === "movie" ? "movies" : "tv";
+  let sessionId = localStorage.getItem("session");
+  let accountDetails = await getUserAccount(sessionId);
+  let accountId = accountDetails.id;
 
-   console.log(accountId);
+  console.log(accountId);
 
-   const response = await fetch(
+  const response = await fetch(
     `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`
   );
   if (!response.ok) {
@@ -378,8 +378,29 @@ export const getFavourites = async (mediaType, page) => {
   let jsonResponse = await response.json();
   console.log(jsonResponse);
   return jsonResponse.results;
-  // return response.json();
+};
 
+export const markAsMustWatch = async (mediaType, id, watchlist) => {
+  let sessionId = localStorage.getItem("session");
+  let accountId = localStorage.getItem("accountId");
+  const response = await fetch(
+    `https://api.themoviedb.org/3/account/${accountId}/watchlist?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        media_type: `${mediaType}`,
+        media_id: id,
+        watchlist: watchlist,
+      }),
+    }
+  );
 
-
-}
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};

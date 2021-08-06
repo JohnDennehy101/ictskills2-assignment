@@ -7,13 +7,13 @@ const TvShowsContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] )
   const [mustWatch, setMustWatch] = useState( [] )
 
-  const addToFavorites = (tvShow) => {
-    setFavorites([...favorites,tvShow.id])
+  const addToFavorites = (id) => {
+    setFavorites([...favorites,id])
   };
   // We will use this function in a later section
-  const removeFromFavorites = (tvShow) => {
+  const removeFromFavorites = (id) => {
     setFavorites( favorites.filter(
-      (mId) => mId !== tvShow.id
+      (mId) => mId !== id
     ) )
   };
 
@@ -21,13 +21,13 @@ const TvShowsContextProvider = (props) => {
     setMyReviews( {...myReviews, [tvShow.id]: review } )
   };
 
-  const addMustWatch = (tvShow) => {
-      setMustWatch([...mustWatch, tvShow.id]);
+  const addMustWatch = (id) => {
+      setMustWatch([...mustWatch, id]);
   }
 
-   const removeFromMustWatch = (tvShow) => {
+   const removeFromMustWatch = (id) => {
       setMustWatch( mustWatch.filter(
-      (mId) => mId !== tvShow.id
+      (mId) => mId !== id
     ) )
   }
 

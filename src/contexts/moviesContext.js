@@ -22,13 +22,13 @@ const MoviesContextProvider = (props) => {
     setMyReviews( {...myReviews, [movie.id]: review } )
   };
 
-  const addMustWatch = (movie) => {
-      setMustWatch([...mustWatch, movie.id]);
+  const addMustWatch = (id) => {
+      setMustWatch([...mustWatch, id]);
   }
 
-   const removeFromMustWatch = (movie) => {
+   const removeFromMustWatch = (id) => {
       setMustWatch( mustWatch.filter(
-      (mId) => mId !== movie.id
+      (mId) => mId !== id
     ) )
   }
 
