@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FilterMoviesCard(props) {
   const classes = useStyles();
-  const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+  let title = props.mediaType === 'movie' ? 'Filter movies' : 'Filter TV Shows';
+  const { data, error, isLoading, isError } = useQuery(`${props.mediaType}-genres`, () => getGenres(props.mediaType));
   const [modalStyle] = React.useState(getModalStyle);
 
   if (isLoading) {
@@ -343,7 +344,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+         {title}
         </Typography>
         <TextField
           className={classes.formControl}
@@ -372,9 +373,7 @@ export default function FilterMoviesCard(props) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          {/* <button type="button" onClick={handleOpen}>
-        Open Modal
-      </button> */}
+        
           <Button
             variant="contained"
             color="secondary"
@@ -396,7 +395,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          {title}
           <br />
         </Typography>
       </CardContent>

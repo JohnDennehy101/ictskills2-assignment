@@ -155,9 +155,9 @@ export const getTvShow = async (args) => {
   return response.json();
 };
 
-export const getGenres = async () => {
+export const getGenres = async (mediaType) => {
   const response = await fetch(
-    "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
+    `https://api.themoviedb.org/3/genre/${mediaType}/list?api_key=` +
       process.env.REACT_APP_TMDB_KEY +
       "&language=en-US"
   );

@@ -90,16 +90,6 @@ function TemplateContentPage({
   const [originalLanguage, setOriginalLanguage] = useState("");
   const [sortCategory, setSortCategory] = useState("");
   const [open, setOpen] = React.useState(false);
-  // const [drawerOpen, setDrawerOpen] = useState(false);
-  // const [mediaTypeChosen, setMediaType] = useState('movie');
-  // const handleModalClose = () => {
-  //   setDrawerOpen(false);
-  // };
-
-  // const handleClose = (e) => {
-  //   setMediaType(e.target.value);
-  //   setDrawerOpen(false);
-  // };
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -196,6 +186,7 @@ function TemplateContentPage({
               modalDisplay={open}
               handleOpen={handleOpen}
               handleClose={handleClose}
+              mediaType={mediaType}
             />
           </Grid>
           {favouritePage ? (
@@ -283,72 +274,6 @@ function TemplateContentPage({
           </Modal>
         </>
       )}
-      {/* <Grid item container spacing={5}>
-        <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
-          <FilterCard
-            onUserInput={handleChange}
-            titleFilter={nameFilter}
-            genreFilter={genreFilter}
-            releaseYearFilter={releaseYearFilter}
-            averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
-            averageRatingLessThanFilter={averageRatingLessThanFilter}
-            durationGreaterThanFilter={durationGreaterThanFilter}
-            durationLessThanFilter={durationLessThanFilter}
-            originalLanguage={originalLanguage}
-            sortCategory={sortCategory}
-            filteredMoviesSearch={filteredMoviesSearch}
-            advancedSearch={getAdvancedFilterResults}
-            modalDisplay={open}
-            handleOpen={handleOpen}
-            handleClose={handleClose}
-          />
-        </Grid>
-        {favouritePage ? (
-          <>
-            <Fab color="secondary" variant="extended" className={classes.fab}>
-              <NavigationIcon />
-              Type
-            </Fab>
-            <Fab
-              color="secondary"
-              variant="extended"
-              onClick={() => setDrawerOpen(true)}
-              className={classes.fab}
-            >
-              <NavigationIcon />
-              Type
-            </Fab>
-
-            <Modal
-              style={{ alignItems: "center", justifyContent: "center" }}
-              open={drawerOpen}
-              onClose={handleModalClose}
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-            >
-              {body}
-            </Modal>
-          </>
-        ) : (
-          <></>
-        )}
-        <ContentList
-          action={action}
-          content={displayedContent}
-          mediaType={mediaType}
-        />
-        <Grid item xs={12}>
-          <div className={classes.pagination}>
-            <Typography>Page: {page}</Typography>
-            <Pagination
-              count={100}
-              page={page}
-              className={classes.paginatedList}
-              onChange={handlePageChange}
-            />
-          </div>
-        </Grid>
-      </Grid> */}
     </Grid>
   );
 }
