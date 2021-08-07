@@ -98,28 +98,47 @@ export const filteredMoviesSearch = async (
   duration_less_than,
   duration_greater_than,
   original_language,
-  sort_category
+  sort_category,
+  first_air_date_year
 ) => {
-  let initialRequestString = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`;
-
-  if (release_year) {
-    initialRequestString += `&year=${release_year}`;
+  let mediaType;
+  let movieType = window.location.href.includes("movies") ? true : false;
+  if (movieType) {
+    mediaType = "movie";
+  } else {
+    mediaType = "tv";
   }
+  let initialRequestString = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`;
+
+  if (movieType) {
+    if (release_year) {
+      initialRequestString += `&year=${release_year}`;
+    }
+    if (average_rating_less_than) {
+      initialRequestString += `&vote_average.lte=${average_rating_less_than}`;
+    }
+  } else if (!movieType) {
+    if (first_air_date_year) {
+      initialRequestString += `&first_air_date_year=${first_air_date_year}`;
+    }
+  }
+
   if (average_rating_greater_than) {
     initialRequestString += `&vote_average.gte=${average_rating_greater_than}`;
   }
-  if (average_rating_less_than) {
-    initialRequestString += `&vote_average.lte=${average_rating_less_than}`;
-  }
+
   if (duration_greater_than) {
     initialRequestString += `&with_runtime.gte=${duration_greater_than}`;
   }
+
   if (duration_less_than) {
     initialRequestString += `&with_runtime.lte=${duration_less_than}`;
   }
+
   if (original_language) {
     initialRequestString += `&with_original_language=${original_language}`;
   }
+
   if (sort_category) {
     initialRequestString += `&sort_by=${sort_category}`;
   }

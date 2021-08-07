@@ -75,7 +75,7 @@ function TemplateContentPage({
   drawerOpen,
   handleModalClose,
 }) {
-  console.log(content);
+  let test = mediaType;
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
@@ -89,6 +89,7 @@ function TemplateContentPage({
     useState("");
   const [originalLanguage, setOriginalLanguage] = useState("");
   const [sortCategory, setSortCategory] = useState("");
+  const [firstAirDate, setFirstAirDate] = useState("");
   const [open, setOpen] = React.useState(false);
 
   function Alert(props) {
@@ -127,7 +128,16 @@ function TemplateContentPage({
         return genreId > 0 ? m.genre_ids.includes(genreId) : true;
       });
   }
+
+  const handleFilterClose = () => {
+setOpen(false);
+  };
+
+  console.log("MEDIA TYPE");
+  console.log(mediaType)
+
   let getAdvancedFilterResults = () => {
+
     filteredMoviesSearch(
       releaseYearFilter,
       averageRatingGreaterThanFilter,
@@ -135,9 +145,10 @@ function TemplateContentPage({
       durationLessThanFilter,
       durationGreaterThanFilter,
       originalLanguage,
-      sortCategory
+      sortCategory,
+      firstAirDate
     );
-    handleClose();
+    handleFilterClose();
   };
 
   const handleOpen = () => {
@@ -147,6 +158,7 @@ function TemplateContentPage({
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else if (type === "release_year") setReleaseYearFilter(value);
+    else if (type === "first_air_date_year") setFirstAirDate(value);
     else if (type === "average_rating_greater_than")
       setAverageRatingGreaterThanFilter(value);
     else if (type === "average_rating_less_than")
@@ -157,7 +169,6 @@ function TemplateContentPage({
     else if (type === "original_language") setOriginalLanguage(value);
     else if (type === "sort_category") setSortCategory(value);
     else {
-      console.log("setting genre");
       setGenreFilter(value);
     }
   };
@@ -175,6 +186,7 @@ function TemplateContentPage({
               titleFilter={nameFilter}
               genreFilter={genreFilter}
               releaseYearFilter={releaseYearFilter}
+              firstAirDateFilter={firstAirDate}
               averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
               averageRatingLessThanFilter={averageRatingLessThanFilter}
               durationGreaterThanFilter={durationGreaterThanFilter}
@@ -185,7 +197,7 @@ function TemplateContentPage({
               advancedSearch={getAdvancedFilterResults}
               modalDisplay={open}
               handleOpen={handleOpen}
-              handleClose={handleClose}
+              handleClose={handleFilterClose}
               mediaType={mediaType}
             />
           </Grid>

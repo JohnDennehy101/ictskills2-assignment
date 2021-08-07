@@ -81,7 +81,6 @@ return null;
     movies = filterApiCall.results;
     setFilterData(filterApiCall.results);
     setFilter(true);
-
     
   };
   return (

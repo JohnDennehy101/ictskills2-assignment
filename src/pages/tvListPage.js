@@ -66,7 +66,9 @@ const TvListPage = (props) => {
     duration_less_than,
     duration_greater_than,
     original_language,
-    sort_category
+    sort_category,
+    mediaType,
+    first_air_date_year
   ) => {
     let filterApiCall = await filteredMoviesSearch(
       release_year,
@@ -75,13 +77,14 @@ const TvListPage = (props) => {
       duration_less_than,
       duration_greater_than,
       original_language,
-      sort_category
+      sort_category,
+      mediaType,
+      first_air_date_year
     );
     tvShows = filterApiCall.results;
     setFilterData(filterApiCall.results);
     setFilter(true);
 
-    //movies = await
   };
   return (
     <PageTemplate
