@@ -61,17 +61,17 @@ export default function FilterMoviesCard(props) {
     return <h1>{error.message}</h1>;
   }
   const genres = data.genres;
-  if (genres.length === 19) {
+  if (genres.length === 19 || genres.length === 16) {
     genres.unshift({ id: "0", name: "All" });
   }
 
-  let firstYear = 1920;
-  let lastYear = 2020;
+  let firstYear = 2020;
+  let lastYear = 1920;
   let yearOptions = [];
 
-  while (firstYear < lastYear) {
+  while (firstYear > lastYear) {
     yearOptions.push(firstYear);
-    firstYear++;
+    firstYear--;
   }
 
   const handleChange = (e, type, value) => {
@@ -130,8 +130,6 @@ export default function FilterMoviesCard(props) {
       transform: `translate(-${top}%, -${left}%)`,
     };
   }
-
-  console.log(props.modalDisplay);
 
   const body = (
     <div style={modalStyle} className={classes.paper}>

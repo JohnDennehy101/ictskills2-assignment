@@ -99,16 +99,19 @@ export const filteredMoviesSearch = async (
   duration_greater_than,
   original_language,
   sort_category,
-  first_air_date_year
+  first_air_date_year,
+  page
 ) => {
+  console.log(page);
   let mediaType;
-  let movieType = window.location.href.includes("movies") ? true : false;
+  let movieType = window.location.href.includes("movie") ? true : false;
   if (movieType) {
     mediaType = "movie";
   } else {
     mediaType = "tv";
   }
-  let initialRequestString = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`;
+  console.log(mediaType);
+  let initialRequestString = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`;
 
   if (movieType) {
     if (release_year) {

@@ -13,7 +13,6 @@ const HomePage = (props) => {
   const [filterData, setFilterData] = useState([]);
   const [page, setPage] = React.useState(1);
   const guestSession = existingGuestSession();
-  
   const { data, error, isLoading, isError } = useQuery(
     ["discover", { id: page }],
     () => getMovies(page),
@@ -47,18 +46,13 @@ const HomePage = (props) => {
 
   if (!guestSession) {
     favouriteIconDisplay = (movie) => {
-        return <AddToFavoritesIcon content={movie} mediaType={'movie'} />;
-      }
-  }
-  else {
+      return <AddToFavoritesIcon content={movie} mediaType={"movie"} />;
+    };
+  } else {
     favouriteIconDisplay = (movie) => {
-return null;
-    } 
+      return null;
+    };
   }
-
-  // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter((m) => m.favorite);
-  localStorage.setItem("favorites", JSON.stringify(favorites));
 
   let filteredSearchFunction = async (
     release_year,
@@ -67,7 +61,8 @@ return null;
     duration_less_than,
     duration_greater_than,
     original_language,
-    sort_category
+    sort_category,
+    page
   ) => {
     let filterApiCall = await filteredMoviesSearch(
       release_year,
@@ -76,12 +71,12 @@ return null;
       duration_less_than,
       duration_greater_than,
       original_language,
-      sort_category
+      sort_category,
+      page
     );
     movies = filterApiCall.results;
     setFilterData(filterApiCall.results);
     setFilter(true);
-    
   };
   return (
     <PageTemplate
@@ -91,7 +86,7 @@ return null;
       filteredMoviesSearch={filteredSearchFunction}
       handlePageChange={handlePageChange}
       page={page}
-      mediaType={'movie'}
+      mediaType={"movie"}
     />
   );
 };

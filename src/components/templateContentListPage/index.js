@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useContext } from "react";
 import Header from "../headerContentList";
 import FilterCard from "../filterMoviesCard";
 import Grid from "@material-ui/core/Grid";
@@ -11,6 +11,8 @@ import NavigationIcon from "@material-ui/icons/Navigation";
 import Modal from "@material-ui/core/Modal";
 import TrendingInputFilter from "../trendingInputFilter";
 import MuiAlert from "@material-ui/lab/Alert";
+import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +58,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     margin: "10px auto",
   },
+  clearFilterButton: {
+    textAlign: "center",
+    display: "flex",
+    margin: "20px auto",
+    width: "20vw",
+    padding: "10px",
+    borderRadius: "5px",
+  },
 }));
 
 //If advanced filter (reassign displayed movies)
@@ -74,8 +84,8 @@ function TemplateContentPage({
   setDrawerOpen,
   drawerOpen,
   handleModalClose,
+  filterPage,
 }) {
-  let test = mediaType;
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
@@ -91,6 +101,8 @@ function TemplateContentPage({
   const [sortCategory, setSortCategory] = useState("");
   const [firstAirDate, setFirstAirDate] = useState("");
   const [open, setOpen] = React.useState(false);
+
+  let history = useHistory();
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -130,14 +142,18 @@ function TemplateContentPage({
   }
 
   const handleFilterClose = () => {
-setOpen(false);
+    setOpen(false);
   };
 
-  console.log("MEDIA TYPE");
-  console.log(mediaType)
+  const handleAdvancedFilterClearButtonClick = () => {
+    if (mediaType === "movie") {
+      window.location.href = `/movies`;
+    } else {
+      window.location.href = `/tv`;
+    }
+  };
 
   let getAdvancedFilterResults = () => {
-
     filteredMoviesSearch(
       releaseYearFilter,
       averageRatingGreaterThanFilter,
@@ -149,6 +165,20 @@ setOpen(false);
       firstAirDate
     );
     handleFilterClose();
+    history.push({
+      pathname: `/${mediaType}/filter`,
+      state: {
+        releaseYear: releaseYearFilter,
+        averageRatingGreaterThan: averageRatingGreaterThanFilter,
+        averageRatingLessThan: averageRatingLessThanFilter,
+        durationLessThan: durationLessThanFilter,
+        durationGreaterThan: durationGreaterThanFilter,
+        originalLanguage: originalLanguage,
+        sortCategory: sortCategory,
+        firstAirDate: firstAirDate,
+      },
+    });
+    window.location.href = `/${mediaType}/filter`;
   };
 
   const handleOpen = () => {
@@ -157,8 +187,9 @@ setOpen(false);
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
-    else if (type === "release_year") setReleaseYearFilter(value);
-    else if (type === "first_air_date_year") setFirstAirDate(value);
+    else if (type === "release_year") {
+      setReleaseYearFilter(value);
+    } else if (type === "first_air_date_year") setFirstAirDate(value);
     else if (type === "average_rating_greater_than")
       setAverageRatingGreaterThanFilter(value);
     else if (type === "average_rating_less_than")
@@ -178,29 +209,54 @@ setOpen(false);
       <Grid item xs={12}>
         <Header title={title} />
       </Grid>
+      {filterPage ? (
+        <Grid
+          display="flex"
+          alignContent="center"
+          justifyContent="center"
+          item
+          xs={12}
+        >
+          <Button
+            className={classes.clearFilterButton}
+            variant="contained"
+            color="secondary"
+            onClick={handleAdvancedFilterClearButtonClick}
+          >
+            Clear Filter
+          </Button>
+        </Grid>
+      ) : (
+        <></>
+      )}
       {displayedContent.length > 0 ? (
         <Grid item container spacing={5}>
-          <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
-            <FilterCard
-              onUserInput={handleChange}
-              titleFilter={nameFilter}
-              genreFilter={genreFilter}
-              releaseYearFilter={releaseYearFilter}
-              firstAirDateFilter={firstAirDate}
-              averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
-              averageRatingLessThanFilter={averageRatingLessThanFilter}
-              durationGreaterThanFilter={durationGreaterThanFilter}
-              durationLessThanFilter={durationLessThanFilter}
-              originalLanguage={originalLanguage}
-              sortCategory={sortCategory}
-              filteredMoviesSearch={filteredMoviesSearch}
-              advancedSearch={getAdvancedFilterResults}
-              modalDisplay={open}
-              handleOpen={handleOpen}
-              handleClose={handleFilterClose}
-              mediaType={mediaType}
-            />
-          </Grid>
+          {!filterPage ? (
+            <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <FilterCard
+                onUserInput={handleChange}
+                titleFilter={nameFilter}
+                genreFilter={genreFilter}
+                releaseYearFilter={releaseYearFilter}
+                firstAirDateFilter={firstAirDate}
+                averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
+                averageRatingLessThanFilter={averageRatingLessThanFilter}
+                durationGreaterThanFilter={durationGreaterThanFilter}
+                durationLessThanFilter={durationLessThanFilter}
+                originalLanguage={originalLanguage}
+                sortCategory={sortCategory}
+                filteredMoviesSearch={filteredMoviesSearch}
+                advancedSearch={getAdvancedFilterResults}
+                modalDisplay={open}
+                handleOpen={handleOpen}
+                handleClose={handleFilterClose}
+                mediaType={mediaType}
+              />
+            </Grid>
+          ) : (
+            <></>
+          )}
+
           {favouritePage ? (
             <>
               <Fab color="secondary" variant="extended" className={classes.fab}>
@@ -230,6 +286,7 @@ setOpen(false);
           ) : (
             <></>
           )}
+
           <ContentList
             action={action}
             content={displayedContent}

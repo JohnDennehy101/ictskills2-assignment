@@ -20,6 +20,7 @@ import TvDetailsPage from './pages/tvDetailsPage';
 import HomePage from './pages/homePage';
 import CreateSessionPage from './pages/createSessionPage';
 import LogoutPage from './pages/logoutPage';
+import AdvancedFilterPage from './pages/advancedFilterPage';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,8 @@ const App = () => {
           <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
           <Route exact path="/tv" component={TvPage} />
           <Route exact path="/logout" component={LogoutPage} />
+          <Route exact path="/movie/filter" component={AdvancedFilterPage} />
+          <Route exact path="/tv/filter" component={TvPage} />
           <Route exact path="/movies" component={MovieListPage} />
           <Route exact path="/trending" component={TrendingPage} />
           <Route exact path="/success" component={CreateSessionPage} />
