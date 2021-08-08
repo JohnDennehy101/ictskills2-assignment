@@ -82,7 +82,7 @@ export const getTrendingItems = async (media_type, time) => {
 
 export const getTvShows = async (page) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=${page}`
+    `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
   );
   if (!response.ok) {
     throw new Error(response.json().message);

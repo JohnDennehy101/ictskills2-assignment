@@ -16,6 +16,7 @@ import { useQuery } from "react-query";
 import Spinner from "../spinner";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
+import AdvancedFilterModal from "../advancedFilterModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,19 +30,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 220,
     backgroundColor: "rgb(255, 255, 255)",
   },
-  modalInputFields: {
-    margin: theme.spacing(1),
-    width: "90%",
-    backgroundColor: "rgb(255, 255, 255)",
-  },
-  paper: {
-    position: "absolute",
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
 }));
 
 export default function FilterMoviesCard(props) {
@@ -51,7 +39,6 @@ export default function FilterMoviesCard(props) {
     `${props.mediaType}-genres`,
     () => getGenres(props.mediaType)
   );
-  const [modalStyle] = React.useState(getModalStyle);
 
   if (isLoading) {
     return <Spinner />;
@@ -120,159 +107,6 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "sort_category", e.target.value);
   };
 
-  function getModalStyle() {
-    const top = 50;
-    const left = 50;
-
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-    };
-  }
-
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <Typography variant="h5" component="h1">
-        Advanced Filter
-      </Typography>
-      {props.mediaType === "movie" ? (
-        <FormControl className={classes.modalInputFields}>
-          <InputLabel id="demo-simple-select-label">Release Year</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={props.releaseYearFilter}
-            onChange={handleReleaseYearChange}
-          >
-            {yearOptions.map((year) => {
-              return <MenuItem key={year} value={`${year}`}>{year}</MenuItem>;
-            })}
-          </Select>
-        </FormControl>
-      ) : (
-        <FormControl className={classes.modalInputFields}>
-          <InputLabel id="demo-simple-select-label">
-            First Air Date Year
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={props.firstAirDateFilter}
-            onChange={handleFirstAirYearChange}
-          >
-             {yearOptions.map((year) => {
-              return <MenuItem key={year} value={`${year}`}>{year}</MenuItem>;
-            })}</Select>
-        </FormControl>
-      )}
-
-      <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Average Rating Greater Than"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={handleAverageRatingGreaterThanChange}
-          value={props.averageRatingGreaterThanFilter}
-        />
-      </FormControl>
-      {/* <SimpleModal /> */}
-
-      <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Average Rating Less Than"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={handleAverageRatingLessThanChange}
-          value={props.averageRatingLessThanFilter}
-        />
-      </FormControl>
-
-      <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Greater Than Duration"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={durationGreaterThanChange}
-          value={props.durationGreaterThanFilter}
-        />
-      </FormControl>
-
-      <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Less Than Duration"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={durationLessThanChange}
-          value={props.durationLessThanFilter}
-        />
-      </FormControl>
-
-      <FormControl className={classes.modalInputFields}>
-        <InputLabel id="demo-simple-select-label">Original Language</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={props.originalLanguage}
-          onChange={originalLanguageChange}
-        >
-          <MenuItem value={"fr"}>French</MenuItem>
-          <MenuItem value={"es"}>Spanish</MenuItem>
-          <MenuItem value={"de"}>German</MenuItem>
-          <MenuItem value={"it"}>Italian</MenuItem>
-          <MenuItem value={"ja"}>Japanese</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl className={classes.modalInputFields}>
-        <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={props.sortCategory}
-          onChange={sortCategoryChange}
-        >
-          <MenuItem value={"popularity.asc"}>Most Popular</MenuItem>
-          <MenuItem value={"popularity.desc"}>Least Popular</MenuItem>
-          <MenuItem value={"revenue.asc"}>Highest Grossing Revenue</MenuItem>
-          <MenuItem value={"revenue.desc"}>Lowest Grossing Revenue</MenuItem>
-          <MenuItem value={"vote_count.asc"}>Most Votes</MenuItem>
-          <MenuItem value={"vote_count.desc"}>Least Votes</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl className={classes.modalInputFields}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={props.advancedSearch}
-        >
-          Filter
-        </Button>
-      </FormControl>
-    </div>
-  );
-
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
@@ -307,22 +141,51 @@ export default function FilterMoviesCard(props) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          {props.favouritepage ? <></> :  <Button
-            variant="contained"
-            color="secondary"
-            onClick={props.handleOpen}
-          >
-            Advanced Filter
-          </Button>}
-         
+          {props.favouritepage ? (
+            <></>
+          ) : (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={props.handleOpen}
+            >
+              Advanced Filter
+            </Button>
+          )}
+
           <Modal
             open={props.modalDisplay}
             onClose={props.handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
           >
-           
-            {body}
+            <AdvancedFilterModal
+              handleReleaseYearChange={handleReleaseYearChange}
+              handleFirstAirYearChange={handleFirstAirYearChange}
+              handleAverageRatingGreaterThanChange={
+                handleAverageRatingGreaterThanChange
+              }
+              handleAverageRatingLessThanChange={
+                handleAverageRatingLessThanChange
+              }
+              durationGreaterThanChange={durationGreaterThanChange}
+              durationLessThanChange={durationLessThanChange}
+              originalLanguageChange={originalLanguageChange}
+              sortCategoryChange={sortCategoryChange}
+              mediaType={props.mediaType}
+              releaseYearFilter={props.releaseYearFilter}
+              yearOptions={yearOptions}
+              firstAirDateFilter={props.firstAirDateFilter}
+              averageRatingGreaterThanFilter={
+                props.averageRatingGreaterThanFilter
+              }
+              averageRatingLessThanFilter={props.averageRatingLessThanFilter}
+              durationGreaterThanFilter={props.durationGreaterThanFilter}
+              durationLessThanFilter={props.durationLessThanFilter}
+              originalLanguage={props.originalLanguage}
+              sortCategory={props.sortCategory}
+              advancedSearch={props.advancedSearch}
+            />
           </Modal>
         </FormControl>
       </CardContent>
