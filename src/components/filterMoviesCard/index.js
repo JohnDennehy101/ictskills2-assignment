@@ -307,19 +307,21 @@ export default function FilterMoviesCard(props) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <Button
+          {props.favouritepage ? <></> :  <Button
             variant="contained"
             color="secondary"
             onClick={props.handleOpen}
           >
             Advanced Filter
-          </Button>
+          </Button>}
+         
           <Modal
             open={props.modalDisplay}
             onClose={props.handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
           >
+           
             {body}
           </Modal>
         </FormControl>

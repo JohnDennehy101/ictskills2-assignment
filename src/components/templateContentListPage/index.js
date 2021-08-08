@@ -102,6 +102,7 @@ function TemplateContentPage({
   const [sortCategory, setSortCategory] = useState("");
   const [firstAirDate, setFirstAirDate] = useState("");
   const [open, setOpen] = React.useState(false);
+  const [genreFilterAction, setGenreFilterAction] = useState(false);
 
   let history = useHistory();
 
@@ -202,6 +203,7 @@ function TemplateContentPage({
     else if (type === "sort_category") setSortCategory(value);
     else {
       setGenreFilter(value);
+      setGenreFilterAction(true);
     }
   };
 
@@ -252,6 +254,7 @@ function TemplateContentPage({
                 handleOpen={handleOpen}
                 handleClose={handleFilterClose}
                 mediaType={mediaType}
+                favouritepage={favouritePage}
               />
             </Grid>
           ) : (
@@ -305,8 +308,30 @@ function TemplateContentPage({
             </div>
           </Grid>
         </Grid>
-      ) : (
+      ) : genreFilterAction && displayedContent.length === 0 ? (
         <>
+         <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <FilterCard
+                onUserInput={handleChange}
+                titleFilter={nameFilter}
+                genreFilter={genreFilter}
+                releaseYearFilter={releaseYearFilter}
+                firstAirDateFilter={firstAirDate}
+                averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
+                averageRatingLessThanFilter={averageRatingLessThanFilter}
+                durationGreaterThanFilter={durationGreaterThanFilter}
+                durationLessThanFilter={durationLessThanFilter}
+                originalLanguage={originalLanguage}
+                sortCategory={sortCategory}
+                filteredMoviesSearch={filteredMoviesSearch}
+                advancedSearch={getAdvancedFilterResults}
+                modalDisplay={open}
+                handleOpen={handleOpen}
+                handleClose={handleFilterClose}
+                mediaType={mediaType}
+                favouritepage={favouritePage}
+              />
+            </Grid>
           <Grid
             key="find"
             className={classes.snackbar}
@@ -317,7 +342,7 @@ function TemplateContentPage({
             lg={3}
             xl={2}
           >
-            <Alert severity="info">No saved content to display.</Alert>{" "}
+            <Alert severity="info">No content to display.</Alert>{" "}
           </Grid>
           <Fab color="secondary" variant="extended" className={classes.fab}>
             <NavigationIcon />
@@ -343,7 +368,43 @@ function TemplateContentPage({
             {body}
           </Modal>
         </>
-      )}
+      ) :  <>
+          <Grid
+            key="find"
+            className={classes.snackbar}
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            xl={2}
+          >
+            <Alert severity="info">No content to display.</Alert>{" "}
+          </Grid>
+          <Fab color="secondary" variant="extended" className={classes.fab}>
+            <NavigationIcon />
+            Type
+          </Fab>
+          <Fab
+            color="secondary"
+            variant="extended"
+            onClick={() => setDrawerOpen(true)}
+            className={classes.fab}
+          >
+            <NavigationIcon />
+            Type
+          </Fab>
+
+          <Modal
+            style={{ alignItems: "center", justifyContent: "center" }}
+            open={drawerOpen}
+            onClose={handleModalClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            {body}
+          </Modal>
+        </>}
     </Grid>
   );
 }
