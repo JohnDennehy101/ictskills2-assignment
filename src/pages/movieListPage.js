@@ -5,7 +5,7 @@ import Spinner from "../components/spinner";
 import { getMovies, filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
-import { existingGuestSession } from "../util";
+import { existingGuestSession, determinePaginationRange } from "../util";
 
 const HomePage = (props) => {
   let favouriteIconDisplay;
@@ -43,6 +43,8 @@ const HomePage = (props) => {
   } else {
     movies = data.results;
   }
+
+  const pageRange = determinePaginationRange(data.total_results);
 
   if (!guestSession) {
     favouriteIconDisplay = (movie) => {
@@ -87,6 +89,7 @@ const HomePage = (props) => {
       handlePageChange={handlePageChange}
       page={page}
       mediaType={"movie"}
+      pageRange={pageRange}
     />
   );
 };

@@ -5,7 +5,7 @@ import Spinner from "../components/spinner";
 import { getTvShows, filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
-import { existingGuestSession } from "../util";
+import { existingGuestSession, determinePaginationRange } from "../util";
 
 const TvListPage = (props) => {
   let favouriteIconDisplay;
@@ -44,6 +44,8 @@ const TvListPage = (props) => {
   if (isLoading) {
     return <Spinner />;
   }
+
+  const pageRange = determinePaginationRange(data.total_results);
 
   if (isError) {
     return <h1>{error.message}</h1>;
@@ -95,6 +97,7 @@ const TvListPage = (props) => {
       handlePageChange={handlePageChange}
       page={page}
       mediaType={"tv"}
+      pageRange={pageRange}
     />
   );
 };

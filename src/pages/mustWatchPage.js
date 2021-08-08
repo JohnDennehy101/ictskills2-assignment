@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { getMustWatchItems } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromMustWatch from "../components/cardIcons/removeFromMustWatch";
-import { existingGuestSession } from "../util";
+import { existingGuestSession, determinePaginationRange } from "../util";
 
 const MustWatchPage = () => {
   let contextType, removeMustWatch;
@@ -34,6 +34,8 @@ const MustWatchPage = () => {
   if (mustWatchLoading) {
     return <Spinner />;
   }
+
+  const pageRange = determinePaginationRange(content.length);
 
   const handleModalClose = () => {
     setDrawerOpen(false);
@@ -68,6 +70,7 @@ const MustWatchPage = () => {
       drawerOpen={drawerOpen}
       handleModalClose={handleModalClose}
       action={removeMustWatch}
+      pageRange={pageRange}
     />
   );
 };

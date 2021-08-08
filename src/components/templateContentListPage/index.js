@@ -85,6 +85,7 @@ function TemplateContentPage({
   drawerOpen,
   handleModalClose,
   filterPage,
+  pageRange
 }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
@@ -296,7 +297,7 @@ function TemplateContentPage({
             <div className={classes.pagination}>
               <Typography>Page: {page}</Typography>
               <Pagination
-                count={100}
+                count={pageRange}
                 page={page}
                 className={classes.paginatedList}
                 onChange={handlePageChange}

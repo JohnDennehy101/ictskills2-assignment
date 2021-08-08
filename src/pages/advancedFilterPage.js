@@ -5,31 +5,31 @@ import Spinner from "../components/spinner";
 import { filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
-import { existingGuestSession } from "../util";
+import { existingGuestSession, determinePaginationRange } from "../util";
 import { useHistory } from "react-router-dom";
 
 const AdvancedFilterPage = () => {
+  let history = useHistory();
+  let filterState = history.location.state;
+  let mediaType = history.location.pathname.includes("movie") ? "movie" : "tv";
 
-
-let history = useHistory();
-let filterState = history.location.state;
-let mediaType = history.location.pathname.includes('movie') ? 'movie' : 'tv';
-
-let favouriteIconDisplay;
+  let favouriteIconDisplay;
   const [page, setPage] = useState(1);
   const guestSession = existingGuestSession();
   const { data, error, isLoading, isError } = useQuery(
     ["advancedFilter", { id: page }],
-    () => filteredMoviesSearch(
-      filterState.releaseYear,
-      filterState.averageRatingGreaterThan,
-      filterState.averageRatingLessThan,
-      filterState.durationLessThan,
-      filterState.durationGreaterThan,
-      filterState.originalLanguage,
-      filterState.sortCategory,
-      undefined,
-      page),
+    () =>
+      filteredMoviesSearch(
+        filterState.releaseYear,
+        filterState.averageRatingGreaterThan,
+        filterState.averageRatingLessThan,
+        filterState.durationLessThan,
+        filterState.durationGreaterThan,
+        filterState.originalLanguage,
+        filterState.sortCategory,
+        undefined,
+        page
+      ),
     { keepPreviousData: true, staleTime: 5000 }
   );
 
@@ -37,19 +37,19 @@ let favouriteIconDisplay;
     setPage(value);
   };
 
-
   useEffect(() => {
     if (data?.hasMore) {
       queryClient.prefetchQuery(["advancedFilter", page + 1], () =>
         filteredMoviesSearch(
-      filterState.releaseYear,
-      filterState.averageRatingGreaterThan,
-      filterState.averageRatingLessThan,
-      filterState.durationLessThan,
-      filterState.durationGreaterThan,
-      filterState.originalLanguage,
-      filterState.sortCategory,
-      page + 1),
+          filterState.releaseYear,
+          filterState.averageRatingGreaterThan,
+          filterState.averageRatingLessThan,
+          filterState.durationLessThan,
+          filterState.durationGreaterThan,
+          filterState.originalLanguage,
+          filterState.sortCategory,
+          page + 1
+        )
       );
     }
   }, [data, page, queryClient]);
@@ -61,9 +61,10 @@ let favouriteIconDisplay;
   if (isError) {
     return <h1>{error.message}</h1>;
   }
-  
-   let content = data.results;
-  
+
+  let content = data.results;
+
+  const pageRange = determinePaginationRange(data.total_results);
 
   if (!guestSession) {
     favouriteIconDisplay = (movie) => {
@@ -76,14 +77,15 @@ let favouriteIconDisplay;
   }
 
   return (
-      <PageTemplate
-      title="Discover Movies"
+    <PageTemplate
+      title={`Advanced Filter`}
       content={content}
       action={favouriteIconDisplay}
       handlePageChange={handlePageChange}
       page={page}
       mediaType={mediaType}
       filterPage={true}
+      pageRange={pageRange}
     />
   );
 };

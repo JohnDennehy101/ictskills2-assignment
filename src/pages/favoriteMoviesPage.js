@@ -5,6 +5,7 @@ import { getFavourites } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
+import {determinePaginationRange} from "../util";
 
 const FavoriteMoviesPage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -23,6 +24,8 @@ const FavoriteMoviesPage = () => {
   if (favouritesLoading) {
     return <Spinner />
   }
+
+  const pageRange = determinePaginationRange(content.length);
   
 
 
@@ -46,6 +49,7 @@ const FavoriteMoviesPage = () => {
       setDrawerOpen={setDrawerOpen}
       drawerOpen={drawerOpen}
       handleModalClose={handleModalClose}
+      pageRange={pageRange}
       action={(content) => {
         return (
           <>

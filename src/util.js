@@ -15,3 +15,6 @@ export function existingGuestSession() {
  let guestSessionId = localStorage.getItem("guest-session");
   return guestSessionId;
 }
+export function determinePaginationRange(resultsLength) {
+  return Math.ceil(resultsLength / 20);
+}
