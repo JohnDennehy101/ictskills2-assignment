@@ -1,5 +1,5 @@
 import React from "react";
-import MovieList from "../components/movieList";
+import ContentList from "../components/contentList";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
 import { action } from "@storybook/addon-actions";
@@ -8,8 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import MoviesContextProvider from "../contexts/moviesContext";
 
 export default {
-  title: "Home Page/MovieList",
-  component: MovieList,
+  title: "Content List",
+  component: ContentList,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
     (Story) => <MoviesContextProvider>{Story()}</MoviesContextProvider>,
@@ -18,7 +18,7 @@ export default {
 
 export const Basic = () => {
   const movies = [
-    { ...SampleMovie, id: 1 },
+    { ...SampleMovie, favorite: true, id: 1 },
     { ...SampleMovie, id: 2 },
     { ...SampleMovie, id: 3 },
     { ...SampleMovie, id: 4 },
@@ -26,9 +26,10 @@ export const Basic = () => {
   ];
   return (
     <Grid container spacing={5}>
-      <MovieList
-        movies={movies}
-        action={(movie) => <AddToFavoritesIcon movie={movie} />}
+      <ContentList
+        content={movies}
+        mediaType={'movie'}
+        action={(movie) => <AddToFavoritesIcon content={movie} mediaType={'movie'} />}
       />
     </Grid>
   );

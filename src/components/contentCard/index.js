@@ -32,6 +32,7 @@ export default function ContentCard({ content, action, mediaType }) {
   const classes = useStyles();
   const { favorites, mustWatch } = useContext(contextType);
   let linkUrl;
+  
 
   if (favorites.find((id) => id === content.id)) {
     content.favorite = true;

@@ -1,17 +1,18 @@
 import React from "react";
-import MoviesHeader from "../components/headerMovieList";
+import ContentDetail from "../components/contentDetail";
+import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
 
 export default {
-  title: "Home Page/MoviePageHeader",
-  component: MoviesHeader,
+  title: "Content Detail Page",
+  component: ContentDetail,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
     (Story) => <MoviesContextProvider>{Story()}</MoviesContextProvider>,
   ],
 };
 
-export const Basic = () => <MoviesHeader title="Discover Movies" />;
+export const Basic = () => <ContentDetail movie={SampleMovie} mediaType={'movie'} />;
 
 Basic.storyName = "Default";

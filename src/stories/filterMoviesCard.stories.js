@@ -13,6 +13,8 @@ const queryClient = new QueryClient({
     },
   },
 });
+let nameFilter, genreFilter, releaseYearFilter, firstAirDate, handleChange, averageRatingGreaterThanFilter, averageRatingLessThanFilter, durationGreaterThanFilter, durationLessThanFilter, originalLanguage, sortCategory, filteredMoviesSearch, getAdvancedFilterResults, handleOpen, handleFilterClose, favouritePage;
+let mediaType = 'movie';
 
 export default {
   title: "Home Page/FilterMoviesCard",
@@ -26,6 +28,25 @@ export default {
 };
 
 export const Basic = () => {
-  return <FilterMoviesCard onUserInput={action("filter input")} />;
+  return <FilterMoviesCard onUserInput={action("filter input")}
+  
+   onUserInput={handleChange}
+                titleFilter={nameFilter}
+                genreFilter={genreFilter}
+                releaseYearFilter={releaseYearFilter}
+                firstAirDateFilter={firstAirDate}
+                averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
+                averageRatingLessThanFilter={averageRatingLessThanFilter}
+                durationGreaterThanFilter={durationGreaterThanFilter}
+                durationLessThanFilter={durationLessThanFilter}
+                originalLanguage={originalLanguage}
+                sortCategory={sortCategory}
+                filteredMoviesSearch={filteredMoviesSearch}
+                advancedSearch={getAdvancedFilterResults}
+                modalDisplay={false}
+                handleOpen={handleOpen}
+                handleClose={handleFilterClose}
+                mediaType={mediaType}
+                favouritepage={favouritePage}/>;
 };
 Basic.storyName = "Default";
