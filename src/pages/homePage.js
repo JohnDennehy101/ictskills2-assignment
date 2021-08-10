@@ -6,7 +6,7 @@ import {
   askUserForAuthentication,
   createGuestSession
 } from "../api/tmdb-api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -39,8 +39,10 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = (props) => {
   const classes = useStyles();
+  const [showSpinner, setShowSpinner] = useState(true);
 
   useEffect(() => {
+    
     async function manageUserSession() {
       let checkValidSession, sessionId, guestSessionId;
 
@@ -52,6 +54,9 @@ const HomePage = (props) => {
       }
       else if (guestSessionId) {
         window.location.href = "/movies";
+      }
+      else {
+        setShowSpinner(false);
       }
     }
 
@@ -73,8 +78,7 @@ const HomePage = (props) => {
   return (
     <>
       <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
+        {showSpinner ? <Spinner /> : <div className={classes.heroContent}>
           <Container maxWidth="sm" className={classes.content}>
             <Typography
               component="h1"
@@ -113,7 +117,8 @@ const HomePage = (props) => {
               </Grid>
             </div>
           </Container>
-        </div>
+        </div>}
+        
       </main>
     </>
   );
