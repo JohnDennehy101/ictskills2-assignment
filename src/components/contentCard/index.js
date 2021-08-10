@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { TvShowsContext } from "../../contexts/tvShowsContext";
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,6 +17,8 @@ import img from "../../images/film-poster-placeholder.png";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import PlayListAddIcon from "@material-ui/icons/PlaylistAdd";
+import { isLoggedInUser } from "../../util";
+import { getFavourites } from "../../api/tmdb-api";
 
 const useStyles = makeStyles({
   card: { maxWidth: 345 },
@@ -27,19 +29,43 @@ const useStyles = makeStyles({
 });
 
 export default function ContentCard({ content, action, mediaType }) {
-  let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext
-  let contentTitle = mediaType === 'movie' ? content.title : content.name;
+  const loggedIn = isLoggedInUser();
+  let favouriteIds = [];
+  let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
+  let contentTitle = mediaType === "movie" ? content.title : content.name;
+  const [favouriteDataObtained, setFavouriteDataObtained] = useState(false);
+  const [savedFavourites, setSavedFavourites] = useState([]);
   const classes = useStyles();
-  const { favorites, mustWatch } = useContext(contextType);
+  let favorites, mustWatch;
+  // const { favorites, mustWatch } = useContext(contextType);
   let linkUrl;
-  
 
-  if (favorites.find((id) => id === content.id)) {
-    content.favorite = true;
-  }
+  useEffect(() => {
+    async function searchForFavourites() {
+      let result;
+      if (loggedIn) {
+        result = await getFavourites(mediaType, 1);
+        favorites = result;
+        favorites.map((favourite) => favouriteIds.push(favourite.id));
 
-  if (mustWatch.find((id) => id === content.id)) {
-    content.mustWatch = true;
+        setSavedFavourites(favouriteIds);
+        setFavouriteDataObtained(true);
+      }
+
+      // return response.results;
+    }
+
+    searchForFavourites();
+  }, [favouriteDataObtained]);
+
+  if (favouriteDataObtained) {
+    if (savedFavourites.find((id) => id === content.id)) {
+      content.favorite = true;
+    }
+
+    // if (mustWatch.find((id) => id === content.id)) {
+    //   content.mustWatch = true;
+    // }
   }
 
   if (mediaType === "movie") {
@@ -55,20 +81,22 @@ export default function ContentCard({ content, action, mediaType }) {
         avatar={
           content.favorite && content.mustWatch ? (
             <>
-            <Avatar className={classes.avatar}>
-              <FavoriteIcon />
-            </Avatar>
-            <Avatar className={classes.avatar}>
-              <PlayListAddIcon />
-            </Avatar>
+              <Avatar className={classes.avatar}>
+                <FavoriteIcon />
+              </Avatar>
+              <Avatar className={classes.avatar}>
+                <PlayListAddIcon />
+              </Avatar>
             </>
           ) : content.favorite ? (
             <Avatar className={classes.avatar}>
               <FavoriteIcon />
             </Avatar>
-          ) : content.mustWatch ?  <Avatar className={classes.avatar}>
+          ) : content.mustWatch ? (
+            <Avatar className={classes.avatar}>
               <PlayListAddIcon />
-            </Avatar> : null
+            </Avatar>
+          ) : null
         }
         title={
           <Typography variant="h5" component="p">
