@@ -21,6 +21,7 @@ import HomePage from './pages/homePage';
 import CreateSessionPage from './pages/createSessionPage';
 import LogoutPage from './pages/logoutPage';
 import AdvancedFilterPage from './pages/advancedFilterPage';
+import PrivateRoute from './components/privateRoute';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,7 +41,7 @@ const App = () => {
         <MoviesContextProvider>
         <TvShowsContextProvider>
         <Switch>
-          <Route exact path="/reviews/:content/form" component={AddReviewPage} />
+          <PrivateRoute component={AddReviewPage} exact path="/reviews/:content/form" />
           <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
           <Route exact path="/tv" component={TvPage} />
           <Route exact path="/logout" component={LogoutPage} />
@@ -50,16 +51,8 @@ const App = () => {
           <Route exact path="/trending" component={TrendingPage} />
           <Route exact path="/success" component={CreateSessionPage} />
           <Route exact path="/person/credits/:id" component = {CastMemberInfoPage} />
-          <Route
-            exact
-            path="/movies/favorites"
-            component={FavoriteMoviesPage}
-          />
-            <Route
-            exact
-            path="/mustwatch"
-            component={MustWatchPage}
-          />
+          <PrivateRoute component={FavoriteMoviesPage} exact path="/movies/favorites" />
+          <PrivateRoute component={MustWatchPage} exact path="/mustwatch" />
           <Route path="/movies/:id" component={MoviePage} />
           <Route path="/tv/:id" component={TvDetailsPage} />
           <Route exact path="/" component={HomePage} />
