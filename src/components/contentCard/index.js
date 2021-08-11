@@ -18,7 +18,8 @@ import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import PlayListAddIcon from "@material-ui/icons/PlaylistAdd";
 import { isLoggedInUser } from "../../util";
-import { getFavourites } from "../../api/tmdb-api";
+import { getFavourites, getMustWatchItems } from "../../api/tmdb-api";
+import Spinner from "../spinner";
 
 const useStyles = makeStyles({
   card: { maxWidth: 345 },
@@ -31,10 +32,13 @@ const useStyles = makeStyles({
 export default function ContentCard({ content, action, mediaType }) {
   const loggedIn = isLoggedInUser();
   let favouriteIds = [];
+  let mustWatchIds = [];
   let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
   let contentTitle = mediaType === "movie" ? content.title : content.name;
   const [favouriteDataObtained, setFavouriteDataObtained] = useState(false);
+  const [fullyLoaded, setFullyLoaded] = useState(false);
   const [savedFavourites, setSavedFavourites] = useState([]);
+  const [savedMustWatch, setSavedMustWatch] = useState([]);
   const classes = useStyles();
   let favorites, mustWatch;
   // const { favorites, mustWatch } = useContext(contextType);
@@ -42,30 +46,37 @@ export default function ContentCard({ content, action, mediaType }) {
 
   useEffect(() => {
     async function searchForFavourites() {
-      let result;
+      let favoritesResult, mustWatchResult;
       if (loggedIn) {
-        result = await getFavourites(mediaType, 1);
-        favorites = result;
+        favoritesResult = await getFavourites(mediaType, 1);
+        mustWatchResult = await getMustWatchItems(mediaType, 1);
+        favorites = favoritesResult;
+        mustWatch = mustWatchResult;
         favorites.map((favourite) => favouriteIds.push(favourite.id));
+        mustWatch.map((mustWatch) => mustWatchIds.push(mustWatch.id));
 
         setSavedFavourites(favouriteIds);
+        setSavedMustWatch(mustWatchIds);
+        setFavouriteDataObtained(true);
+        setFullyLoaded(true);
+      } else {
+        setFullyLoaded(true);
         setFavouriteDataObtained(true);
       }
-
-      // return response.results;
     }
 
     searchForFavourites();
   }, [favouriteDataObtained]);
 
-  if (favouriteDataObtained) {
+  if (favouriteDataObtained && savedFavourites) {
     if (savedFavourites.find((id) => id === content.id)) {
       content.favorite = true;
     }
-
-    // if (mustWatch.find((id) => id === content.id)) {
-    //   content.mustWatch = true;
-    // }
+  }
+  if (favouriteDataObtained && savedMustWatch) {
+    if (savedMustWatch.find((id) => id === content.id)) {
+      content.mustWatch = true;
+    }
   }
 
   if (mediaType === "movie") {
@@ -76,66 +87,76 @@ export default function ContentCard({ content, action, mediaType }) {
 
   return (
     <Card className={classes.card}>
-      <CardHeader
-        className={classes.header}
-        avatar={
-          content.favorite && content.mustWatch ? (
-            <>
-              <Avatar className={classes.avatar}>
-                <FavoriteIcon />
-              </Avatar>
-              <Avatar className={classes.avatar}>
-                <PlayListAddIcon />
-              </Avatar>
-            </>
-          ) : content.favorite ? (
-            <Avatar className={classes.avatar}>
-              <FavoriteIcon />
-            </Avatar>
-          ) : content.mustWatch ? (
-            <Avatar className={classes.avatar}>
-              <PlayListAddIcon />
-            </Avatar>
-          ) : null
-        }
-        title={
-          <Typography variant="h5" component="p">
-            {contentTitle}{" "}
-          </Typography>
-        }
-      />
-      <CardMedia
-        className={classes.media}
-        image={
-          content.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${content.poster_path}`
-            : img
-        }
-      />
-      <CardContent>
-        <Grid container>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
-              {content.release_date}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <StarRateIcon fontSize="small" />
-              {"  "} {content.vote_average}{" "}
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-      <CardActions disableSpacing>
-        {action(content)}
-        <Link to={linkUrl}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
-      </CardActions>
+      {fullyLoaded ? (
+        <>
+          <CardHeader
+            className={classes.header}
+            avatar={
+              content.favorite && content.mustWatch ? (
+                <>
+                  <Avatar className={classes.avatar}>
+                    <FavoriteIcon />
+                  </Avatar>
+                  <Avatar className={classes.avatar}>
+                    <PlayListAddIcon />
+                  </Avatar>
+                </>
+              ) : content.favorite ? (
+                <Avatar className={classes.avatar}>
+                  <FavoriteIcon />
+                </Avatar>
+              ) : content.mustWatch ? (
+                <Avatar className={classes.avatar}>
+                  <PlayListAddIcon />
+                </Avatar>
+              ) : null
+            }
+            title={
+              <Typography variant="h5" component="p">
+                {contentTitle}{" "}
+              </Typography>
+            }
+          />
+          <CardMedia
+            className={classes.media}
+            image={
+              content.poster_path
+                ? `https://image.tmdb.org/t/p/w500/${content.poster_path}`
+                : img
+            }
+          />
+          <CardContent>
+            <Grid container>
+              <Grid item xs={6}>
+                <Typography variant="h6" component="p">
+                  <CalendarIcon fontSize="small" />
+                  {content.release_date}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h6" component="p">
+                  <StarRateIcon fontSize="small" />
+                  {"  "} {content.vote_average}{" "}
+                </Typography>
+              </Grid>
+            </Grid>
+          </CardContent>
+          <CardActions disableSpacing>
+            {action(content)}
+            <Link to={linkUrl}>
+              <Button variant="outlined" size="medium" color="primary">
+                More Info ...
+              </Button>
+            </Link>
+          </CardActions>
+        </>
+      ) : (
+        <>
+         <CardContent>
+        <Spinner height={250} />
+        </CardContent>
+        </>
+      )}
     </Card>
   );
 }
