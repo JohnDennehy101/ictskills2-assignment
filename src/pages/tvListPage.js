@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import PageTemplate from "../components/templateContentListPage";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import { getTvShows, filteredMoviesSearch } from "../api/tmdb-api";
+import { getTvShows, filteredMoviesSearch, getMustWatchItems} from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
-import { existingGuestSession, determinePaginationRange } from "../util";
+import { existingGuestSession, determinePaginationRange, isLoggedInUser } from "../util";
 
 const TvListPage = (props) => {
   let favouriteIconDisplay;
@@ -20,16 +20,18 @@ const TvListPage = (props) => {
     { keepPreviousData: true, staleTime: 5000 }
   );
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-  };
-  useEffect(() => {
+   useEffect(() => {
     if (data?.hasMore) {
       queryClient.prefetchQuery(["discover-tv", page + 1], () =>
         getTvShows(page + 1)
       );
     }
   }, [data, page, queryClient]);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+ 
 
   if (!guestSession) {
     favouriteIconDisplay = (movie) => {

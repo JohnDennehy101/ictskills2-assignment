@@ -20,6 +20,8 @@ import PlayListAddIcon from "@material-ui/icons/PlaylistAdd";
 import { isLoggedInUser } from "../../util";
 import { getFavourites, getMustWatchItems } from "../../api/tmdb-api";
 import Spinner from "../spinner";
+import { useQuery } from "react-query";
+import { AirlineSeatFlatOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   card: { maxWidth: 345 },
@@ -29,55 +31,88 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContentCard({ content, action, mediaType }) {
+export default function ContentCard({ content, action, mediaType, mustWatchIds, favoriteIds }) {
+  let fullyLoaded = false;
   const loggedIn = isLoggedInUser();
+  let enableQuery = loggedIn ? true : false;
   let favouriteIds = [];
-  let mustWatchIds = [];
+
+  console.log(mustWatchIds);
+
+  
   let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
   let contentTitle = mediaType === "movie" ? content.title : content.name;
   const [favouriteDataObtained, setFavouriteDataObtained] = useState(false);
-  const [fullyLoaded, setFullyLoaded] = useState(false);
   const [savedFavourites, setSavedFavourites] = useState([]);
   const [savedMustWatch, setSavedMustWatch] = useState([]);
   const classes = useStyles();
   let favorites, mustWatch;
-  // const { favorites, mustWatch } = useContext(contextType);
   let linkUrl;
 
-  useEffect(() => {
-    async function searchForFavourites() {
-      let favoritesResult, mustWatchResult;
-      if (loggedIn) {
-        favoritesResult = await getFavourites(mediaType, 1);
-        mustWatchResult = await getMustWatchItems(mediaType, 1);
-        favorites = favoritesResult;
-        mustWatch = mustWatchResult;
-        favorites.map((favourite) => favouriteIds.push(favourite.id));
-        mustWatch.map((mustWatch) => mustWatchIds.push(mustWatch.id));
+//   const {
+//     data: mustWatchContent,
+//     error: mustWatchError,
+//     isLoading: mustWatchLoading,
+//     isError: isMustWatchError,
+//   } = useQuery(
+//     [`mustWatch`, mediaType],
+//     () => getMustWatchItems(mediaType, undefined),
+//     { keepPreviousData: false, staleTime: 5000, enabled: enableQuery }
+//   );
 
-        setSavedFavourites(favouriteIds);
-        setSavedMustWatch(mustWatchIds);
-        setFavouriteDataObtained(true);
-        setFullyLoaded(true);
-      } else {
-        setFullyLoaded(true);
-        setFavouriteDataObtained(true);
-      }
-    }
+//   if (mustWatchLoading) {
+//     return <Spinner />
+//   }
+//   else {
+// mustWatchContent.map((mustWatch) => mustWatchIds.push(mustWatch.id));
+//   setFullyLoaded(true);
+//   }
 
-    searchForFavourites();
-  }, [favouriteDataObtained]);
+  
 
-  if (favouriteDataObtained && savedFavourites) {
-    if (savedFavourites.find((id) => id === content.id)) {
-      content.favorite = true;
-    }
-  }
-  if (favouriteDataObtained && savedMustWatch) {
-    if (savedMustWatch.find((id) => id === content.id)) {
+  // useEffect(() => {
+  //   async function searchForFavourites() {
+  //     let favoritesResult, mustWatchResult;
+  //     if (loggedIn) {
+  //       favoritesResult = await getFavourites(mediaType, undefined);
+  //       mustWatchResult = await getMustWatchItems(mediaType, undefined);
+  //       favorites = favoritesResult;
+  //       mustWatch = mustWatchResult;
+  //       favorites.map((favourite) => favouriteIds.push(favourite.id));
+  //       mustWatch.map((mustWatch) => mustWatchIds.push(mustWatch.id));
+
+  //       setSavedFavourites(favouriteIds);
+  //       setSavedMustWatch(mustWatchIds);
+  //       setFavouriteDataObtained(true);
+  //       setFullyLoaded(true);
+  //     } else {
+  //       setFullyLoaded(true);
+  //       setFavouriteDataObtained(true);
+  //     }
+  //   }
+
+  //   searchForFavourites();
+  // }, [favouriteDataObtained]);
+
+  // if (favouriteDataObtained && savedFavourites) {
+  //   if (savedFavourites.find((id) => id === content.id)) {
+  //     content.favorite = true;
+  //   }
+  // if (favouriteDataObtained && savedMustWatch) {
+    // if (savedMustWatch.find((id) => id === content.id)) {
+    //   content.mustWatch = true;
+    // }
+  //}
+
+   if (mustWatchIds.find((id) => id === content.id)) {
       content.mustWatch = true;
+      fullyLoaded = true;
     }
-  }
+
+     if (favoriteIds.find((id) => id === content.id)) {
+      content.favorite = true;
+      fullyLoaded = true;
+    }
 
   if (mediaType === "movie") {
     linkUrl = `/movies/${content.id}`;
@@ -87,7 +122,7 @@ export default function ContentCard({ content, action, mediaType }) {
 
   return (
     <Card className={classes.card}>
-      {fullyLoaded ? (
+      {true ? (
         <>
           <CardHeader
             className={classes.header}

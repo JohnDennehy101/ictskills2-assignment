@@ -388,27 +388,26 @@ export const getFavourites = async (mediaType, page) => {
   let sessionId = localStorage.getItem("session");
   let accountDetails = await getUserAccount(sessionId);
   let accountId = accountDetails.id;
+  let requestUrl;
 
-  console.log(accountId);
+  if (page) {
+     requestUrl = `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`;
+   
+  } else {
+    requestUrl = `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc`;
+  }
 
-  const response = await fetch(
-    `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`
-  );
+  const response = await fetch(requestUrl);
   if (!response.ok) {
     throw new Error(response.json().message);
   }
   let jsonResponse = await response.json();
-  console.log(jsonResponse);
   return jsonResponse.results;
 };
 
 export const markAsMustWatch = async (mediaType, id, watchlist) => {
   let sessionId = localStorage.getItem("session");
   let accountId = localStorage.getItem("accountId");
-
-  console.log(mediaType);
-  console.log(id);
-  console.log(watchlist);
   const response = await fetch(
     `https://api.themoviedb.org/3/account/${accountId}/watchlist?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
     {
@@ -433,15 +432,22 @@ export const markAsMustWatch = async (mediaType, id, watchlist) => {
 
 export const getMustWatchItems = async (mediaType, page) => {
   let contentType = mediaType === "movie" ? "movies" : "tv";
+  let requestUrl;
   let sessionId = localStorage.getItem("session");
   let accountDetails = await getUserAccount(sessionId);
   let accountId = accountDetails.id;
 
-  console.log(accountId);
+  if (page) {
+    requestUrl = `https://api.themoviedb.org/3/account/${accountId}/watchlist/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`;
+  } else {
+    requestUrl = `https://api.themoviedb.org/3/account/${accountId}/watchlist/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc`;
+  }
 
-  const response = await fetch(
-    `https://api.themoviedb.org/3/account/${accountId}/watchlist/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`
-  );
+  console.log(requestUrl);
+
+  const response = await fetch(requestUrl);
+  console.log("HITTING API");
+  console.log(response);
   if (!response.ok) {
     throw new Error(response.json().message);
   }
