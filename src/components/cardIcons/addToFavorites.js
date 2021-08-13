@@ -13,7 +13,7 @@ const AddToFavoritesIcon = ({ content, mediaType }) => {
 
   const handleAddToFavorites = async (e) => {
     e.preventDefault();
-    history.push(`/${mediaType}`);
+    window.location.reload();
     await markAsFavourite(mediaType, content.id, true);
 
     context.addToFavorites(content.id);

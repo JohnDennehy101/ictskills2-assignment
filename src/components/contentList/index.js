@@ -1,20 +1,18 @@
-import React, {useState} from "react";
+import React from "react";
 import ContentCard from "../contentCard";
 import Grid from "@material-ui/core/Grid";
-import {isLoggedInUser} from "../../util";
-import {getMustWatchItems, getFavourites } from "../../api/tmdb-api";
+import { isLoggedInUser } from "../../util";
+import { getMustWatchItems, getFavourites } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from "../spinner";
 
-
-const ContentList = ( {content, action, mediaType}) => {
+const ContentList = ({ content, action, mediaType }) => {
   const enableQuery = isLoggedInUser() ? true : false;
   let movieCards;
   let mustWatchIds = [];
   let favoriteIds = [];
-    const [fullyLoaded, setFullyLoaded] = useState(false);
+  let linkUrl;
 
-     const {
+  const {
     data: favoriteContent,
     error: favoriteError,
     isLoading: favoriteLoading,
@@ -25,7 +23,7 @@ const ContentList = ( {content, action, mediaType}) => {
     { keepPreviousData: false, staleTime: 5000, enabled: enableQuery }
   );
 
-    const {
+  const {
     data: mustWatchContent,
     error: mustWatchError,
     isLoading: mustWatchLoading,
@@ -37,31 +35,45 @@ const ContentList = ( {content, action, mediaType}) => {
   );
 
   if (mustWatchLoading) {
-   
-  }
-  else if (!mustWatchLoading && isLoggedInUser()) {
-mustWatchContent.map((mustWatch) => mustWatchIds.push(mustWatch.id));
+  } else if (!mustWatchLoading && isLoggedInUser()) {
+    mustWatchContent.map((mustWatch) => mustWatchIds.push(mustWatch.id));
   }
 
   if (favoriteLoading) {
-     
-  }
-   else if (!favoriteLoading && isLoggedInUser()) {
-favoriteContent.map((favorite) => favoriteIds.push(favorite.id));
+  } else if (!favoriteLoading && isLoggedInUser()) {
+    favoriteContent.map((favorite) => favoriteIds.push(favorite.id));
   }
 
-  
+  content.map((individualItem) => {
+    if (mustWatchIds.includes(individualItem.id)) {
+      individualItem.mustWatch = true;
+    }
+    if (favoriteIds.includes(individualItem.id)) {
+      individualItem.favorite = true;
+    }
+  });
+
+  if (mediaType === "movie") {
+    linkUrl = `/movies/${content.id}`;
+  } else {
+    linkUrl = `/tv/${content.id}`;
+  }
+
   if (content.length > 0) {
-movieCards = content.map((m) => (
-    <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-      <ContentCard key={m.id} content={m} action={action} mediaType={mediaType} mustWatchIds={mustWatchIds} favoriteIds={favoriteIds}/>
-    </Grid>
-  ));
+    movieCards = content.map((m) => (
+      <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+        <ContentCard
+          key={m.id}
+          content={m}
+          action={action}
+          mediaType={mediaType}
+        />
+      </Grid>
+    ));
+  } else {
+    movieCards = <></>;
   }
-  else {
-    movieCards = <></>
-  }
-  
+
   return movieCards;
 };
 

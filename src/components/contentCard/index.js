@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { MoviesContext } from "../../contexts/moviesContext";
-import { TvShowsContext } from "../../contexts/tvShowsContext";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -18,10 +16,7 @@ import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import PlayListAddIcon from "@material-ui/icons/PlaylistAdd";
 import { isLoggedInUser } from "../../util";
-import { getFavourites, getMustWatchItems } from "../../api/tmdb-api";
 import Spinner from "../spinner";
-import { useQuery } from "react-query";
-import { AirlineSeatFlatOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   card: { maxWidth: 345 },
@@ -31,98 +26,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContentCard({ content, action, mediaType, mustWatchIds, favoriteIds }) {
-  let fullyLoaded = false;
+export default function ContentCard({ content, action, mediaType }) {
   const loggedIn = isLoggedInUser();
-  let enableQuery = loggedIn ? true : false;
-  let favouriteIds = [];
 
-  console.log(mustWatchIds);
-
-  
-  let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
   let contentTitle = mediaType === "movie" ? content.title : content.name;
-  const [favouriteDataObtained, setFavouriteDataObtained] = useState(false);
-  const [savedFavourites, setSavedFavourites] = useState([]);
-  const [savedMustWatch, setSavedMustWatch] = useState([]);
+  const [fullyLoaded, setFullyLoaded] = useState(false);
   const classes = useStyles();
-  let favorites, mustWatch;
   let linkUrl;
 
-//   const {
-//     data: mustWatchContent,
-//     error: mustWatchError,
-//     isLoading: mustWatchLoading,
-//     isError: isMustWatchError,
-//   } = useQuery(
-//     [`mustWatch`, mediaType],
-//     () => getMustWatchItems(mediaType, undefined),
-//     { keepPreviousData: false, staleTime: 5000, enabled: enableQuery }
-//   );
-
-//   if (mustWatchLoading) {
-//     return <Spinner />
-//   }
-//   else {
-// mustWatchContent.map((mustWatch) => mustWatchIds.push(mustWatch.id));
-//   setFullyLoaded(true);
-//   }
-
-  
-
-  // useEffect(() => {
-  //   async function searchForFavourites() {
-  //     let favoritesResult, mustWatchResult;
-  //     if (loggedIn) {
-  //       favoritesResult = await getFavourites(mediaType, undefined);
-  //       mustWatchResult = await getMustWatchItems(mediaType, undefined);
-  //       favorites = favoritesResult;
-  //       mustWatch = mustWatchResult;
-  //       favorites.map((favourite) => favouriteIds.push(favourite.id));
-  //       mustWatch.map((mustWatch) => mustWatchIds.push(mustWatch.id));
-
-  //       setSavedFavourites(favouriteIds);
-  //       setSavedMustWatch(mustWatchIds);
-  //       setFavouriteDataObtained(true);
-  //       setFullyLoaded(true);
-  //     } else {
-  //       setFullyLoaded(true);
-  //       setFavouriteDataObtained(true);
-  //     }
-  //   }
-
-  //   searchForFavourites();
-  // }, [favouriteDataObtained]);
-
-  // if (favouriteDataObtained && savedFavourites) {
-  //   if (savedFavourites.find((id) => id === content.id)) {
-  //     content.favorite = true;
-  //   }
-  // if (favouriteDataObtained && savedMustWatch) {
-    // if (savedMustWatch.find((id) => id === content.id)) {
-    //   content.mustWatch = true;
-    // }
-  //}
-
-   if (mustWatchIds.find((id) => id === content.id)) {
-      content.mustWatch = true;
-      fullyLoaded = true;
-    }
-
-     if (favoriteIds.find((id) => id === content.id)) {
-      content.favorite = true;
-      fullyLoaded = true;
-    }
-
-  if (mediaType === "movie") {
-    linkUrl = `/movies/${content.id}`;
-  } else {
-    linkUrl = `/tv/${content.id}`;
-  }
+  useEffect(() => {
+    setInterval(() => {
+      setFullyLoaded(true);
+    }, 1000);
+  });
 
   return (
     <Card className={classes.card}>
-      {true ? (
+      {fullyLoaded ? (
         <>
           <CardHeader
             className={classes.header}
@@ -187,9 +107,9 @@ export default function ContentCard({ content, action, mediaType, mustWatchIds, 
         </>
       ) : (
         <>
-         <CardContent>
-        <Spinner height={250} />
-        </CardContent>
+          <CardContent>
+            <Spinner height={250} />
+          </CardContent>
         </>
       )}
     </Card>
