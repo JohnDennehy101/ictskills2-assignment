@@ -13,6 +13,8 @@ import TrendingInputFilter from "../trendingInputFilter";
 import MuiAlert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import Popper from "@material-ui/core/Popper";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +52,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  popper: {
+    padding: theme.spacing(2, 4, 3),
+
+    flexDirection: "column",
+    backgroundColor: "#EFEFEF",
+  },
   snackbar: {
     width: "100%",
     "& > * + *": {
@@ -85,7 +93,7 @@ function TemplateContentPage({
   drawerOpen,
   handleModalClose,
   filterPage,
-  pageRange
+  pageRange,
 }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
@@ -103,6 +111,15 @@ function TemplateContentPage({
   const [firstAirDate, setFirstAirDate] = useState("");
   const [open, setOpen] = React.useState(false);
   const [genreFilterAction, setGenreFilterAction] = useState(false);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const popperOpen = Boolean(anchorEl);
+  const id = open ? "transitions-popper" : undefined;
 
   let history = useHistory();
 
@@ -228,6 +245,49 @@ function TemplateContentPage({
           >
             Clear Filter
           </Button>
+          <Button
+            className={classes.clearFilterButton}
+            variant="contained"
+            color="tertiary"
+            aria-describedby={id}
+            onClick={handleClick}
+          >
+            See Filter Properties
+          </Button>
+          <Popper id={id} open={popperOpen} anchorEl={anchorEl} transition>
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <div className={classes.popper}>
+                  <Typography>Release Year: {releaseYearFilter}</Typography>
+                  <Typography>
+                    Average Rating Greater Than: {releaseYearFilter}
+                  </Typography>
+                  <Typography>
+                    Average Rating Less Than: {releaseYearFilter}
+                  </Typography>
+                  <Typography>
+                    Duration Greater Than: {releaseYearFilter}
+                  </Typography>
+                  <Typography>
+                    Duration Less Than: {releaseYearFilter}
+                  </Typography>
+                  <Typography>
+                    Original Language: {releaseYearFilter}
+                  </Typography>
+                  <Typography>Sort Category: {releaseYearFilter}</Typography>
+                  <Typography>First Air Date: {releaseYearFilter}</Typography>
+                  {/* releaseYear: releaseYearFilter,
+        averageRatingGreaterThan: averageRatingGreaterThanFilter,
+        averageRatingLessThan: averageRatingLessThanFilter,
+        durationLessThan: durationLessThanFilter,
+        durationGreaterThan: durationGreaterThanFilter,
+        originalLanguage: originalLanguage,
+        sortCategory: sortCategory,
+        firstAirDate: firstAirDate, */}
+                </div>
+              </Fade>
+            )}
+          </Popper>
         </Grid>
       ) : (
         <></>
@@ -310,28 +370,28 @@ function TemplateContentPage({
         </Grid>
       ) : genreFilterAction && displayedContent.length === 0 ? (
         <>
-         <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
-              <FilterCard
-                onUserInput={handleChange}
-                titleFilter={nameFilter}
-                genreFilter={genreFilter}
-                releaseYearFilter={releaseYearFilter}
-                firstAirDateFilter={firstAirDate}
-                averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
-                averageRatingLessThanFilter={averageRatingLessThanFilter}
-                durationGreaterThanFilter={durationGreaterThanFilter}
-                durationLessThanFilter={durationLessThanFilter}
-                originalLanguage={originalLanguage}
-                sortCategory={sortCategory}
-                filteredMoviesSearch={filteredMoviesSearch}
-                advancedSearch={getAdvancedFilterResults}
-                modalDisplay={open}
-                handleOpen={handleOpen}
-                handleClose={handleFilterClose}
-                mediaType={mediaType}
-                favouritepage={favouritePage}
-              />
-            </Grid>
+          <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <FilterCard
+              onUserInput={handleChange}
+              titleFilter={nameFilter}
+              genreFilter={genreFilter}
+              releaseYearFilter={releaseYearFilter}
+              firstAirDateFilter={firstAirDate}
+              averageRatingGreaterThanFilter={averageRatingGreaterThanFilter}
+              averageRatingLessThanFilter={averageRatingLessThanFilter}
+              durationGreaterThanFilter={durationGreaterThanFilter}
+              durationLessThanFilter={durationLessThanFilter}
+              originalLanguage={originalLanguage}
+              sortCategory={sortCategory}
+              filteredMoviesSearch={filteredMoviesSearch}
+              advancedSearch={getAdvancedFilterResults}
+              modalDisplay={open}
+              handleOpen={handleOpen}
+              handleClose={handleFilterClose}
+              mediaType={mediaType}
+              favouritepage={favouritePage}
+            />
+          </Grid>
           <Grid
             key="find"
             className={classes.snackbar}
@@ -368,7 +428,8 @@ function TemplateContentPage({
             {body}
           </Modal>
         </>
-      ) :  <>
+      ) : (
+        <>
           <Grid
             key="find"
             className={classes.snackbar}
@@ -404,7 +465,8 @@ function TemplateContentPage({
           >
             {body}
           </Modal>
-        </>}
+        </>
+      )}
     </Grid>
   );
 }
