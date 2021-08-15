@@ -102,7 +102,6 @@ export const filteredMoviesSearch = async (
   first_air_date_year,
   page
 ) => {
-  console.log(page);
   let mediaType;
   let movieType = window.location.href.includes("movie") ? true : false;
   if (movieType) {

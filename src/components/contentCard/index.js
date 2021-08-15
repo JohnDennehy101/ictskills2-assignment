@@ -28,17 +28,23 @@ const useStyles = makeStyles({
 
 export default function ContentCard({ content, action, mediaType }) {
   const loggedIn = isLoggedInUser();
+  let linkUrl
 
   let contentTitle = mediaType === "movie" ? content.title : content.name;
   const [fullyLoaded, setFullyLoaded] = useState(false);
   const classes = useStyles();
-  let linkUrl;
 
   useEffect(() => {
     setInterval(() => {
       setFullyLoaded(true);
     }, 1000);
   });
+
+  if (mediaType === "movie") {
+    linkUrl = `/movies/${content.id}`;
+  } else {
+    linkUrl = `/tv/${content.id}`;
+  }
 
   return (
     <Card className={classes.card}>

@@ -51,13 +51,10 @@ const ContentList = ({ content, action, mediaType }) => {
     if (favoriteIds.includes(individualItem.id)) {
       individualItem.favorite = true;
     }
+    
   });
 
-  if (mediaType === "movie") {
-    linkUrl = `/movies/${content.id}`;
-  } else {
-    linkUrl = `/tv/${content.id}`;
-  }
+  
 
   if (content.length > 0) {
     movieCards = content.map((m) => (
@@ -67,6 +64,7 @@ const ContentList = ({ content, action, mediaType }) => {
           content={m}
           action={action}
           mediaType={mediaType}
+        
         />
       </Grid>
     ));
