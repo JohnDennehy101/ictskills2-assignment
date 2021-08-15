@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
@@ -28,6 +27,10 @@ export default function AdvancedFilterModal({
   originalLanguage,
   sortCategory,
   advancedSearch,
+  averageRatingGreaterThanOptions,
+  averageRatingLessThanOptions,
+  durationLessThanOptions,
+  durationGreaterThanOptions,
 }) {
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -116,64 +119,83 @@ export default function AdvancedFilterModal({
       )}
 
       <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Average Rating Greater Than"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={handleAverageRatingGreaterThanChange}
+        <InputLabel id="demo-simple-select-label">
+          Average Rating Greater Than
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
           value={averageRatingGreaterThanFilter}
-        />
+          onChange={handleAverageRatingGreaterThanChange}
+        >
+          {averageRatingGreaterThanOptions.map((year) => {
+            return (
+              <MenuItem key={year} value={`${year}`}>
+                {year}
+              </MenuItem>
+            );
+          })}
+        </Select>
       </FormControl>
-      {/* <SimpleModal /> */}
 
       <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Average Rating Less Than"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={handleAverageRatingLessThanChange}
+        <InputLabel id="demo-simple-select-label">
+          Average Rating Less Than
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
           value={averageRatingLessThanFilter}
-        />
+          onChange={handleAverageRatingLessThanChange}
+        >
+          {averageRatingLessThanOptions.map((year) => {
+            return (
+              <MenuItem key={year} value={`${year}`}>
+                {year}
+              </MenuItem>
+            );
+          })}
+        </Select>
       </FormControl>
 
       <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Greater Than Duration"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={durationGreaterThanChange}
+        <InputLabel id="demo-simple-select-label">
+          Duration Greater Than
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
           value={durationGreaterThanFilter}
-        />
+          onChange={durationGreaterThanChange}
+        >
+          {durationGreaterThanOptions.map((duration) => {
+            return (
+              <MenuItem key={duration} value={`${duration}`}>
+                {duration}
+              </MenuItem>
+            );
+          })}
+        </Select>
       </FormControl>
 
       <FormControl className={classes.modalInputFields}>
-        {/* <InputLabel id="demo-simple-select-label">1-10</InputLabel> */}
-
-        <TextField
-          id="standard-number"
-          label="Less Than Duration"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={durationLessThanChange}
+        <InputLabel id="demo-simple-select-label">
+          Duration Less Than
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
           value={durationLessThanFilter}
-        />
+          onChange={durationLessThanChange}
+        >
+          {durationLessThanOptions.map((duration) => {
+            return (
+              <MenuItem key={duration} value={`${duration}`}>
+                {duration}
+              </MenuItem>
+            );
+          })}
+        </Select>
       </FormControl>
 
       <FormControl className={classes.modalInputFields}>

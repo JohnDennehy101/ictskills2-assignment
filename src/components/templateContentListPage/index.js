@@ -13,7 +13,7 @@ import TrendingInputFilter from "../trendingInputFilter";
 import MuiAlert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
-import { populateFilterTableRows } from "../../util";
+import { populateFilterTableRows, RatingOptions } from "../../util";
 import AdvancedFilterPopper from "../advancedFilterPopper";
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     width: "20vw",
     padding: "10px",
     borderRadius: "5px",
-  }
+  },
 }));
 
 //If advanced filter (reassign displayed movies)
@@ -94,7 +94,7 @@ function TemplateContentPage({
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState(2021);
   const [averageRatingGreaterThanFilter, setAverageRatingGreaterThanFilter] =
-    useState(8);
+    useState("");
   const [averageRatingLessThanFilter, setAverageRatingLessThanFilter] =
     useState("");
   const [durationLessThanFilter, setDurationLessThanFilter] = useState("");
@@ -106,8 +106,31 @@ function TemplateContentPage({
   const [open, setOpen] = React.useState(false);
   const [genreFilterAction, setGenreFilterAction] = useState(false);
 
+  const ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const durationOptions = [
+    5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95,
+    100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150,
+  ];
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [tableRows, setTableRows] = useState(undefined);
+  const [averageRatingGreaterThanOptions, setAverageRatingGreaterThanOptions] =
+    useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [averageRatingLessThanOptions, setAverageRatingLessThanOptions] =
+    useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [durationGreaterThanOptions, setDurationGreaterThanOptions] = useState([
+    5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95,
+    100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150,
+  ]);
+  const [durationLessThanOptions, setDurationLessThanOptions] = useState([
+    5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95,
+    100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150,
+  ]);
+
+  //let averageRatingGreaterThanOptions = [1,2,3,4,5,6,7,8,9];
+  // let averageRatingLessThanOptions = [1,2,3,4,5,6,7,8,9];
+  // let durationGreaterThanOptions = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150];
+  // let durationLessThanOptions = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150];
 
   let rows = [];
 
@@ -207,20 +230,35 @@ function TemplateContentPage({
     else if (type === "release_year") {
       setReleaseYearFilter(value);
     } else if (type === "first_air_date_year") setFirstAirDate(value);
-    else if (type === "average_rating_greater_than")
+    else if (type === "average_rating_greater_than") {
       setAverageRatingGreaterThanFilter(value);
-    else if (type === "average_rating_less_than")
+      setAverageRatingLessThanOptions(
+        RatingOptions(value, "greaterThan", ratingOptions)
+      );
+    } else if (type === "average_rating_less_than") {
       setAverageRatingLessThanFilter(value);
-    else if (type === "duration_greater_than")
+      setAverageRatingGreaterThanOptions(
+        RatingOptions(value, "lessThan", ratingOptions)
+      );
+    } else if (type === "duration_greater_than") {
       setDurationGreaterThanFilter(value);
-    else if (type === "duration_less_than") setDurationLessThanFilter(value);
-    else if (type === "original_language") setOriginalLanguage(value);
+      setDurationLessThanOptions(
+        RatingOptions(value, "greaterThan", durationOptions)
+      );
+    } else if (type === "duration_less_than") {
+      setDurationLessThanFilter(value);
+      setDurationGreaterThanOptions(
+        RatingOptions(value, "lessThan", durationOptions)
+      );
+    } else if (type === "original_language") setOriginalLanguage(value);
     else if (type === "sort_category") setSortCategory(value);
     else {
       setGenreFilter(value);
       setGenreFilterAction(true);
     }
   };
+
+  console.log(averageRatingLessThanOptions);
 
   return (
     <Grid container className={classes.root}>
@@ -252,7 +290,11 @@ function TemplateContentPage({
           >
             See Filter Properties
           </Button>
-          <AdvancedFilterPopper anchorEl={anchorEl} tableRows={tableRows} id={id} />
+          <AdvancedFilterPopper
+            anchorEl={anchorEl}
+            tableRows={tableRows}
+            id={id}
+          />
         </Grid>
       ) : (
         <></>
@@ -280,6 +322,12 @@ function TemplateContentPage({
                 handleClose={handleFilterClose}
                 mediaType={mediaType}
                 favouritepage={favouritePage}
+                averageRatingGreaterThanOptions={
+                  averageRatingGreaterThanOptions
+                }
+                averageRatingLessThanOptions={averageRatingLessThanOptions}
+                durationGreaterThanOptions={durationGreaterThanOptions}
+                durationLessThanOptions={durationLessThanOptions}
               />
             </Grid>
           ) : (
@@ -355,6 +403,10 @@ function TemplateContentPage({
               handleClose={handleFilterClose}
               mediaType={mediaType}
               favouritepage={favouritePage}
+              averageRatingGreaterThanOptions={averageRatingGreaterThanOptions}
+              averageRatingLessThanOptions={averageRatingLessThanOptions}
+              durationGreaterThanOptions={durationGreaterThanOptions}
+              durationLessThanOptions={durationLessThanOptions}
             />
           </Grid>
           <Grid

@@ -106,3 +106,18 @@ export function populateFilterTableRows(advancedFilterData) {
 
   return rows;
 }
+
+export function RatingOptions(value, metric, array) {
+  let arr = [];
+  let originalArr = [...array];
+  if (metric === "greaterThan") {
+    arr = originalArr.slice(
+      originalArr.indexOf(Number(value)) + 1,
+      originalArr.length
+    );
+  } else if (metric === "lessThan") {
+    arr = originalArr.slice(0, originalArr.indexOf(Number(value)));
+  }
+
+  return arr;
+}

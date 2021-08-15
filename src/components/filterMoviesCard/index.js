@@ -52,7 +52,7 @@ export default function FilterMoviesCard(props) {
     genres.unshift({ id: "0", name: "All" });
   }
 
-  let firstYear = 2020;
+  let firstYear = 2021;
   let lastYear = 1920;
   let yearOptions = [];
 
@@ -185,6 +185,12 @@ export default function FilterMoviesCard(props) {
               originalLanguage={props.originalLanguage}
               sortCategory={props.sortCategory}
               advancedSearch={props.advancedSearch}
+              averageRatingGreaterThanOptions={
+                props.averageRatingGreaterThanOptions
+              }
+              averageRatingLessThanOptions={props.averageRatingLessThanOptions}
+              durationLessThanOptions={props.durationLessThanOptions}
+              durationGreaterThanOptions={props.durationGreaterThanOptions}
             />
           </Modal>
         </FormControl>
