@@ -107,6 +107,7 @@ export default function AdvancedFilterModal({
             value={firstAirDateFilter}
             onChange={handleFirstAirYearChange}
           >
+            <MenuItem value=""></MenuItem>
             {yearOptions.map((year) => {
               return (
                 <MenuItem key={year} value={`${year}`}>
@@ -128,6 +129,7 @@ export default function AdvancedFilterModal({
           value={averageRatingGreaterThanFilter}
           onChange={handleAverageRatingGreaterThanChange}
         >
+          <MenuItem value=""></MenuItem>
           {averageRatingGreaterThanOptions.map((year) => {
             return (
               <MenuItem key={year} value={`${year}`}>
@@ -148,6 +150,7 @@ export default function AdvancedFilterModal({
           value={averageRatingLessThanFilter}
           onChange={handleAverageRatingLessThanChange}
         >
+          <MenuItem value=""></MenuItem>
           {averageRatingLessThanOptions.map((year) => {
             return (
               <MenuItem key={year} value={`${year}`}>
@@ -168,6 +171,7 @@ export default function AdvancedFilterModal({
           value={durationGreaterThanFilter}
           onChange={durationGreaterThanChange}
         >
+          <MenuItem value=""></MenuItem>
           {durationGreaterThanOptions.map((duration) => {
             return (
               <MenuItem key={duration} value={`${duration}`}>
@@ -188,6 +192,7 @@ export default function AdvancedFilterModal({
           value={durationLessThanFilter}
           onChange={durationLessThanChange}
         >
+          <MenuItem value=""></MenuItem>
           {durationLessThanOptions.map((duration) => {
             return (
               <MenuItem key={duration} value={`${duration}`}>
@@ -206,6 +211,7 @@ export default function AdvancedFilterModal({
           value={originalLanguage}
           onChange={originalLanguageChange}
         >
+          <MenuItem value=""></MenuItem>
           <MenuItem value={"fr"}>French</MenuItem>
           <MenuItem value={"es"}>Spanish</MenuItem>
           <MenuItem value={"de"}>German</MenuItem>
@@ -222,6 +228,7 @@ export default function AdvancedFilterModal({
           value={sortCategory}
           onChange={sortCategoryChange}
         >
+          <MenuItem value=""></MenuItem>
           <MenuItem value={"popularity.asc"}>Most Popular</MenuItem>
           <MenuItem value={"popularity.desc"}>Least Popular</MenuItem>
           <MenuItem value={"revenue.asc"}>Highest Grossing Revenue</MenuItem>

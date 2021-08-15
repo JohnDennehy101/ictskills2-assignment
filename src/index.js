@@ -46,7 +46,7 @@ const App = () => {
           <Route exact path="/tv" component={TvPage} />
           <Route exact path="/logout" component={LogoutPage} />
           <Route exact path="/movie/filter" component={AdvancedFilterPage} />
-          <Route exact path="/tv/filter" component={TvPage} />
+          <Route exact path="/tv/filter" component={AdvancedFilterPage} />
           <Route exact path="/movies" component={MovieListPage} />
           <Route exact path="/trending" component={TrendingPage} />
           <Route exact path="/success" component={CreateSessionPage} />
