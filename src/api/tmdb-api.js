@@ -442,15 +442,64 @@ export const getMustWatchItems = async (mediaType, page) => {
     requestUrl = `https://api.themoviedb.org/3/account/${accountId}/watchlist/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc`;
   }
 
-  console.log(requestUrl);
-
   const response = await fetch(requestUrl);
-  console.log("HITTING API");
-  console.log(response);
   if (!response.ok) {
     throw new Error(response.json().message);
   }
   let jsonResponse = await response.json();
-  console.log(jsonResponse);
   return jsonResponse.results;
+};
+
+export const getReviewed = async (mediaType, page) => {
+  let contentType = mediaType === "movie" ? "movies" : "tv";
+  let requestUrl;
+  let sessionId = localStorage.getItem("session");
+  let accountDetails = await getUserAccount(sessionId);
+  let accountId = accountDetails.id;
+
+   if (page) {
+    requestUrl = `https://api.themoviedb.org/3/account/${accountId}/rated/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`;
+  } else {
+    requestUrl = `https://api.themoviedb.org/3/account/${accountId}/rated/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc`;
+  }
+
+  const response = await fetch(requestUrl);
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  let jsonResponse = await response.json();
+  return jsonResponse.results;
+
+}
+
+export const reviewContent = async (mediaType, id, rating) => {
+  let sessionId = localStorage.getItem("session");
+  const response = await fetch(
+    `https://api.themoviedb.org/3/${mediaType}/${id}/rating?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        value: rating
+      }),
+    }
+  )
+};
+
+export const unReviewContent = async (mediaType, id) => {
+  let sessionId = localStorage.getItem("session");
+  const response = await fetch(
+    `https://api.themoviedb.org/3/${mediaType}/${id}/rating?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+      
+    }
+  )
 };

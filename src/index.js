@@ -22,6 +22,7 @@ import CreateSessionPage from './pages/createSessionPage';
 import LogoutPage from './pages/logoutPage';
 import AdvancedFilterPage from './pages/advancedFilterPage';
 import PrivateRoute from './components/privateRoute';
+import UserReviewedContent from "./pages/userReviewedContent";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,6 +54,8 @@ const App = () => {
           <Route exact path="/person/credits/:id" component = {CastMemberInfoPage} />
           <PrivateRoute component={FavoriteMoviesPage} exact path="/movies/favorites" />
           <PrivateRoute component={MustWatchPage} exact path="/mustwatch" />
+          <PrivateRoute component={UserReviewedContent} exact path="/content/reviewed" />
+          
           <Route path="/movies/:id" component={MoviePage} />
           <Route path="/tv/:id" component={TvDetailsPage} />
           <Route exact path="/" component={HomePage} />

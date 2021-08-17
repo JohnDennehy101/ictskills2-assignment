@@ -12,7 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import firebase from "../../firebase";
-import { getUserAccount } from "../../api/tmdb-api";
+import { getUserAccount, reviewContent } from "../../api/tmdb-api";
 import { isLoggedInUser } from "../../util";
 
 const ratings = [
@@ -104,6 +104,7 @@ const ReviewForm = ({ content, history, mediaType }) => {
     review.accountId = userId;
     review.mediaType = mediaType;
     itemsRef.push(review);
+    reviewContent(mediaType, content.id, rating);
     context.addReview(content, review);
     setOpen(true);
   };
