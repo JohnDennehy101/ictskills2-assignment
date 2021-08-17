@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +11,9 @@ import { withRouter } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import firebase from "../../firebase";
+import { getUserAccount } from "../../api/tmdb-api";
+import { isLoggedInUser } from "../../util";
 
 const ratings = [
   {
@@ -34,6 +37,8 @@ const ratings = [
     label: "Terrible",
   },
 ];
+
+const itemsRef = firebase.database().ref("items");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ReviewForm = ({ content, history, mediaType }) => {
+  const sessionId = isLoggedInUser();
   let contextType;
   const classes = useStyles();
   const { register, handleSubmit, errors, reset } = useForm();
@@ -75,6 +81,13 @@ const ReviewForm = ({ content, history, mediaType }) => {
   let context = useContext(contextType);
   const [rating, setRating] = useState(3);
   const [open, setOpen] = React.useState(false);
+  const [userId, setUserAccountId] = useState(undefined);
+
+  useEffect(() => {
+    getUserAccount(sessionId).then((userData) => {
+      setUserAccountId(userData.id);
+    });
+  });
 
   const handleSnackClose = (event) => {
     setOpen(false);
@@ -86,11 +99,11 @@ const ReviewForm = ({ content, history, mediaType }) => {
   };
 
   const onSubmit = (review) => {
-    review.movieId = content.id;
+    review.mediaId = content.id;
     review.rating = rating;
-    console.log(content.id);
-    console.log(content);
-    console.log(review);
+    review.accountId = userId;
+    review.mediaType = mediaType;
+    itemsRef.push(review);
     context.addReview(content, review);
     setOpen(true);
   };
