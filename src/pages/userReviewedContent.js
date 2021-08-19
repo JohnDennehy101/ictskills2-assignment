@@ -14,6 +14,7 @@ const UserReviewedContent = (props) => {
   const [mediaTypeChosen, setMediaType] = useState("movie");
   const [page, setPage] = React.useState(1);
   const [reviews, setUserReviews] = useState([]);
+  const [userId, setUserId] = useState(undefined);
  
   let title =
     mediaTypeChosen === "movie" ? "Reviewed Movies" : "Reviewed TV Shows";
@@ -25,6 +26,7 @@ const UserReviewedContent = (props) => {
         const itemsRef = firebase
           .database()
           .ref(`${mediaTypeChosen}/${userData.id}`);
+        setUserId(userData.id);
 
         itemsRef.once("value", (snapshot) => {
           let items = snapshot.val();
@@ -86,7 +88,7 @@ const UserReviewedContent = (props) => {
       action={(content) => {
         return (
           <>
-            <RemoveFromReviewed content={content} mediaType={mediaTypeChosen} />
+            <RemoveFromReviewed content={content} mediaType={mediaTypeChosen} userId={userId} reviews={reviews} />
             <WriteReview content={content} mediaType={mediaTypeChosen} />
           </>
         );
