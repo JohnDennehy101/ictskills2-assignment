@@ -5,12 +5,23 @@ import { isLoggedInUser } from "../../util";
 import { getMustWatchItems, getFavourites } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 
-const ContentList = ({ content, action, mediaType }) => {
+const ContentList = ({ content, action, mediaType, userContentReviews }) => {
   const enableQuery = isLoggedInUser() ? true : false;
   let movieCards;
   let mustWatchIds = [];
   let favoriteIds = [];
+  let userContentReviewIds = [];
   let linkUrl;
+
+  if (userContentReviews) {
+    if (userContentReviews.length > 0) {
+      for (let review in userContentReviews) {
+        userContentReviewIds.push(userContentReviews[review].mediaId);
+      }
+    }
+
+  }
+
 
   const {
     data: favoriteContent,
@@ -50,6 +61,11 @@ const ContentList = ({ content, action, mediaType }) => {
     }
     if (favoriteIds.includes(individualItem.id)) {
       individualItem.favorite = true;
+    }
+    if (userContentReviewIds.includes(individualItem.id)) {
+      let review = userContentReviews.find((item) => item.mediaId === individualItem.id);
+      individualItem.review = review.content;
+      individualItem.rating = review.rating;
     }
     
   });

@@ -38,7 +38,7 @@ const ratings = [
   },
 ];
 
-const itemsRef = firebase.database().ref("items");
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ReviewForm = ({ content, history, mediaType }) => {
+  
   const sessionId = isLoggedInUser();
   let contextType;
   const classes = useStyles();
@@ -82,6 +83,10 @@ const ReviewForm = ({ content, history, mediaType }) => {
   const [rating, setRating] = useState(3);
   const [open, setOpen] = React.useState(false);
   const [userId, setUserAccountId] = useState(undefined);
+
+  const itemsRef = firebase.database().ref(`${mediaType}/${userId}`);
+
+  console.log(itemsRef);
 
   useEffect(() => {
     getUserAccount(sessionId).then((userData) => {

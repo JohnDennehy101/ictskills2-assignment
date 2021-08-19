@@ -88,6 +88,7 @@ function TemplateContentPage({
   handleModalClose,
   filterPage,
   pageRange,
+  userContentReviews
 }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
@@ -126,11 +127,6 @@ function TemplateContentPage({
     5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95,
     100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150,
   ]);
-
-  //let averageRatingGreaterThanOptions = [1,2,3,4,5,6,7,8,9];
-  // let averageRatingLessThanOptions = [1,2,3,4,5,6,7,8,9];
-  // let durationGreaterThanOptions = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150];
-  // let durationLessThanOptions = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150];
 
   let rows = [];
 
@@ -258,8 +254,6 @@ function TemplateContentPage({
     }
   };
 
-  console.log(averageRatingLessThanOptions);
-
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12}>
@@ -368,6 +362,7 @@ function TemplateContentPage({
             action={action}
             content={displayedContent}
             mediaType={mediaType}
+            userContentReviews={userContentReviews}
           />
           <Grid item xs={12}>
             <div className={classes.pagination}>
@@ -381,7 +376,7 @@ function TemplateContentPage({
             </div>
           </Grid>
         </Grid>
-      ) : genreFilterAction && displayedContent.length === 0 ? (
+      ) : genreFilterAction || displayedContent.length === 0 ? (
         <>
           <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
             <FilterCard
