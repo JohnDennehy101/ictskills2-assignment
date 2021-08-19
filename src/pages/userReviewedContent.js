@@ -14,6 +14,7 @@ const UserReviewedContent = (props) => {
   const [mediaTypeChosen, setMediaType] = useState("movie");
   const [page, setPage] = React.useState(1);
   const [reviews, setUserReviews] = useState([]);
+ 
   let title =
     mediaTypeChosen === "movie" ? "Reviewed Movies" : "Reviewed TV Shows";
   const sessionId = isLoggedInUser();
@@ -42,7 +43,7 @@ const UserReviewedContent = (props) => {
     };
 
     fetchData();
-  }, []);
+  }, [mediaTypeChosen]);
 
   const {
     data: content,

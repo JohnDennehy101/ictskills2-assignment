@@ -20,8 +20,7 @@ const useStyles = makeStyles({
 export default function ContentReviews({ movie, mediaType }) {
   let apiCall = mediaType === 'movie' ? getMovieReviews : getTvReviews;
 
-  console.log("API CALL")
-  console.log(apiCall);
+  
   const classes = useStyles();
   const [reviews, setReviews] = useState([]);
 
@@ -32,7 +31,7 @@ export default function ContentReviews({ movie, mediaType }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(reviews);
+
 
   return (
     <TableContainer component={Paper}>

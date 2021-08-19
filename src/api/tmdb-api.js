@@ -109,7 +109,6 @@ export const filteredMoviesSearch = async (
   } else {
     mediaType = "tv";
   }
-  console.log(mediaType);
   let initialRequestString = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`;
 
   if (movieType) {
@@ -164,8 +163,6 @@ export const getMovie = async (args) => {
 };
 
 export const getTvShow = async (args) => {
-  // console.log(args)
-  // eslint-disable-next-line no-unused-vars
   const [prefix, { id }] = args.queryKey;
   const response = await fetch(
     `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
@@ -218,7 +215,6 @@ export const getMovieReviews = (id) => {
   )
     .then((res) => res.json())
     .then((json) => {
-      // console.log(json.results);
       return json.results;
     });
 };
@@ -229,7 +225,6 @@ export const getTvReviews = (id) => {
   )
     .then((res) => res.json())
     .then((json) => {
-      console.log(json.results);
       return json.results;
     });
 };
@@ -336,7 +331,6 @@ export const getUserAccount = async (sessionId) => {
 
 //NOT WORKING CORRECTLY ON API Side
 export const deleteUserSession = async (sessionId) => {
-  console.log(sessionId);
   const response = await fetch(
     `https://api.themoviedb.org/3/authentication/session/?api_key=${process.env.REACT_APP_TMDB_KEY}`,
     {
@@ -349,7 +343,7 @@ export const deleteUserSession = async (sessionId) => {
     }
   );
 
-  console.log(response);
+  
 
   if (!response.ok) {
     throw new Error(response.json().message);

@@ -7,13 +7,11 @@ import { getMovie, getTvShow } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 
 const WriteReviewPage = (props) => {
-  console.log(props);
   let apiCall, mediaTypeChosen;
   const { contentId } = props.location.state;
   const { pathname } = props.location;
 
   let movieCheck = pathname.includes('movie') ? true : false;
-  console.log(movieCheck);
 
   if (movieCheck === true) {
     apiCall = getMovie;
@@ -26,7 +24,7 @@ const WriteReviewPage = (props) => {
 
   // let apiCall = movieCheck === true ? getMovie : getTvShow;
 
-  console.log(contentId);
+
   const { data: content, error, isLoading, isError } = useQuery(
     ["content", { id: contentId }],
     apiCall

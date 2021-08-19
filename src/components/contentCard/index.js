@@ -46,6 +46,8 @@ export default function ContentCard({ content, action, mediaType }) {
     linkUrl = `/tv/${content.id}`;
   }
 
+
+
   return (
     <Card className={classes.card}>
       {fullyLoaded ? (
@@ -88,6 +90,8 @@ export default function ContentCard({ content, action, mediaType }) {
           />
           <CardContent>
             <Grid container>
+              { !content.review ?
+              <>
               <Grid item xs={6}>
                 <Typography variant="h6" component="p">
                   <CalendarIcon fontSize="small" />
@@ -99,7 +103,8 @@ export default function ContentCard({ content, action, mediaType }) {
                   <StarRateIcon fontSize="small" />
                   {"  "} {content.vote_average}{" "}
                 </Typography>
-              </Grid>
+              </Grid></> : <><Grid item xs={12}><Typography align="center" color="primary" variant="h6" component="p">Your Rating: {content.rating}</Typography><Typography align="center" color="textSecondary" variant="h6" component="p">Your Review</Typography><Typography variant="h6" align="center" component="p">{content.review}</Typography></Grid></>
+}
             </Grid>
           </CardContent>
           <CardActions disableSpacing>

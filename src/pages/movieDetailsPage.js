@@ -15,7 +15,6 @@ const MovieDetailsPage = (props) => {
   const [actorDetail, setActorDetails] = React.useState({});
 
   const handleClickOpen = async (id) => {
-    console.log(id);
 
     const personDetail = await getPersonDetail(id);
 

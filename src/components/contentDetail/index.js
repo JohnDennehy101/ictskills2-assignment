@@ -35,8 +35,7 @@ const ContentDetails = ({ movie, mediaType }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const classes = useStyles();
 
-  console.log(movie);
-  console.log(mediaType);
+  
 
   return (
     <>

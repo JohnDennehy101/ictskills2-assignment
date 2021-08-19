@@ -71,7 +71,6 @@ export default function FilterMoviesCard(props) {
   };
 
   const handleGenreChange = (e) => {
-    console.log(e.target.value);
     handleChange(e, "genre", e.target.value);
   };
 

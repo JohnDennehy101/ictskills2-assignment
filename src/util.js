@@ -25,7 +25,6 @@ export function populateFilterTableRows(advancedFilterData) {
     advancedFilterData.releaseYear.length > 0
   ) {
     rows.push({ title: "Release Year", value: advancedFilterData.releaseYear });
-    console.log("pushing row");
   }
   if (advancedFilterData.averageRatingGreaterThan > 0) {
     rows.push({

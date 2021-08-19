@@ -22,6 +22,29 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
 
   }
 
+  const ratings = [
+  {
+    value: 5,
+    label: "Excellent",
+  },
+  {
+    value: 4,
+    label: "Good",
+  },
+  {
+    value: 3,
+    label: "Average",
+  },
+  {
+    value: 2,
+    label: "Poor",
+  },
+  {
+    value: 0,
+    label: "Terrible",
+  },
+];
+
 
   const {
     data: favoriteContent,
@@ -64,8 +87,9 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
     }
     if (userContentReviewIds.includes(individualItem.id)) {
       let review = userContentReviews.find((item) => item.mediaId === individualItem.id);
+    
       individualItem.review = review.content;
-      individualItem.rating = review.rating;
+      individualItem.rating = ratings.find((rating) => review.rating === rating.value).label;
     }
     
   });

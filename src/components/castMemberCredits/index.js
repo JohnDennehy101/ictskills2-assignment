@@ -70,60 +70,6 @@ export default function CastMemberCredits({
     },
   ];
 
-  // function createData(
-  //   poster,
-  //   title,
-  //   character,
-  //   overview,
-  //   release_date,
-  //   average_rating,
-  //   type,
-  //   id
-  // ) {
-  //   return {
-  //     poster,
-  //     title,
-  //     character,
-  //     overview,
-  //     release_date,
-  //     average_rating,
-  //     type,
-  //     id,
-  //   };
-  // }
-
-  //  data.cast.forEach((item) => {
-  //     let title = "";
-  //     if ("name" in item) {
-  //       title = item["name"];
-  //     } else {
-  //       title = item["title"];
-  //     }
-  //     rows.push(
-  //       createData(
-  //         `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-  //         title,
-  //         item.character,
-  //         item.overview,
-  //         item.release_date,
-  //         item.vote_average,
-  //         item.media_type,
-  //         item.id
-  //       )
-  //     );
-  //   });
-
-  //    const handleChangePage = (event, newPage) => {
-  //     setPage(newPage);
-  //   };
-
-  //   const handleChangeRowsPerPage = (event) => {
-  //     setRowsPerPage(+event.target.value);
-  //     setPage(0);
-  //   };
-
-  console.log(rows);
-
   const classes = useStyles();
   return (
     <>

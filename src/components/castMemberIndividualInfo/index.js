@@ -32,8 +32,7 @@ export default function CastMemberIndividualInfo({ type, personDetail, icon }) {
   }));
 
   const classes = useStyles();
-  console.log(type);
-  console.log(personDetail);
+
   return (
     <Grid item xs={4}>
       <Paper className={classes.paper}>

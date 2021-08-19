@@ -86,7 +86,6 @@ const ReviewForm = ({ content, history, mediaType }) => {
 
   const itemsRef = firebase.database().ref(`${mediaType}/${userId}`);
 
-  console.log(itemsRef);
 
   useEffect(() => {
     getUserAccount(sessionId).then((userData) => {
