@@ -38,8 +38,6 @@ const ratings = [
   },
 ];
 
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(2),
@@ -70,8 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ReviewForm = ({ content, history, mediaType }) => {
-  
+const ReviewForm = ({ content, history, mediaType, existingReview }) => {
   const sessionId = isLoggedInUser();
   let contextType;
   const classes = useStyles();
@@ -83,9 +80,19 @@ const ReviewForm = ({ content, history, mediaType }) => {
   const [rating, setRating] = useState(3);
   const [open, setOpen] = React.useState(false);
   const [userId, setUserAccountId] = useState(undefined);
+  const [author, setAuthor] = useState("");
+  const [reviewContentText, setContent] = useState("");
 
   const itemsRef = firebase.database().ref(`${mediaType}/${userId}`);
 
+  useEffect(() => {
+    if (existingReview) {
+      setRating(existingReview.rating);
+      setAuthor(existingReview.author);
+      setContent(existingReview.content);
+     
+    }
+  }, []);
 
   useEffect(() => {
     getUserAccount(sessionId).then((userData) => {
@@ -102,15 +109,34 @@ const ReviewForm = ({ content, history, mediaType }) => {
     setRating(event.target.value);
   };
 
-  const onSubmit = (review) => {
+  const onSubmit = async (review) => {
+    console.log(content);
     review.mediaId = content.id;
     review.rating = rating;
     review.accountId = userId;
     review.mediaType = mediaType;
-    itemsRef.push(review);
-    reviewContent(mediaType, content.id, rating);
+    if (existingReview) {
+      itemsRef.child(existingReview.firebaseId).update({
+        author: review.author,
+        rating: rating,
+        content: review.content,
+      });
+    } else {
+      itemsRef.push(review);
+    }
+
+   
+
     context.addReview(content, review);
+    await reviewContent(mediaType, content.id, rating);
     setOpen(true);
+  };
+
+  const handleAuthorChange = (e) => {
+    setAuthor(e.target.value);
+  };
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
   };
 
   return (
@@ -145,8 +171,11 @@ const ReviewForm = ({ content, history, mediaType }) => {
           margin="normal"
           required
           id="author"
+          value={author}
+          onChange={handleAuthorChange}
           label="Author's name"
           name="author"
+          value={author}
           autoFocus
           inputRef={register({ required: "Author name required" })}
         />
@@ -161,6 +190,8 @@ const ReviewForm = ({ content, history, mediaType }) => {
           margin="normal"
           required
           fullWidth
+          value={reviewContentText}
+          onChange={handleContentChange}
           name="content"
           label="Review text"
           id="content"

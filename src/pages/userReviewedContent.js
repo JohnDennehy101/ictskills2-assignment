@@ -15,7 +15,7 @@ const UserReviewedContent = (props) => {
   const [page, setPage] = React.useState(1);
   const [reviews, setUserReviews] = useState([]);
   const [userId, setUserId] = useState(undefined);
- 
+
   let title =
     mediaTypeChosen === "movie" ? "Reviewed Movies" : "Reviewed TV Shows";
   const sessionId = isLoggedInUser();
@@ -88,8 +88,18 @@ const UserReviewedContent = (props) => {
       action={(content) => {
         return (
           <>
-            <RemoveFromReviewed content={content} mediaType={mediaTypeChosen} userId={userId} reviews={reviews} />
-            <WriteReview content={content} mediaType={mediaTypeChosen} />
+            <RemoveFromReviewed
+              content={content}
+              mediaType={mediaTypeChosen}
+              userId={userId}
+              reviews={reviews}
+            />
+            <WriteReview
+              content={content}
+              mediaType={mediaTypeChosen}
+              userId={userId}
+              reviews={reviews}
+            />
           </>
         );
       }}
