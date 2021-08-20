@@ -13,30 +13,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import firebase from "../../firebase";
 import { getUserAccount, reviewContent } from "../../api/tmdb-api";
-import { isLoggedInUser } from "../../util";
+import { isLoggedInUser, ratingOptions } from "../../util";
 
-const ratings = [
-  {
-    value: 5,
-    label: "Excellent",
-  },
-  {
-    value: 4,
-    label: "Good",
-  },
-  {
-    value: 3,
-    label: "Average",
-  },
-  {
-    value: 2,
-    label: "Poor",
-  },
-  {
-    value: 0,
-    label: "Terrible",
-  },
-];
+const ratings = ratingOptions();
 
 const useStyles = makeStyles((theme) => ({
   root: {

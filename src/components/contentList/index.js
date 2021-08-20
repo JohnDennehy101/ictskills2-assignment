@@ -1,7 +1,7 @@
 import React from "react";
 import ContentCard from "../contentCard";
 import Grid from "@material-ui/core/Grid";
-import { isLoggedInUser } from "../../util";
+import { isLoggedInUser, ratingOptions } from "../../util";
 import { getMustWatchItems, getFavourites } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 
@@ -22,28 +22,7 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
 
   }
 
-  const ratings = [
-  {
-    value: 5,
-    label: "Excellent",
-  },
-  {
-    value: 4,
-    label: "Good",
-  },
-  {
-    value: 3,
-    label: "Average",
-  },
-  {
-    value: 2,
-    label: "Poor",
-  },
-  {
-    value: 0,
-    label: "Terrible",
-  },
-];
+  const ratings = ratingOptions();
 
 
   const {

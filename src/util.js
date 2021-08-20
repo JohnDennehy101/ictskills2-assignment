@@ -118,3 +118,48 @@ else if (metric === 'lessThan') {
 
   return arr;
 }
+
+export function ratingOptions() {
+  return [
+    {
+    value: 10,
+    label: "Outstanding - 10/10",
+  },
+  {
+    value: 9,
+    label: "Excellent - 9/10",
+  },
+  {
+    value: 8,
+    label: "Excellent - 8/10",
+  },
+  {
+    value: 7,
+    label: "Good - 7/10",
+  },
+  {
+    value: 6,
+    label: "Good - 6/10",
+  },
+  {
+    value: 5,
+    label: "Average - 5/10",
+  },
+  {
+    value: 4,
+    label: "Average - 4/10",
+  },
+  {
+    value: 3,
+    label: "Average - 3/10",
+  },
+  {
+    value: 2,
+    label: "Terrible - 2/10",
+  },
+  {
+    value: 1,
+    label: "Terrible - 1/10",
+  },
+  ]
+}
