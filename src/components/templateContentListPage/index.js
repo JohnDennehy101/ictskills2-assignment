@@ -65,8 +65,16 @@ const useStyles = makeStyles((theme) => ({
   clearFilterButton: {
     textAlign: "center",
     display: "flex",
-    margin: "20px auto",
+    margin: "10px auto",
     width: "20vw",
+    padding: "5px",
+    borderRadius: "5px",
+  },
+  clearFilterButtonMobile: {
+    textAlign: "center",
+    display: "flex",
+    margin: "20px auto",
+    width: "80vw",
     padding: "10px",
     borderRadius: "5px",
   },
@@ -92,9 +100,11 @@ function TemplateContentPage({
   pageRange,
   userContentReviews,
 }) {
+  const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const classes = useStyles();
+  const filterButtonStyle = isMobile ? classes.clearFilterButtonMobile : classes.clearFilterButton;
+
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState(2021);
@@ -272,7 +282,7 @@ function TemplateContentPage({
           xs={12}
         >
           <Button
-            className={classes.clearFilterButton}
+            className={filterButtonStyle}
             variant="contained"
             color="secondary"
             onClick={handleAdvancedFilterClearButtonClick}
@@ -280,7 +290,7 @@ function TemplateContentPage({
             Clear Filter
           </Button>
           <Button
-            className={classes.clearFilterButton}
+            className={filterButtonStyle}
             variant="contained"
             color="tertiary"
             aria-describedby={id}

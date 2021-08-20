@@ -6,6 +6,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 export default function AdvancedFilterModal({
   handleReleaseYearChange,
@@ -36,6 +38,14 @@ export default function AdvancedFilterModal({
     paper: {
       position: "absolute",
       width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: "2px solid #000",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+    paperMobile: {
+      position: "absolute",
+      width: 250,
       backgroundColor: theme.palette.background.paper,
       border: "2px solid #000",
       boxShadow: theme.shadows[5],
@@ -72,9 +82,12 @@ export default function AdvancedFilterModal({
 
   const [modalStyle] = React.useState(getModalStyle);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
+  let modalWrapperClass = isMobile ? classes.paperMobile : classes.paper;
   return (
-    <div style={modalStyle} className={classes.paper}>
+    <div style={modalStyle} className={modalWrapperClass}>
       <Typography variant="h5" component="h1">
         Advanced Filter
       </Typography>
