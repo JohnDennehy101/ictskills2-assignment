@@ -6,6 +6,8 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { withRouter } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,21 +19,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ title, history }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
   return (
     <Paper component="div" className={classes.root}>
-       <IconButton aria-label="go back" onClick={() => history.goBack()}>
-        <ArrowBackIcon color="primary" fontSize="large" />
+      <IconButton aria-label="go back" onClick={() => history.goBack()}>
+        {!isMobile ? (
+          <ArrowBackIcon color="primary" fontSize="large" />
+        ) : (
+          <ArrowBackIcon color="primary" fontSize="small" />
+        )}
       </IconButton>
 
-      <Typography variant="h4" component="h3">
-        {title}
-      </Typography>
+      {!isMobile ? (
+        <Typography variant="h4" component="h3">
+          {title}
+        </Typography>
+      ) : (
+        <Typography variant="h5" component="h4">
+          {title}
+        </Typography>
+      )}
+
       <IconButton aria-label="go forward" onClick={() => history.goForward()}>
-        <ArrowForwardIcon color="primary" fontSize="large" />
+        {!isMobile ? (
+          <ArrowForwardIcon color="primary" fontSize="large" />
+        ) : (
+          <ArrowForwardIcon color="primary" fontSize="small" />
+        )}
       </IconButton>
     </Paper>
   );
 };
 
- export default withRouter(Header);
+export default withRouter(Header);

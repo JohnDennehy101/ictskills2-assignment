@@ -9,6 +9,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import { green, red, blue } from "@material-ui/core/colors";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
   root: {
@@ -64,14 +66,23 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
   },
+  individualItem: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   plusIcon: {
     cursor: "pointer",
   },
 });
 
 export default function CastComponent({ cast, handleClickOpen, mediaType }) {
+    const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
+
   let title = mediaType === 'movie' ? 'Movie' : 'TV Show'
+  let individualItemStyling = isMobile ? classes.individualItem : classes.individualItemMobile
 
 
   return (
@@ -88,7 +99,7 @@ export default function CastComponent({ cast, handleClickOpen, mediaType }) {
           <ListItem
             alignItems="flex-start"
             key={castMember.id}
-            className={classes.individualItem}
+            className={individualItemStyling}
           >
             <ListItemAvatar>
               <Avatar

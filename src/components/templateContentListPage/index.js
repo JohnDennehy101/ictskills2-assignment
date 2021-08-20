@@ -15,6 +15,8 @@ import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import { populateFilterTableRows, RatingOptions } from "../../util";
 import AdvancedFilterPopper from "../advancedFilterPopper";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,8 +90,10 @@ function TemplateContentPage({
   handleModalClose,
   filterPage,
   pageRange,
-  userContentReviews
+  userContentReviews,
 }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
