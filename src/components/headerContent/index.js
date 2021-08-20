@@ -37,7 +37,7 @@ const HeaderContent = ( { movie, history, mediaType}) => {
           <HomeIcon color="primary" />
         </a>
         <br />
-        <span className={classes.tagLine}>{`   "${movie.tagline}"`} </span>
+        <span className={classes.tagLine}>{`${movie.tagline}`} </span>
       </Typography>
       <IconButton aria-label="go forward" onClick={() => history.goForward() } >
         <ArrowForwardIcon color="primary" fontSize="large" />
