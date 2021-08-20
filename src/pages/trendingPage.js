@@ -8,6 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import TrendingPageTitle from "../components/trendingPageTitle";
 import TrendingInputFilter from "../components/trendingInputFilter";
 import TrendingImageList from "../components/trendingImageList";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +36,8 @@ const TrendingPage = (props) => {
   const [mediaType, setMediaType] = React.useState("movie");
 
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { data, error, isLoading, isError } = useQuery(
     ["trending", time, mediaType],
     () => getTrendingItems(mediaType, time)
@@ -96,7 +100,7 @@ const TrendingPage = (props) => {
       {data ? (
         <Container width="90vw">
           <div className={classes.root}>
-            <TrendingPageTitle mediaType={mediaType} />
+            <TrendingPageTitle mediaType={mediaType} isMobile={isMobile} />
 
             <div className={classes.gridParent}>
               <Grid container spacing={3}>
@@ -107,6 +111,7 @@ const TrendingPage = (props) => {
                     handleChange={handleChange}
                     menuItems={["tv", "movie", "person"]}
                     helperText={"Select the media type"}
+                    isMobile={isMobile}
                   />
                   <TrendingInputFilter
                     labelValue={"Timeframe"}
@@ -114,6 +119,7 @@ const TrendingPage = (props) => {
                     handleChange={handleChange}
                     menuItems={["day", "week"]}
                     helperText={"Select the timeframe"}
+                    isMobile={isMobile}
                   />
                 </Grid>
 
@@ -121,6 +127,7 @@ const TrendingPage = (props) => {
                   <TrendingImageList
                     trendingInfo={trendingInfo}
                     moreDetailUrl={moreDetailUrl}
+                    isMobile={isMobile}
                   />
                 </Grid>
               </Grid>
