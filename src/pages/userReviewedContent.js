@@ -34,6 +34,7 @@ const UserReviewedContent = (props) => {
           for (let item in items) {
             reviewArray.push({
               firebaseId: item,
+              author: items[item].author,
               mediaId: items[item].mediaId,
               content: items[item].content,
               rating: items[item].rating,

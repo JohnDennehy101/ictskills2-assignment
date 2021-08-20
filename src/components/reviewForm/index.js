@@ -90,19 +90,19 @@ const ReviewForm = ({ content, history, mediaType, existingReview }) => {
       setRating(existingReview.rating);
       setAuthor(existingReview.author);
       setContent(existingReview.content);
-     
     }
   }, []);
 
   useEffect(() => {
     getUserAccount(sessionId).then((userData) => {
+      setAuthor(userData.name);
       setUserAccountId(userData.id);
     });
   });
 
   const handleSnackClose = (event) => {
     setOpen(false);
-    history.push("/movies/favorites");
+    history.push("/content/reviewed");
   };
 
   const handleRatingChange = (event) => {
@@ -125,8 +125,6 @@ const ReviewForm = ({ content, history, mediaType, existingReview }) => {
       itemsRef.push(review);
     }
 
-   
-
     context.addReview(content, review);
     await reviewContent(mediaType, content.id, rating);
     setOpen(true);
@@ -137,6 +135,11 @@ const ReviewForm = ({ content, history, mediaType, existingReview }) => {
   };
   const handleContentChange = (e) => {
     setContent(e.target.value);
+  };
+
+  const resetReviewFields = () => {
+    setAuthor("");
+    setContent("");
   };
 
   return (
@@ -237,12 +240,7 @@ const ReviewForm = ({ content, history, mediaType, existingReview }) => {
             variant="contained"
             color="secondary"
             className={classes.submit}
-            onClick={() => {
-              reset({
-                author: "",
-                content: "",
-              });
-            }}
+            onClick={resetReviewFields}
           >
             Reset
           </Button>
