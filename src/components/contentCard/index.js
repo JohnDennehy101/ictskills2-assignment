@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 
 export default function ContentCard({ content, action, mediaType }) {
   const loggedIn = isLoggedInUser();
-  let linkUrl
+  let linkUrl, dateDisplay;
 
   let contentTitle = mediaType === "movie" ? content.title : content.name;
   const [fullyLoaded, setFullyLoaded] = useState(false);
@@ -42,8 +42,10 @@ export default function ContentCard({ content, action, mediaType }) {
 
   if (mediaType === "movie") {
     linkUrl = `/movies/${content.id}`;
+    dateDisplay = content.release_date;
   } else {
     linkUrl = `/tv/${content.id}`;
+    dateDisplay = content.first_air_date;;
   }
 
 
@@ -94,8 +96,10 @@ export default function ContentCard({ content, action, mediaType }) {
               <>
               <Grid item xs={6}>
                 <Typography variant="h6" component="p">
+    
                   <CalendarIcon fontSize="small" />
-                  {content.release_date}
+                  {dateDisplay} 
+
                 </Typography>
               </Grid>
               <Grid item xs={6}>
