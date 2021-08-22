@@ -67,7 +67,7 @@ const App = () => {
               />
               <PublicRoute component={MovieListPage} exact path="/movies" />
               <PublicRoute component={TrendingPage} exact path="/trending" />
-              <PublicRoute
+              <Route
                 component={CreateSessionPage}
                 exact
                 path="/success"
