@@ -60,7 +60,7 @@ const TrendingPage = (props) => {
     let featuredStatus;
     let title;
     let imagePath = item.backdrop_path;
-    if (i % 3 == 0) {
+    if (i % 3 === 0) {
       featuredStatus = true;
     } else {
       featuredStatus = false;

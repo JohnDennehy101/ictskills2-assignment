@@ -15,7 +15,6 @@ import img from "../../images/film-poster-placeholder.png";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import PlayListAddIcon from "@material-ui/icons/PlaylistAdd";
-import { isLoggedInUser } from "../../util";
 import Spinner from "../spinner";
 
 const useStyles = makeStyles({
@@ -27,7 +26,6 @@ const useStyles = makeStyles({
 });
 
 export default function ContentCard({ content, action, mediaType }) {
-  const loggedIn = isLoggedInUser();
   let linkUrl, dateDisplay;
 
   let contentTitle = mediaType === "movie" ? content.title : content.name;

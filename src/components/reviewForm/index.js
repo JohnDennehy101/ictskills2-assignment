@@ -36,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     marginRight: theme.spacing(2),
   },
-  submit: {
-    marginRight: theme.spacing(2),
-  },
   snack: {
     width: "50%",
     "& > * ": {
@@ -51,7 +48,7 @@ const ReviewForm = ({ content, history, mediaType, existingReview }) => {
   const sessionId = isLoggedInUser();
   let contextType;
   const classes = useStyles();
-  const { register, handleSubmit, errors, reset } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
 

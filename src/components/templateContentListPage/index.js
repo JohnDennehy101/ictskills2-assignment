@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../headerContentList";
 import FilterCard from "../filterMoviesCard";
 import Grid from "@material-ui/core/Grid";

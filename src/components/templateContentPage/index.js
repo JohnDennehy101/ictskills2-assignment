@@ -49,7 +49,7 @@ const TemplateContentPage = ({ content, children, mediaType }) => {
       <HeaderContent movie={content} mediaType={mediaType} />
 
       <Grid container spacing={5} style={{ padding: "15px" }}>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={3}>
           <div className={classes.root}>
             <ImageList rowHeight={500} className={classes.gridList} cols={1}>
               {images.map((image) => (
@@ -68,7 +68,7 @@ const TemplateContentPage = ({ content, children, mediaType }) => {
           </div>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} md={9}>
           {children}
         </Grid>
       </Grid>

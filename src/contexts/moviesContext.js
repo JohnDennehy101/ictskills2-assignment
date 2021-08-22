@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import {markAsFavourite} from "../api/tmdb-api";
 
 export const MoviesContext = React.createContext(null);
 

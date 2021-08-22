@@ -50,9 +50,7 @@ const UserReviewedContent = (props) => {
 
   const {
     data: content,
-    error: reviewedError,
     isLoading: reviewedLoading,
-    isError: isReviewedError,
   } = useQuery(
     [`reviewed`, page, mediaTypeChosen],
     () => getReviewed(mediaTypeChosen, page),

@@ -47,9 +47,7 @@ const FavoriteMoviesPage = () => {
 
   const {
     data: content,
-    error: favouritesError,
     isLoading: favouritesLoading,
-    isError: isFavouritesError,
   } = useQuery(
     [`favourites`, page, mediaTypeChosen],
     () => getFavourites(mediaTypeChosen, page),

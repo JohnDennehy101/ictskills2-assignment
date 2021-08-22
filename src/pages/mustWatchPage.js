@@ -22,9 +22,7 @@ const MustWatchPage = () => {
 
   const {
     data: content,
-    error: mustWatchError,
     isLoading: mustWatchLoading,
-    isError: isMustWatchError,
   } = useQuery(
     [`mustWatch`, page, mediaTypeChosen],
     () => getMustWatchItems(mediaTypeChosen, page),

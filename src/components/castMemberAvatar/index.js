@@ -28,7 +28,7 @@ export default function CastMemberAvatar({ personDetail, isMobile }) {
 
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} md={9}>
       {isMobile ? <Typography className={classes.title} variant="h5" gutterBottom>
         {personDetail.name}
       </Typography> :  <Typography className={classes.title} variant="h3" gutterBottom>

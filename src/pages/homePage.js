@@ -12,7 +12,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -44,12 +43,12 @@ const HomePage = (props) => {
   useEffect(() => {
     
     async function manageUserSession() {
-      let checkValidSession, sessionId, guestSessionId;
+      let sessionId, guestSessionId;
 
       guestSessionId = localStorage.getItem("guest-session");
       sessionId = localStorage.getItem("session");
       if (sessionId) {
-        checkValidSession = await getUserAccount(sessionId);
+        await getUserAccount(sessionId);
         window.location.href = "/movies";
       }
       else if (guestSessionId) {

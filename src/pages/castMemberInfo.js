@@ -56,7 +56,7 @@ const CastMemberInfoPage = (props) => {
     ["personCredits", props.match.params.id],
     () => getPersonCredits(props.match.params.id)
   );
-  const { data: personDetail, isLoading: personDetailLoading } = useQuery(
+  const { data: personDetail } = useQuery(
     ["personDetail", props.match.params.id],
     () => getPersonDetail(props.match.params.id)
   );

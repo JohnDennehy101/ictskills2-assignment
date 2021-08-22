@@ -11,7 +11,6 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
   let mustWatchIds = [];
   let favoriteIds = [];
   let userContentReviewIds = [];
-  let linkUrl;
 
   if (userContentReviews) {
     if (userContentReviews.length > 0) {
@@ -27,9 +26,7 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
 
   const {
     data: favoriteContent,
-    error: favoriteError,
     isLoading: favoriteLoading,
-    isError: isFavoriteError,
   } = useQuery(
     [`favourites`, mediaType],
     () => getFavourites(mediaType, undefined),
@@ -38,9 +35,7 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
 
   const {
     data: mustWatchContent,
-    error: mustWatchError,
     isLoading: mustWatchLoading,
-    isError: isMustWatchError,
   } = useQuery(
     [`mustWatch`, mediaType],
     () => getMustWatchItems(mediaType, undefined),

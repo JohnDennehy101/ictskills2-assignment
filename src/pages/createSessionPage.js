@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const CreateSessionPage = (props) => {
   useEffect(() => {
     async function manageUserSession() {
-      let checkValidSession, response, sessionId;
+      let response, sessionId;
      
       if (!localStorage.getItem("session")) {
           response = await createUserSession();
@@ -16,7 +16,7 @@ const CreateSessionPage = (props) => {
       } 
       else {
           sessionId = localStorage.getItem("session");
-          checkValidSession = await getUserAccount(sessionId);
+          await getUserAccount(sessionId);
       }
 
      

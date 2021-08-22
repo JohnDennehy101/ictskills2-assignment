@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import PageTemplate from "../components/templateContentListPage";
 import { getUpComingMovies, getUpComingTvShows } from "../api/tmdb-api";
 import { useQuery } from "react-query";

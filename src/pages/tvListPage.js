@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import PageTemplate from "../components/templateContentListPage";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import { getTvShows, filteredMoviesSearch, getMustWatchItems} from "../api/tmdb-api";
+import { getTvShows, filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
-import { existingGuestSession, determinePaginationRange, isLoggedInUser } from "../util";
+import { existingGuestSession, determinePaginationRange} from "../util";
 
 const TvListPage = (props) => {
   let favouriteIconDisplay;

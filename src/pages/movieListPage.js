@@ -7,7 +7,7 @@ import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
 import { existingGuestSession, determinePaginationRange } from "../util";
 
-const HomePage = (props) => {
+const HomePage = () => {
   let favouriteIconDisplay;
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState([]);

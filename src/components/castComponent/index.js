@@ -8,45 +8,8 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
-import { green, red, blue } from "@material-ui/core/colors";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-
-const styles = (theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  paper: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: theme.spacing(1.5),
-    margin: 0,
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-  chip: {
-    margin: theme.spacing(0.5),
-  },
-  red: {
-    color: theme.palette.getContrastText(red[500]),
-    backgroundColor: red[500],
-  },
-  green: {
-    color: theme.palette.getContrastText(green[500]),
-    backgroundColor: green[500],
-  },
-  blue: {
-    color: theme.palette.getContrastText(blue[500]),
-    backgroundColor: blue[500],
-  },
-});
 
 const useStyles = makeStyles({
   root: {
@@ -66,7 +29,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
   },
-  individualItem: {
+  individualItemMobile: {
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -77,12 +40,12 @@ const useStyles = makeStyles({
 });
 
 export default function CastComponent({ cast, handleClickOpen, mediaType }) {
-    const theme = useTheme();
+  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
 
   let title = mediaType === 'movie' ? 'Movie' : 'TV Show'
-  let individualItemStyling = isMobile ? classes.individualItem : classes.individualItemMobile
+  let individualItemStyling = isMobile ? classes.individualItemMobile : classes.individualItem
 
 
   return (

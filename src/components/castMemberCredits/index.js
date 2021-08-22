@@ -136,6 +136,7 @@ export default function CastMemberCredits({
                               ) : imageNullCheck === undefined ? (
                                 <TableCell>
                                   <img
+                                    alt="Content credit media"
                                     width="200px"
                                     height="125px"
                                     src={`https://image.tmdb.org/t/p/w500${value}`}
@@ -143,7 +144,7 @@ export default function CastMemberCredits({
                                 </TableCell>
                               ) : buttonCheck === undefined ? (
                                 <TableCell>
-                                  <img width="200px" height="125px" src={img} />
+                                  <img width="200px" height="125px" src={img} alt="Content credit media" />
                                 </TableCell>
                               ) : (
                                 <TableCell>

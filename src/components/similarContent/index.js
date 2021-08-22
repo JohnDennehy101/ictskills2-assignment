@@ -6,6 +6,8 @@ import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import LocalMoviesIcon from "@material-ui/icons/LocalMovies";
 import Typography from "@material-ui/core/Typography";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   table: {
@@ -40,11 +42,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContentDetail({ itemData, mediaType }) {
+export default function SimilarContent({ itemData, mediaType }) {
   let title = mediaType === 'movie' ? 'Movies' : 'Tv Shows';
   let titleMapping = mediaType === 'movie' ? 'title' : 'name';
   let urlLink = mediaType === 'movie' ? '/movies' : '/tv';
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const imageListWidthCols = isMobile ? 1.2 : 2.5
 
   return (
     <>
@@ -56,7 +62,7 @@ export default function ContentDetail({ itemData, mediaType }) {
         Similar {title}
       </Typography>
       <div className={classes.root}>
-        <ImageList className={classes.imageList} cols={1.2}>
+        <ImageList className={classes.imageList} cols={imageListWidthCols}>
           {itemData.results.map((item) => (
             <ImageListItem key={item.id} className={classes.image}>
               <a href={`${urlLink}/${item.id}`}>
