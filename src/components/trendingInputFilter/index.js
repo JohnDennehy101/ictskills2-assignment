@@ -12,7 +12,7 @@ export default function TrendingInputFilter({
   handleChange,
   menuItems,
   helperText,
-  isMobile
+  isMobile,
 }) {
   const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -24,11 +24,13 @@ export default function TrendingInputFilter({
       margin: "10px",
       width: "50%",
       minWidth: 120,
-    }
+    },
   }));
 
   const classes = useStyles();
-  const wrapperStyling = isMobile ? classes.formControlMobile : classes.formControl;
+  const wrapperStyling = isMobile
+    ? classes.formControlMobile
+    : classes.formControl;
   return (
     <FormControl className={wrapperStyling}>
       <InputLabel id="demo-simple-select-helper-label">{labelValue}</InputLabel>

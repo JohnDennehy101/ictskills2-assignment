@@ -2,9 +2,7 @@ import React from "react";
 import ReviewForm from "../components/reviewForm";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
-import SampleMovie from './sampleData';
-
-
+import SampleMovie from "./sampleData";
 
 export default {
   title: "Review Form",
@@ -17,9 +15,7 @@ export default {
 
 export const Basic = () => {
   return (
-   
-      <ReviewForm content={SampleMovie} history={undefined} mediaType={'movie'} />
- 
+    <ReviewForm content={SampleMovie} history={undefined} mediaType={"movie"} />
   );
 };
 Basic.storyName = "Default";

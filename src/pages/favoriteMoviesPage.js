@@ -45,10 +45,7 @@ const FavoriteMoviesPage = () => {
     fetchData();
   }, [mediaTypeChosen]);
 
-  const {
-    data: content,
-    isLoading: favouritesLoading,
-  } = useQuery(
+  const { data: content, isLoading: favouritesLoading } = useQuery(
     [`favourites`, page, mediaTypeChosen],
     () => getFavourites(mediaTypeChosen, page),
     { keepPreviousData: false, staleTime: 5000 }

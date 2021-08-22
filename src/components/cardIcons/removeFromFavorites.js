@@ -5,8 +5,8 @@ import { MoviesContext } from "../../contexts/moviesContext";
 import { TvShowsContext } from "../../contexts/tvShowsContext";
 import { markAsFavourite } from "../../api/tmdb-api";
 
-const RemoveFromFavoritesIcon = ({ content, mediaType}) => {
-  let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext;
+const RemoveFromFavoritesIcon = ({ content, mediaType }) => {
+  let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
   const context = useContext(contextType);
 
   const handleRemoveFromFavorites = async (e) => {

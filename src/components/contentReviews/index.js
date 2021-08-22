@@ -23,8 +23,8 @@ const useStyles = makeStyles({
     minWidth: 550,
   },
   tableMobile: {
-    width: 100
-  }
+    width: 100,
+  },
 });
 
 export default function ContentReviews({ movie, mediaType }) {

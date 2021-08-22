@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tagLineMobile: {
     fontSize: "1rem",
-  }
+  },
 }));
 
 const HeaderContent = ({ movie, history, mediaType }) => {

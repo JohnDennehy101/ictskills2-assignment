@@ -90,23 +90,23 @@ export default function ContentCard({ content, action, mediaType }) {
           />
           <CardContent>
             <Grid container>
-              { !content.review ?
-              <>
-              <Grid item xs={6}>
-                <Typography variant="h6" component="p">
-    
-                  <CalendarIcon fontSize="small" />
-                  {dateDisplay} 
+              {!content.review ?
+                <>
+                  <Grid item xs={6}>
+                    <Typography variant="h6" component="p">
 
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="h6" component="p">
-                  <StarRateIcon fontSize="small" />
-                  {"  "} {content.vote_average}{" "}
-                </Typography>
-              </Grid></> : <><Grid item xs={12}><Typography align="center" color="primary" variant="h6" component="p">Your Rating: {content.rating}</Typography><Typography align="center" color="textSecondary" variant="h6" component="p">Your Review</Typography><Typography variant="h6" align="center" component="p">{content.review}</Typography></Grid></>
-}
+                      <CalendarIcon fontSize="small" />
+                      {dateDisplay}
+
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="h6" component="p">
+                      <StarRateIcon fontSize="small" />
+                      {"  "} {content.vote_average}{" "}
+                    </Typography>
+                  </Grid></> : <><Grid item xs={12}><Typography align="center" color="primary" variant="h6" component="p">Your Rating: {content.rating}</Typography><Typography align="center" color="textSecondary" variant="h6" component="p">Your Review</Typography><Typography variant="h6" align="center" component="p">{content.review}</Typography></Grid></>
+              }
             </Grid>
           </CardContent>
           <CardActions disableSpacing>

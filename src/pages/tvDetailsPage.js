@@ -45,8 +45,6 @@ const MovieDetailsPage = (props) => {
   );
   const { data: tvShowCast } = useQuery(["tvShowCast", { id: id }], getTvCast);
 
-  
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -60,9 +58,13 @@ const MovieDetailsPage = (props) => {
       {tvShow && similarTvShows && tvShowCast ? (
         <>
           <PageTemplate content={tvShow}>
-            <ContentDetail movie={tvShow} mediaType={'tv'} />
-            <SimilarContent itemData={similarTvShows} mediaType={'tv'} />
-            <CastComponent cast={tvShowCast} handleClickOpen={handleClickOpen} mediaType={'tv'} />
+            <ContentDetail movie={tvShow} mediaType={"tv"} />
+            <SimilarContent itemData={similarTvShows} mediaType={"tv"} />
+            <CastComponent
+              cast={tvShowCast}
+              handleClickOpen={handleClickOpen}
+              mediaType={"tv"}
+            />
             <CastModal
               handleClose={handleClose}
               actorDetail={actorDetail}

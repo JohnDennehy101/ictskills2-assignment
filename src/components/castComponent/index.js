@@ -44,9 +44,10 @@ export default function CastComponent({ cast, handleClickOpen, mediaType }) {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
 
-  let title = mediaType === 'movie' ? 'Movie' : 'TV Show'
-  let individualItemStyling = isMobile ? classes.individualItemMobile : classes.individualItem
-
+  let title = mediaType === "movie" ? "Movie" : "TV Show";
+  let individualItemStyling = isMobile
+    ? classes.individualItemMobile
+    : classes.individualItem;
 
   return (
     <>

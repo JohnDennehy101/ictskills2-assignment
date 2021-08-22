@@ -13,6 +13,8 @@ export default {
   ],
 };
 
-export const Basic = () => <ContentDetail movie={SampleMovie} mediaType={'movie'} />;
+export const Basic = () => (
+  <ContentDetail movie={SampleMovie} mediaType={"movie"} />
+);
 
 Basic.storyName = "Default";

@@ -4,7 +4,7 @@ import {
   getUserAccount,
   createRequestToken,
   askUserForAuthentication,
-  createGuestSession
+  createGuestSession,
 } from "../api/tmdb-api";
 import { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
@@ -41,7 +41,6 @@ const HomePage = (props) => {
   const [showSpinner, setShowSpinner] = useState(true);
 
   useEffect(() => {
-    
     async function manageUserSession() {
       let sessionId, guestSessionId;
 
@@ -50,11 +49,9 @@ const HomePage = (props) => {
       if (sessionId) {
         await getUserAccount(sessionId);
         window.location.href = "/movies";
-      }
-      else if (guestSessionId) {
+      } else if (guestSessionId) {
         window.location.href = "/movies";
-      }
-      else {
+      } else {
         setShowSpinner(false);
       }
     }
@@ -70,54 +67,64 @@ const HomePage = (props) => {
 
   const handleGuestSessionButtonClick = async () => {
     let requestTokenResponse = await createGuestSession();
-    localStorage.setItem("guest-session", requestTokenResponse.guest_session_id);
-    window.location.href='/movies';
-  }
+    localStorage.setItem(
+      "guest-session",
+      requestTokenResponse.guest_session_id
+    );
+    window.location.href = "/movies";
+  };
 
   return (
     <>
       <main>
-        {showSpinner ? <Spinner /> : <div className={classes.heroContent}>
-          <Container maxWidth="sm" className={classes.content}>
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              TMDB Client
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              color="textSecondary"
-              paragraph
-            >
-              A web application that provides information on movies and tv shows
-              from the 3rd party TMDB API.
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justifyContent="center">
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleUserSessionButtonClick}
-                  >
-                    Sign In / Sign Up
-                  </Button>
+        {showSpinner ? (
+          <Spinner />
+        ) : (
+          <div className={classes.heroContent}>
+            <Container maxWidth="sm" className={classes.content}>
+              <Typography
+                component="h1"
+                variant="h2"
+                align="center"
+                color="textPrimary"
+                gutterBottom
+              >
+                TMDB Client
+              </Typography>
+              <Typography
+                variant="h5"
+                align="center"
+                color="textSecondary"
+                paragraph
+              >
+                A web application that provides information on movies and tv
+                shows from the 3rd party TMDB API.
+              </Typography>
+              <div className={classes.heroButtons}>
+                <Grid container spacing={2} justifyContent="center">
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleUserSessionButtonClick}
+                    >
+                      Sign In / Sign Up
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={handleGuestSessionButtonClick}
+                    >
+                      Guest Session
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary" onClick={handleGuestSessionButtonClick}>
-                    Guest Session
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
-          </Container>
-        </div>}
-        
+              </div>
+            </Container>
+          </div>
+        )}
       </main>
     </>
   );

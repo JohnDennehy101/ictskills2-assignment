@@ -24,14 +24,13 @@ const TemplateContentPage = ({ content, children, mediaType }) => {
   const classes = useStyles();
   let apiCall;
 
-  if (mediaType === 'movie') {
-    apiCall = getMovieImages
-  }
-  else {
-    apiCall = getTvShowImages
+  if (mediaType === "movie") {
+    apiCall = getMovieImages;
+  } else {
+    apiCall = getTvShowImages;
   }
   const { data, error, isLoading, isError } = useQuery(
-    ["images", { id: content.id }], 
+    ["images", { id: content.id }],
     apiCall
   );
 

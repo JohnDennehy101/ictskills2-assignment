@@ -343,8 +343,6 @@ export const deleteUserSession = async (sessionId) => {
     }
   );
 
-  
-
   if (!response.ok) {
     throw new Error(response.json().message);
   }
@@ -384,8 +382,7 @@ export const getFavourites = async (mediaType, page) => {
   let requestUrl;
 
   if (page) {
-     requestUrl = `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`;
-   
+    requestUrl = `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`;
   } else {
     requestUrl = `https://api.themoviedb.org/3/account/${accountId}/favorite/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc`;
   }
@@ -451,7 +448,7 @@ export const getReviewed = async (mediaType, page) => {
   let accountDetails = await getUserAccount(sessionId);
   let accountId = accountDetails.id;
 
-   if (page) {
+  if (page) {
     requestUrl = `https://api.themoviedb.org/3/account/${accountId}/rated/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc&page=${page}`;
   } else {
     requestUrl = `https://api.themoviedb.org/3/account/${accountId}/rated/${contentType}?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}&language=en-US&sort_by=created_at.desc`;
@@ -463,8 +460,7 @@ export const getReviewed = async (mediaType, page) => {
   }
   let jsonResponse = await response.json();
   return jsonResponse.results;
-
-}
+};
 
 export const reviewContent = async (mediaType, id, rating) => {
   let sessionId = localStorage.getItem("session");
@@ -477,10 +473,10 @@ export const reviewContent = async (mediaType, id, rating) => {
       },
       method: "POST",
       body: JSON.stringify({
-        value: rating
+        value: rating,
       }),
     }
-  )
+  );
 };
 
 export const unReviewContent = async (mediaType, id) => {
@@ -493,7 +489,6 @@ export const unReviewContent = async (mediaType, id) => {
         "Content-Type": "application/json",
       },
       method: "DELETE",
-      
     }
-  )
+  );
 };

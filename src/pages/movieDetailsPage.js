@@ -15,7 +15,6 @@ const MovieDetailsPage = (props) => {
   const [actorDetail, setActorDetails] = React.useState({});
 
   const handleClickOpen = async (id) => {
-
     const personDetail = await getPersonDetail(id);
 
     setOpen(true);
@@ -58,10 +57,14 @@ const MovieDetailsPage = (props) => {
     <>
       {movie && similarMovies && movieCast ? (
         <>
-          <PageTemplate content={movie} mediaType={'movie'}>
-            <ContentDetail movie={movie} mediaType={'movie'} />
-            <SimilarContent itemData={similarMovies} mediaType={'movie'} />
-            <CastComponent cast={movieCast} handleClickOpen={handleClickOpen} mediaType={'movie'} />
+          <PageTemplate content={movie} mediaType={"movie"}>
+            <ContentDetail movie={movie} mediaType={"movie"} />
+            <SimilarContent itemData={similarMovies} mediaType={"movie"} />
+            <CastComponent
+              cast={movieCast}
+              handleClickOpen={handleClickOpen}
+              mediaType={"movie"}
+            />
             <CastModal
               handleClose={handleClose}
               actorDetail={actorDetail}

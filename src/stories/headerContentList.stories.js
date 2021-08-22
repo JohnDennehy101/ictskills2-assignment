@@ -12,6 +12,8 @@ export default {
   ],
 };
 
-export const Basic = () => <HeaderContentList title="Discover Movies" mediaType={'movie'} />;
+export const Basic = () => (
+  <HeaderContentList title="Discover Movies" mediaType={"movie"} />
+);
 
 Basic.storyName = "Default";

@@ -20,7 +20,7 @@ export const Basic = () => {
     <ContentCard
       content={SampleMovie}
       action={(movie) => <AddToFavoritesIcon content={movie} />}
-      mediaType={'movie'}
+      mediaType={"movie"}
     />
   );
 };
@@ -32,7 +32,7 @@ export const Exceptional = () => {
     <ContentCard
       content={sampleNoPoster}
       action={(movie) => <AddToFavoritesIcon content={movie} />}
-      mediaType={'movie'}
+      mediaType={"movie"}
     />
   );
 };

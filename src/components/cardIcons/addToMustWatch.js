@@ -6,7 +6,7 @@ import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import { markAsMustWatch } from "../../api/tmdb-api";
 
 const AddToMustWatchIcon = ({ content, mediaType }) => {
-  let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext;
+  let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
   const context = useContext(contextType);
 
   const handleAddToMustWatch = async (e) => {

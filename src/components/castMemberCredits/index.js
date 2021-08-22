@@ -74,12 +74,16 @@ export default function CastMemberCredits({
   const classes = useStyles();
   return (
     <>
-    {isMobile ? <Typography className={classes.title} variant="h5" gutterBottom>
-        Appears In
-      </Typography> :  <Typography className={classes.title} variant="h3" gutterBottom>
-        Appears In
-      </Typography>}
-     
+      {isMobile ? (
+        <Typography className={classes.title} variant="h5" gutterBottom>
+          Appears In
+        </Typography>
+      ) : (
+        <Typography className={classes.title} variant="h3" gutterBottom>
+          Appears In
+        </Typography>
+      )}
+
       <Grid item xs={12}>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -144,7 +148,12 @@ export default function CastMemberCredits({
                                 </TableCell>
                               ) : buttonCheck === undefined ? (
                                 <TableCell>
-                                  <img width="200px" height="125px" src={img} alt="Content credit media" />
+                                  <img
+                                    width="200px"
+                                    height="125px"
+                                    src={img}
+                                    alt="Content credit media"
+                                  />
                                 </TableCell>
                               ) : (
                                 <TableCell>

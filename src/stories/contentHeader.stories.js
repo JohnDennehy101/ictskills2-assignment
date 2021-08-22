@@ -12,6 +12,8 @@ export default {
   ],
 };
 
-export const Basic = () => <ContentHeader movie={SampleMovie} mediaType={'movie'} />;
+export const Basic = () => (
+  <ContentHeader movie={SampleMovie} mediaType={"movie"} />
+);
 
 Basic.storyName = "Default";

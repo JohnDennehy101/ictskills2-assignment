@@ -48,10 +48,7 @@ const UserReviewedContent = (props) => {
     fetchData();
   }, [mediaTypeChosen]);
 
-  const {
-    data: content,
-    isLoading: reviewedLoading,
-  } = useQuery(
+  const { data: content, isLoading: reviewedLoading } = useQuery(
     [`reviewed`, page, mediaTypeChosen],
     () => getReviewed(mediaTypeChosen, page),
     { keepPreviousData: false, staleTime: 5000 }

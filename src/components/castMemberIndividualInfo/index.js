@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-export default function CastMemberIndividualInfo({ type, personDetail, icon}) {
+export default function CastMemberIndividualInfo({ type, personDetail, icon }) {
   let age,
     textDisplay = undefined;
   let currentDate = new Date();
@@ -30,8 +30,6 @@ export default function CastMemberIndividualInfo({ type, personDetail, icon}) {
       color: theme.palette.text.secondary,
     },
   }));
-
-
 
   const classes = useStyles();
 

@@ -13,10 +13,6 @@ export default {
 };
 
 export const Basic = () => {
-  return (
-   
-      <Spinner />
- 
-  );
+  return <Spinner />;
 };
 Basic.storyName = "Default";

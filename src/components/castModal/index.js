@@ -113,7 +113,8 @@ const useStyles = makeStyles({
 
 export default function CastModal({ handleClose, actorDetail, open }) {
   const classes = useStyles();
-  let infoDetailAvailable = actorDetail !== undefined && actorDetail.biography !== '';
+  let infoDetailAvailable =
+    actorDetail !== undefined && actorDetail.biography !== "";
 
   return (
     <>
@@ -226,14 +227,15 @@ export default function CastModal({ handleClose, actorDetail, open }) {
           <Button autoFocus onClick={handleClose} color="primary">
             Close
           </Button>
-          {
-              infoDetailAvailable ? <Button autoFocus color="primary">
-            <Link href={`/person/credits/${actorDetail.id}`}>
-              Full Details
-            </Link>
-          </Button> : <></>
-          }
-          
+          {infoDetailAvailable ? (
+            <Button autoFocus color="primary">
+              <Link href={`/person/credits/${actorDetail.id}`}>
+                Full Details
+              </Link>
+            </Button>
+          ) : (
+            <></>
+          )}
         </DialogActions>
       </Dialog>
     </>

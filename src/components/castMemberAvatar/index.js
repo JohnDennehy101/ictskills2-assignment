@@ -11,30 +11,32 @@ export default function CastMemberAvatar({ personDetail, isMobile }) {
       margin: "20px 10px",
     },
     large: {
-    width: "12vw",
-    height: "20vh",
-    margin: "20px auto",
-  },
-  largeMobile: {
-    width: "60vw",
-    height: "30vh",
-    margin: "20px auto",
-  }
+      width: "12vw",
+      height: "20vh",
+      margin: "20px auto",
+    },
+    largeMobile: {
+      width: "60vw",
+      height: "30vh",
+      margin: "20px auto",
+    },
   }));
 
   const classes = useStyles();
 
   const castImageBubbleStyle = isMobile ? classes.largeMobile : classes.large;
 
-
   return (
     <Grid item xs={12} md={9}>
-      {isMobile ? <Typography className={classes.title} variant="h5" gutterBottom>
-        {personDetail.name}
-      </Typography> :  <Typography className={classes.title} variant="h3" gutterBottom>
-        {personDetail.name}
-      </Typography>}
-     
+      {isMobile ? (
+        <Typography className={classes.title} variant="h5" gutterBottom>
+          {personDetail.name}
+        </Typography>
+      ) : (
+        <Typography className={classes.title} variant="h3" gutterBottom>
+          {personDetail.name}
+        </Typography>
+      )}
 
       <Avatar
         alt={personDetail.name}

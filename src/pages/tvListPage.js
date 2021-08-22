@@ -5,7 +5,7 @@ import Spinner from "../components/spinner";
 import { getTvShows, filteredMoviesSearch } from "../api/tmdb-api";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import { queryClient } from "../index";
-import { existingGuestSession, determinePaginationRange} from "../util";
+import { existingGuestSession, determinePaginationRange } from "../util";
 
 const TvListPage = (props) => {
   let favouriteIconDisplay;
@@ -20,7 +20,7 @@ const TvListPage = (props) => {
     { keepPreviousData: true, staleTime: 5000 }
   );
 
-   useEffect(() => {
+  useEffect(() => {
     if (data?.hasMore) {
       queryClient.prefetchQuery(["discover-tv", page + 1], () =>
         getTvShows(page + 1)
@@ -31,7 +31,6 @@ const TvListPage = (props) => {
   const handlePageChange = (event, value) => {
     setPage(value);
   };
- 
 
   if (!guestSession) {
     favouriteIconDisplay = (movie) => {
@@ -88,7 +87,6 @@ const TvListPage = (props) => {
     tvShows = filterApiCall.results;
     setFilterData(filterApiCall.results);
     setFilter(true);
-
   };
   return (
     <PageTemplate

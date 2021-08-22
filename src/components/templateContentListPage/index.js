@@ -103,7 +103,9 @@ function TemplateContentPage({
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const filterButtonStyle = isMobile ? classes.clearFilterButtonMobile : classes.clearFilterButton;
+  const filterButtonStyle = isMobile
+    ? classes.clearFilterButtonMobile
+    : classes.clearFilterButton;
 
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");

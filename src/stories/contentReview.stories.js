@@ -17,7 +17,7 @@ export default {
 export const Basic = () => {
   return (
     <Grid container spacing={5}>
-      <ContentReviews movie = {SampleMovie} mediaType={'movie'} />
+      <ContentReviews movie={SampleMovie} mediaType={"movie"} />
     </Grid>
   );
 };

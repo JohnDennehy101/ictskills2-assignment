@@ -15,15 +15,10 @@ const MustWatchPage = () => {
   const [mediaTypeChosen, setMediaType] = useState("movie");
   contextType = mediaTypeChosen === "movie" ? MoviesContext : TvShowsContext;
   let title =
-    mediaTypeChosen === "movie"
-      ? "Must Watch Movies"
-      : "Must Watch TV";
+    mediaTypeChosen === "movie" ? "Must Watch Movies" : "Must Watch TV";
   const guestSession = existingGuestSession();
 
-  const {
-    data: content,
-    isLoading: mustWatchLoading,
-  } = useQuery(
+  const { data: content, isLoading: mustWatchLoading } = useQuery(
     [`mustWatch`, page, mediaTypeChosen],
     () => getMustWatchItems(mediaTypeChosen, page),
     { keepPreviousData: false, staleTime: 5000 }

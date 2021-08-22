@@ -15,7 +15,11 @@ export default {
 
 export const Basic = () => {
   return (
-    <CastComponent cast={SampleCastData} handleClickOpen={undefined} mediaType={'movie'} />
+    <CastComponent
+      cast={SampleCastData}
+      handleClickOpen={undefined}
+      mediaType={"movie"}
+    />
   );
 };
 Basic.storyName = "Default";

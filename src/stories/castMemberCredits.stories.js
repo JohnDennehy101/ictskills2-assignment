@@ -4,9 +4,6 @@ import SampleCastCredits from "./sampleCastCredits";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
 
-
-
-
 export default {
   title: "Cast Member Credits",
   component: CastMemberCredits,
@@ -18,11 +15,13 @@ export default {
 
 export const Basic = () => {
   return (
-    <CastMemberCredits page={1}
-  rowsPerPage={20}
-  rows={SampleCastCredits}
-  handleChangePage={undefined}
-  handleChangeRowsPerPage={undefined}/>
+    <CastMemberCredits
+      page={1}
+      rowsPerPage={20}
+      rows={SampleCastCredits}
+      handleChangePage={undefined}
+      handleChangeRowsPerPage={undefined}
+    />
   );
 };
 Basic.storyName = "Default";

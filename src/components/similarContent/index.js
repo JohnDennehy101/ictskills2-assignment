@@ -43,14 +43,14 @@ const useStyles = makeStyles({
 });
 
 export default function SimilarContent({ itemData, mediaType }) {
-  let title = mediaType === 'movie' ? 'Movies' : 'Tv Shows';
-  let titleMapping = mediaType === 'movie' ? 'title' : 'name';
-  let urlLink = mediaType === 'movie' ? '/movies' : '/tv';
+  let title = mediaType === "movie" ? "Movies" : "Tv Shows";
+  let titleMapping = mediaType === "movie" ? "title" : "name";
+  let urlLink = mediaType === "movie" ? "/movies" : "/tv";
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const imageListWidthCols = isMobile ? 1.2 : 2.5
+  const imageListWidthCols = isMobile ? 1.2 : 2.5;
 
   return (
     <>

@@ -6,7 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const AddToFavoritesIcon = ({ content, mediaType }) => {
-  let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext;
+  let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
   const context = useContext(contextType);
 
   const handleAddToFavorites = async (e) => {

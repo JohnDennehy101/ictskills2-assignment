@@ -15,7 +15,7 @@ export default function TrendingPageTitle({ mediaType, isMobile }) {
       fontWeight: "500",
       width: "100%",
       textAlign: "center",
-    }
+    },
   }));
 
   const classes = useStyles();
@@ -26,22 +26,26 @@ export default function TrendingPageTitle({ mediaType, isMobile }) {
           Trending {mediaType}s
         </Typography>
       ) : mediaType === "movie" && isMobile ? (
-         <Typography variant="h4" className={classes.headingMobile} gutterBottom>
+        <Typography variant="h4" className={classes.headingMobile} gutterBottom>
           Trending {mediaType}s
-        </Typography> 
+        </Typography>
       ) : mediaType === "tv" && !isMobile ? (
         <Typography variant="h2" className={classes.heading} gutterBottom>
           Trending {mediaType.toUpperCase()} shows
         </Typography>
-      ) : mediaType === "tv" && isMobile ? ( <Typography variant="h4" className={classes.headingMobile} gutterBottom>
+      ) : mediaType === "tv" && isMobile ? (
+        <Typography variant="h4" className={classes.headingMobile} gutterBottom>
           Trending {mediaType.toUpperCase()} shows
-        </Typography>): !isMobile ? (
+        </Typography>
+      ) : !isMobile ? (
         <Typography variant="h2" className={classes.heading} gutterBottom>
           Trending People
         </Typography>
-      ) : (<Typography variant="h4" className={classes.headingMobile} gutterBottom>
+      ) : (
+        <Typography variant="h4" className={classes.headingMobile} gutterBottom>
           Trending People
-        </Typography>)}
+        </Typography>
+      )}
     </>
   );
 }

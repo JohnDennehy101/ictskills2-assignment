@@ -3,7 +3,6 @@ import TrendingPageTitle from "../components/trendingPageTitle";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
 
-
 export default {
   title: "Trending Page Title",
   component: TrendingPageTitle,
@@ -14,10 +13,6 @@ export default {
 };
 
 export const Basic = () => {
-  return (
-   
-      <TrendingPageTitle mediaType={'movie'} />
- 
-  );
+  return <TrendingPageTitle mediaType={"movie"} />;
 };
 Basic.storyName = "Default";

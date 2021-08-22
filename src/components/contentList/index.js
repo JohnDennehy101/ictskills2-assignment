@@ -18,25 +18,17 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
         userContentReviewIds.push(userContentReviews[review].mediaId);
       }
     }
-
   }
 
   const ratings = ratingOptions();
 
-
-  const {
-    data: favoriteContent,
-    isLoading: favoriteLoading,
-  } = useQuery(
+  const { data: favoriteContent, isLoading: favoriteLoading } = useQuery(
     [`favourites`, mediaType],
     () => getFavourites(mediaType, undefined),
     { keepPreviousData: false, staleTime: 5000, enabled: enableQuery }
   );
 
-  const {
-    data: mustWatchContent,
-    isLoading: mustWatchLoading,
-  } = useQuery(
+  const { data: mustWatchContent, isLoading: mustWatchLoading } = useQuery(
     [`mustWatch`, mediaType],
     () => getMustWatchItems(mediaType, undefined),
     { keepPreviousData: false, staleTime: 5000, enabled: enableQuery }
@@ -60,15 +52,16 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
       individualItem.favorite = true;
     }
     if (userContentReviewIds.includes(individualItem.id)) {
-      let review = userContentReviews.find((item) => item.mediaId === individualItem.id);
-    
-      individualItem.review = review.content;
-      individualItem.rating = ratings.find((rating) => review.rating === rating.value).label;
-    }
-    
-  });
+      let review = userContentReviews.find(
+        (item) => item.mediaId === individualItem.id
+      );
 
-  
+      individualItem.review = review.content;
+      individualItem.rating = ratings.find(
+        (rating) => review.rating === rating.value
+      ).label;
+    }
+  });
 
   if (content.length > 0) {
     movieCards = content.map((m) => (
@@ -78,7 +71,6 @@ const ContentList = ({ content, action, mediaType, userContentReviews }) => {
           content={m}
           action={action}
           mediaType={mediaType}
-        
         />
       </Grid>
     ));

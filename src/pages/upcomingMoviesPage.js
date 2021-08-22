@@ -46,9 +46,10 @@ const HomePage = (props) => {
     addMustWatch = (movie) => {
       return <AddToMustWatch content={movie} mediaType={mediaTypeChosen} />;
     };
-  } else { 
+  } else {
     addMustWatch = (movie) => {
-      return null};
+      return null;
+    };
   }
 
   if (isLoading) {

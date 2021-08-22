@@ -3,7 +3,6 @@ import TrendingInputFilter from "../components/trendingInputFilter";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
 
-
 export default {
   title: "Trending Input Filter",
   component: TrendingInputFilter,
@@ -15,12 +14,12 @@ export default {
 
 export const Basic = () => {
   return (
-   
-      <TrendingInputFilter value={'movie'}
-        handleChange={undefined}
-        menuItems={["movie", "tv"]}
-        helperText={"Select the media type"}/>
- 
+    <TrendingInputFilter
+      value={"movie"}
+      handleChange={undefined}
+      menuItems={["movie", "tv"]}
+      helperText={"Select the media type"}
+    />
   );
 };
 Basic.storyName = "Default";

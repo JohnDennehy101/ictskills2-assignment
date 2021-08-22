@@ -6,7 +6,7 @@ import { TvShowsContext } from "../../contexts/tvShowsContext";
 import { markAsMustWatch } from "../../api/tmdb-api";
 
 const RemoveFromMustWatchIcon = ({ content, mediaType }) => {
-  let contextType = mediaType === 'movie' ? MoviesContext : TvShowsContext;
+  let contextType = mediaType === "movie" ? MoviesContext : TvShowsContext;
   const context = useContext(contextType);
 
   const handleRemoveFromMustWatch = async (e) => {

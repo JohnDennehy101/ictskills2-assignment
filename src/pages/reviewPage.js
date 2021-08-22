@@ -4,7 +4,7 @@ import PageTemplate from "../components/templateContentPage";
 import IndividualReview from "../components/individualReview";
 
 const ReviewPage = (props) => {
-  const {movie, review} = props.location.state
+  const { movie, review } = props.location.state;
   return (
     <PageTemplate content={movie}>
       <IndividualReview review={review} />

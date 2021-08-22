@@ -127,7 +127,10 @@ const CastMemberInfoPage = (props) => {
         <Container width="80vw">
           <div className={classes.root}>
             <Grid container spacing={3}>
-              <CastMemberAvatar isMobile={isMobile} personDetail={personDetail} />
+              <CastMemberAvatar
+                isMobile={isMobile}
+                personDetail={personDetail}
+              />
 
               <CastMemberIndividualInfo
                 type={"placeOfBirth"}
@@ -145,7 +148,10 @@ const CastMemberInfoPage = (props) => {
                 icon={<PersonPinIcon color="primary" fontSize="large" />}
               />
 
-              <CastMemberBiography isMobile={isMobile} biography={personDetail.biography} />
+              <CastMemberBiography
+                isMobile={isMobile}
+                biography={personDetail.biography}
+              />
               {rows.length > 0 ? (
                 <CastMemberCredits
                   isMobile={isMobile}
