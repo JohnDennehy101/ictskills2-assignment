@@ -37,7 +37,7 @@ const Header = ({ title, history }) => {
           {title}
         </Typography>
       ) : (
-        <Typography variant="h5" component="h4">
+        <Typography variant="h5" component="h5">
           {title}
         </Typography>
       )}

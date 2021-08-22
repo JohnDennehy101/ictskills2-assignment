@@ -16,8 +16,8 @@ const MustWatchPage = () => {
   contextType = mediaTypeChosen === "movie" ? MoviesContext : TvShowsContext;
   let title =
     mediaTypeChosen === "movie"
-      ? "Must Watch Upcoming Movies"
-      : "Must Watch Upcoming TV Shows";
+      ? "Must Watch Movies"
+      : "Must Watch TV";
   const guestSession = existingGuestSession();
 
   const {
