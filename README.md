@@ -5866,9 +5866,108 @@ Storybook overview
 
 ...... Insert screenshots of the app's views, with appropriate captions (see example below). (For the Movies Fan App, only show the new/modified views) ........
 
-![][view]
 
-> Shows detailed information on a movie. Clicking the 'Reviews' floating action button will display extracts from critic reviews.
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/HomePage-Display.png)
+
+> Home page of web application. User must either authenticate on TMDB or create a guest session to access app routes.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/3rdPartyAuth-Display.png)
+
+> If user chooses to create an account session on TMDB, they are redirected to authenticate before a session is created.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/ProtectedRoutesMessage-Display.png)
+
+> If a session has not been created , user is not able to access web app routes.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/DiscoverTV-Display.png)
+
+> The Discover page allows users to explore TMDB's catalogue of tv shows and movies.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TvDetailsPage-Display.png)
+
+> The details page shows detailed information about the selected tv show / movie.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastDetail-Display.png)
+
+> The cast for the chosen movie / tv shows is displayed on the details page.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastModal-Display.png)
+
+> By clicking the + icon next to a cast member, a user can view an overview of the individual cast member.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastDetail-Display.png)
+
+> If the user clicks 'View More', they are redirected to the cast member detailed info page.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastDetailCredits-Display.png)
+
+> The user can see all tv shows and movies that the cast member has appeared in during their career.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/AdvancedFilter-Display.png)
+
+> The user can complete an advanced filter of moviles and tv shows.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/AdvancedFilterPage-Display.png)
+
+> Once the user clicks 'Filter', they are redirected to the advanced filter page.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/AdvancedFilterPopper-Display.png)
+
+> The user can view the filter criteria by clicking 'View Filter'.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/EditReview-Display.png)
+
+> The user can add / edit / delete reviews for tv shows and movies (Firebase persistence).
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/Firebase-Display.png) 
+
+> The above screenshot shows the data structure used in the firebase realtime database.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/ReviewedMovies-Display.png) 
+
+> The user can view all reviewed tv shows and movies.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/FavouriteMovies-Display.png) 
+
+> The user can add / delete favourite movies / tv shows.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilter-Display.png) 
+
+> An input filter allows the user to switch between movies and tv shows.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilter-Display.png) 
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilterOptions-Display.png)
+
+> An input filter allows the user to switch between movies and tv shows.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MustWatchMovies-Display.png) 
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MustWatchTv-Display.png)
+
+> Likewise, the user can mark / unmark movies and tv shows as must watch items.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/NoContent-Display.png) 
+
+> On filtering, if no search results are obtained the user is informed of this with a snackbar message.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/Pagination-Display.png) 
+
+> Pagination is in place to allow users to explore the full library of movies and tv shows provided by the TMDB API.
+
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingContentPage-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingImageList-Display.png)
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingInputFilter-Duration-Display.png)
+
+> The user can view trending content (movies / tv shows / people) within different timeframes (last 24 hours / last week).
+
+
+
+
+
+
+
+
 
 ### Routing.
 
