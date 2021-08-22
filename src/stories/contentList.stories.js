@@ -6,6 +6,7 @@ import { action } from "@storybook/addon-actions";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import Grid from "@material-ui/core/Grid";
 import MoviesContextProvider from "../contexts/moviesContext";
+import { QueryClientProvider, QueryClient } from "react-query"; 
 
 export default {
   title: "Content List",
@@ -16,6 +17,16 @@ export default {
   ],
 };
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 360000,
+      refetchInterval: 360000,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 export const Basic = () => {
   const movies = [
     { ...SampleMovie, favorite: true, id: 1 },
@@ -25,15 +36,18 @@ export const Basic = () => {
     { ...SampleMovie, id: 5 },
   ];
   return (
+      <QueryClientProvider client={queryClient}>
     <Grid container spacing={5}>
       <ContentList
         content={movies}
         mediaType={"movie"}
+        userContentReviews={[]} 
         action={(movie) => (
           <AddToFavoritesIcon content={movie} mediaType={"movie"} />
         )}
       />
     </Grid>
+    </QueryClientProvider>
   );
 };
 Basic.storyName = "Default";
