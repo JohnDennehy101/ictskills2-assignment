@@ -56,7 +56,7 @@ export default function ContentDetail({ itemData, mediaType }) {
         Similar {title}
       </Typography>
       <div className={classes.root}>
-        <ImageList className={classes.imageList} cols={2.5}>
+        <ImageList className={classes.imageList} cols={1.2}>
           {itemData.results.map((item) => (
             <ImageListItem key={item.id} className={classes.image}>
               <a href={`${urlLink}/${item.id}`}>

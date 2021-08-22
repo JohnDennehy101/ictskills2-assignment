@@ -14,6 +14,8 @@ import CastMemberAvatar from "../components/castMemberAvatar";
 import CastMemberIndividualInfo from "../components/castMemberIndividualInfo";
 import CastMemberBiography from "../components/castMemberBiography";
 import CastMemberCredits from "../components/castMemberCredits";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +50,8 @@ const CastMemberInfoPage = (props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { data, error, isLoading, isError } = useQuery(
     ["personCredits", props.match.params.id],
     () => getPersonCredits(props.match.params.id)
@@ -123,7 +127,7 @@ const CastMemberInfoPage = (props) => {
         <Container width="80vw">
           <div className={classes.root}>
             <Grid container spacing={3}>
-              <CastMemberAvatar personDetail={personDetail} />
+              <CastMemberAvatar isMobile={isMobile} personDetail={personDetail} />
 
               <CastMemberIndividualInfo
                 type={"placeOfBirth"}
@@ -141,9 +145,10 @@ const CastMemberInfoPage = (props) => {
                 icon={<PersonPinIcon color="primary" fontSize="large" />}
               />
 
-              <CastMemberBiography biography={personDetail.biography} />
+              <CastMemberBiography isMobile={isMobile} biography={personDetail.biography} />
               {rows.length > 0 ? (
                 <CastMemberCredits
+                  isMobile={isMobile}
                   data={data}
                   page={page}
                   rowsPerPage={rowsPerPage}

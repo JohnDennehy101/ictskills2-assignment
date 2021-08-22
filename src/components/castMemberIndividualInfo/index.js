@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-export default function CastMemberIndividualInfo({ type, personDetail, icon }) {
+export default function CastMemberIndividualInfo({ type, personDetail, icon}) {
   let age,
     textDisplay = undefined;
   let currentDate = new Date();
@@ -31,10 +31,12 @@ export default function CastMemberIndividualInfo({ type, personDetail, icon }) {
     },
   }));
 
+
+
   const classes = useStyles();
 
   return (
-    <Grid item xs={4}>
+    <Grid item xs={12}>
       <Paper className={classes.paper}>
         {icon}
 

@@ -14,6 +14,7 @@ import img from "../../images/film-poster-placeholder.png";
 import Button from "@material-ui/core/Button";
 
 export default function CastMemberCredits({
+  isMobile,
   page,
   rowsPerPage,
   rows,
@@ -73,9 +74,12 @@ export default function CastMemberCredits({
   const classes = useStyles();
   return (
     <>
-      <Typography className={classes.title} variant="h3" gutterBottom>
+    {isMobile ? <Typography className={classes.title} variant="h5" gutterBottom>
         Appears In
-      </Typography>
+      </Typography> :  <Typography className={classes.title} variant="h3" gutterBottom>
+        Appears In
+      </Typography>}
+     
       <Grid item xs={12}>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

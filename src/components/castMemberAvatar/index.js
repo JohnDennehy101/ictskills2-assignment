@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-export default function CastMemberAvatar({ personDetail }) {
+export default function CastMemberAvatar({ personDetail, isMobile }) {
   const useStyles = makeStyles((theme) => ({
     title: {
       textAlign: "center",
@@ -15,19 +15,31 @@ export default function CastMemberAvatar({ personDetail }) {
     height: "20vh",
     margin: "20px auto",
   },
+  largeMobile: {
+    width: "60vw",
+    height: "30vh",
+    margin: "20px auto",
+  }
   }));
 
   const classes = useStyles();
+
+  const castImageBubbleStyle = isMobile ? classes.largeMobile : classes.large;
+
+
   return (
     <Grid item xs={12}>
-      <Typography className={classes.title} variant="h3" gutterBottom>
+      {isMobile ? <Typography className={classes.title} variant="h5" gutterBottom>
         {personDetail.name}
-      </Typography>
+      </Typography> :  <Typography className={classes.title} variant="h3" gutterBottom>
+        {personDetail.name}
+      </Typography>}
+     
 
       <Avatar
         alt={personDetail.name}
         src={`https://image.tmdb.org/t/p/w500${personDetail.profile_path}`}
-        className={classes.large}
+        className={castImageBubbleStyle}
       />
     </Grid>
   );

@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 import {
   getMovieReviews,
   getTvReviews,
@@ -20,6 +22,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 550,
   },
+  tableMobile: {
+    width: 100
+  }
 });
 
 export default function ContentReviews({ movie, mediaType }) {
@@ -27,9 +32,13 @@ export default function ContentReviews({ movie, mediaType }) {
   const sessionId = isLoggedInUser();
   let allReviews = [];
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [userId, setUserId] = useState(undefined);
   const [reviews, setReviews] = useState([]);
   const [userReviews, setUserReviews] = useState([]);
+
+  const tableStyle = isMobile ? classes.tableMobile : classes.table;
 
   useEffect(() => {
     apiCall(movie.id).then((reviews) => {
@@ -88,7 +97,7 @@ export default function ContentReviews({ movie, mediaType }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="reviews table">
+      <Table className={tableStyle} aria-label="reviews table">
         <TableHead>
           <TableRow>
             <TableCell>Author</TableCell>
