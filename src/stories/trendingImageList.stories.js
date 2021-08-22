@@ -49,7 +49,7 @@ const trendingInfo = [
 ];
 
 export default {
-  title: "Trending Image List",
+  title: "Trending Page/Trending Image List",
   component: TrendingImageList,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

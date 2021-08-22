@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
 
 export default {
-  title: "Trending Page Title",
+  title: "Trending Page/Trending Page Title",
   component: TrendingPageTitle,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

@@ -32,7 +32,7 @@ let nameFilter,
 let mediaType = "movie";
 
 export default {
-  title: "Home Page/FilterMoviesCard",
+  title: "Content List Page/FilterMoviesCard",
   component: FilterMoviesCard,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

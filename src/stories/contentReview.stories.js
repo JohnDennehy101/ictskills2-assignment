@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import MoviesContextProvider from "../contexts/moviesContext";
 
 export default {
-  title: "Content Reviews",
+  title: "Content Details Page/Content Reviews",
   component: ContentReviews,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

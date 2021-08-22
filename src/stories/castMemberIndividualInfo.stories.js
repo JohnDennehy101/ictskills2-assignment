@@ -20,7 +20,7 @@ const personDetail = {
 };
 
 export default {
-  title: "Cast Member Individual Info",
+  title: "Cast Member Page/Cast Member Individual Info",
   component: CastMemberIndividualInfo,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

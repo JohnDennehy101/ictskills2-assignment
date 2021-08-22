@@ -9,7 +9,7 @@ import MoviesContextProvider from "../contexts/moviesContext";
 import { QueryClientProvider, QueryClient } from "react-query"; 
 
 export default {
-  title: "Content List",
+  title: "Content List Page/Content List",
   component: ContentList,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

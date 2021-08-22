@@ -5,7 +5,7 @@ import MoviesContextProvider from "../contexts/moviesContext";
 import SampleMovie from "./sampleData";
 
 export default {
-  title: "Review Form",
+  title: "Add Review Page/Review Form",
   component: ReviewForm,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

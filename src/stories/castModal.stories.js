@@ -15,7 +15,7 @@ const personDetail = {
 };
 
 export default {
-  title: "Cast Modal",
+  title: "Content Details Page/Cast Modal",
   component: CastModal,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

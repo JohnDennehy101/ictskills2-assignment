@@ -20,7 +20,7 @@ const TestReview = {
 };
 
 export default {
-  title: "Individual Review",
+  title: "View Review Page/Individual Review",
   component: IndividualReview,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

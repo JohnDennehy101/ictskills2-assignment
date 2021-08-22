@@ -13,7 +13,7 @@ const tableRows = [
 ];
 
 export default {
-  title: "Advanced Filter Display Popper",
+  title: "Advanced Filter Page/Advanced Filter Display Popper",
   component: AdvancedFilterPopper,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,

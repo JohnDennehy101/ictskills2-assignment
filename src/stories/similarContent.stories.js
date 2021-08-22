@@ -19,7 +19,7 @@ const itemData = {
 };
 
 export default {
-  title: "Similar Content",
+  title: "Content Details Page/Similar Content",
   component: SimilarContent,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
