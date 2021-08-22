@@ -34,7 +34,7 @@ export default function CastMemberIndividualInfo({ type, personDetail, icon }) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} md={4}>
       <Paper className={classes.paper}>
         {icon}
 

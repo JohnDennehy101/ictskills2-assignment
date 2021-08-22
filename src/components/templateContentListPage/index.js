@@ -230,6 +230,7 @@ function TemplateContentPage({
         firstAirDate: firstAirDate,
       },
     });
+    console.log(history);
     window.location.href = `/${mediaType}/filter`;
   };
 

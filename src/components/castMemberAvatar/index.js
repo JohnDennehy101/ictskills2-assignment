@@ -27,7 +27,7 @@ export default function CastMemberAvatar({ personDetail, isMobile }) {
   const castImageBubbleStyle = isMobile ? classes.largeMobile : classes.large;
 
   return (
-    <Grid item xs={12} md={9}>
+    <Grid item xs={12} md={12}>
       {isMobile ? (
         <Typography className={classes.title} variant="h5" gutterBottom>
           {personDetail.name}
