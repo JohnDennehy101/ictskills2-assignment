@@ -273,7 +273,7 @@ export const createRequestToken = async () => {
 };
 
 export const askUserForAuthentication = async (sessionId) => {
-  window.location.href = `https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=http://localhost:3000/success`;
+  window.location.href = `https://www.themoviedb.org/authenticate/${sessionId}?redirect_to=https://tmdb-content-app.netlify.app/success`;
 };
 
 export const createUserSession = async () => {
