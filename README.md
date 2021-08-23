@@ -2,6 +2,10 @@
 
 Name: John Dennehy (20091408)
 
+## Deployed Site
+
+To use the deployed version of the web application, please click [here](https://tmdb-content-app.netlify.app/)
+
 ## Overview.
 
 This assignment was an extension of the movies fan app completed in the labs.
@@ -51,7 +55,8 @@ Additional functionality provided includes ability to create user / guest web ap
 
 - Save the .env file `(Ctrl + O)`
 - To exit the file enter `(Ctrl + X)`
-
+- The TMDB redirect on authentication needs to be updated to localhost in the
+  `src/api/tmdb-api.js` (line 276) file
 - Once all this is complete, enter `npm start` to get the project running locally on localhost.
 
 ## API Data Model.
@@ -5823,49 +5828,47 @@ Storybook overview
 ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/Storybook-Overview-2.png)
 
 - Advanced Filter Component (used by the user to complete detailed search of movies / tv shows
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/AdvancedFilter-Story.png)
-
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/AdvancedFilter-Story.png)
 
 - Cast Avatar (Displays the cast member image as well as name)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastAvatar-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastAvatar-Story.png)
 
 - Cast Biography (Displays the cast member's bio)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastBiography-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastBiography-Story.png)
 
 - Cast Credits (Displays the movies and tv shows that the cast member has starred in)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastCredits-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastCredits-Story.png)
 
 - Cast Info
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastInfo-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastInfo-Story.png)
 
 - Cast Modal (Provides an overview of the individual cast member)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastModal-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastModal-Story.png)
 
 - Cast Overview (Provides a view of all cast members in a movie / tv show
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastOverview-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/CastOverview-Story.png)
 
 - Filter Card (Allows user to filter content on the screen)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/FilterCard-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/FilterCard-Story.png)
 
 - Filter Display Popper (Allows user to see what they have filtered content by)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/FilterDisplayPopper-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/FilterDisplayPopper-Story.png)
 
 - Similar Content (Shows movies / tv shows that are similar to the one viewed by the user)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/SimilarContent-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/SimilarContent-Story.png)
 
 - Trending Page Title (Displays the title of the trending page)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingPageTitle-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingPageTitle-Story.png)
 
 - Trending Image List (Displays the trending items within the specified timeframe)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/trendingImageList-story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/trendingImageList-story.png)
 
 - Trending Input Filter (Allows the user to change the media type and timeframe used for api calls to TMDB)
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/trendingInputFilter-Story.png)
+  ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/trendingInputFilter-Story.png)
 
 ### UI Design.
 
 ...... Insert screenshots of the app's views, with appropriate captions (see example below). (For the Movies Fan App, only show the new/modified views) ........
-
 
 ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/HomePage-Display.png)
 
@@ -5919,55 +5922,47 @@ Storybook overview
 
 > The user can add / edit / delete reviews for tv shows and movies (Firebase persistence).
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/Firebase-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/Firebase-Display.png)
 
 > The above screenshot shows the data structure used in the firebase realtime database.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/ReviewedMovies-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/ReviewedMovies-Display.png)
 
 > The user can view all reviewed tv shows and movies.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/FavouriteMovies-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/FavouriteMovies-Display.png)
 
 > The user can add / delete favourite movies / tv shows.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilter-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilter-Display.png)
 
 > An input filter allows the user to switch between movies and tv shows.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilter-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilter-Display.png)
 
 ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MediaTypeFilterOptions-Display.png)
 
 > An input filter allows the user to switch between movies and tv shows.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MustWatchMovies-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MustWatchMovies-Display.png)
 
 ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/MustWatchTv-Display.png)
 
 > Likewise, the user can mark / unmark movies and tv shows as must watch items.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/NoContent-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/NoContent-Display.png)
 
 > On filtering, if no search results are obtained the user is informed of this with a snackbar message.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/Pagination-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/Pagination-Display.png)
 
 > Pagination is in place to allow users to explore the full library of movies and tv shows provided by the TMDB API.
 
-![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingContentPage-Display.png) 
+![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingContentPage-Display.png)
 ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingImageList-Display.png)
 ![](https://github.com/JohnDennehy101/ictskills2-assignment/blob/readme/public/readme/TrendingInputFilter-Duration-Display.png)
 
 > The user can view trending content (movies / tv shows / people) within different timeframes (last 24 hours / last week).
-
-
-
-
-
-
-
-
 
 ### Routing.
 
